@@ -9,32 +9,50 @@
 </head>
 
 <body>
+    <!-- Loading Screen -->
     <div id="loading-screen">
         <img src="../assets/img/logo-quizfi.png" alt="Loading">
+        <div class="loading-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
     </div>
-    <audio id="background-audio" loop muted>
+
+    <!-- Audio Control -->
+    <div class="audio-control-container" style="position: fixed; top: 20px; right: 20px; z-index: 100;">
+        <button id="audio-control" class="btn btn-link" aria-label="Toggle background music">
+            <i class="fas fa-volume-mute" style="font-size: 24px; color: #007bff;"></i>
+        </button>
+    </div>
+
+    <audio id="background-audio" loop>
         <source src="assets/img/login-mario.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
+    <!-- Login Container -->
     <div class="login-container">
         <div class="login-header">
             <img src="../assets/img/logo-quizfi.png" alt="Quizfi Logo" class="logo">
             <h1 class="login-title">Welcome Back</h1>
             <p class="login-subtitle">Login to continue to Quizfi</p>
-            <!-- login notification -->
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+            <!-- Alerts -->
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
                 <i class="bi bi-check-circle me-1"></i>
-                <span class="alert-text">You are Logged In!</span>
+                <span class="alert-text"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
                 <i class="bi bi-exclamation-octagon me-1"></i>
-                <span class="alert-text">You have entered an incorrect username or password!</span>
+                <span class="alert-text"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <!-- end of notification -->
         </div>
+
+        <!-- Login Form -->
         <form id="loginForm">
             <div class="input-group">
                 <i class="fas fa-user input-icon"></i>
@@ -56,96 +74,131 @@
     </div>
 
     <script>
-        // Password toggle visibility
-        const passwordInput = document.getElementById('password');
-        const togglePassword = document.getElementById('togglePassword');
+        // Initialize DOM elements
+        const elements = {
+            audio: document.getElementById('background-audio'),
+            audioControl: document.getElementById('audio-control'),
+            passwordInput: document.getElementById('password'),
+            togglePassword: document.getElementById('togglePassword'),
+            loginForm: document.getElementById('loginForm'),
+            loadingScreen: document.getElementById('loading-screen'),
+            loadingDots: document.querySelectorAll('.loading-dots .dot')
+        };
 
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+        // Audio Control
+        let isPlaying = false;
 
-            // Toggle eye icon
+        function updateAudioIcon(playing) {
+            const icon = elements.audioControl.querySelector('i');
+            icon.className = playing ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+        }
+
+        function toggleAudio() {
+            if (isPlaying) {
+                elements.audio.pause();
+            } else {
+                elements.audio.play().catch(console.error);
+            }
+            isPlaying = !isPlaying;
+            updateAudioIcon(isPlaying);
+            localStorage.setItem('audioPlayed', isPlaying);
+        }
+
+        elements.audioControl.addEventListener('click', toggleAudio);
+
+        // Initialize audio state from localStorage
+        if (localStorage.getItem('audioPlayed') === 'true') {
+            elements.audio.play().then(() => {
+                isPlaying = true;
+                updateAudioIcon(true);
+            }).catch(console.error);
+        }
+
+        // Password Toggle
+        elements.togglePassword.addEventListener('click', function() {
+            const type = elements.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            elements.passwordInput.setAttribute('type', type);
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
         });
-    </script>
 
-    <script>
-        const audio = document.getElementById('background-audio');
-
-        // Function to play audio
-        function playAudio() {
-            audio.muted = false; // Unmute the audio
-            audio.play().catch(function(error) {
-                console.log("Audio playback failed: ", error);
-            });
-        }
-
-        // Check if the user has interacted with the page before
-        if (localStorage.getItem('audioPlayed') === 'true') {
-            playAudio();
-        }
-
-        // Event listener for user interaction
-        window.addEventListener('click', function() {
-            localStorage.setItem('audioPlayed', 'true'); // Set flag in local storage
-            playAudio(); // Play audio on first click
+        // Loading Screen Animation
+        elements.loadingDots.forEach((dot, index) => {
+            dot.style.animationDelay = `${index * 0.2}s`;
         });
 
-        $("#loginForm").submit(function(e) {
+        window.addEventListener('load', () => {
+            elements.loadingScreen.style.opacity = '0';
+            elements.loadingScreen.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(() => {
+                elements.loadingScreen.style.display = 'none';
+            }, 500);
+        });
+
+        // Alert Handling
+        function showAlert(type, message) {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => alert.style.display = 'none');
+
+            const alert = document.querySelector(`.alert-${type}`);
+            if (alert) {
+                alert.querySelector('.alert-text').textContent = message;
+                alert.style.display = 'block';
+
+                if (type === 'success') {
+                    setTimeout(() => alert.style.display = 'none', 5000);
+                }
+            }
+        }
+
+        // Form Submission
+        elements.loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+
+            // Form validation
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) {
+                showAlert('danger', 'Please fill in all fields');
+                submitButton.disabled = false;
+                return;
+            }
+
             $.ajax({
                 url: "process/login.php",
                 type: "POST",
                 data: {
-                    username: $("#username").val(),
-                    password: $("#password").val()
+                    username,
+                    password
                 },
-                dataType: "json", // Expecting JSON response
+                dataType: "json",
                 success: function(data) {
-                    if (data.userType === 'student') {
-                        $('.alert-danger').hide();
-                        $('.alert-success').find('.alert-text').text('Logged In successfully!');
-                        $('.alert-success').show();
-                        setTimeout(function() {
-                            window.location.href = "user_profile.php";
-                        }, 2000);
+                    const redirects = {
+                        'student': "user_profile.php",
+                        'educator': "../educator/manage_quiz.php",
+                        'admin': "../admin/manage_quiz.php"
+                    };
 
-                    } else if (data.userType === 'educator') {
-                        $('.alert-danger').hide();
-                        $('.alert-success').find('.alert-text').text('Logged In successfully!');
-                        $('.alert-success').show();
-                        setTimeout(function() {
-                            window.location.href = "../educator/manage_quiz.php";
+                    if (data.userType && redirects[data.userType]) {
+                        showAlert('success', 'Logged in successfully!');
+                        setTimeout(() => {
+                            window.location.href = redirects[data.userType];
                         }, 2000);
-
-                    } else if (data.userType === 'admin') {
-                        $('.alert-danger').hide();
-                        $('.alert-success').find('.alert-text').text('Logged In successfully!');
-                        $('.alert-success').show();
-                        setTimeout(function() {
-                            window.location.href = "../admin/manage_quiz.php";
-                        }, 2000);
-
                     } else {
-                        $('.alert-success').hide();
-                        $('.alert-danger').find('.alert-text').text('Error: Incorrect username or password.');
-                        $('.alert-danger').show();
-                        // Enable the button again if there is an error
-                        $("button[type='submit']").attr("disabled", false);
+                        showAlert('danger', 'Error: Incorrect username or password.');
                     }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $('.alert-success').hide();
-                    $('.alert-danger').find('.alert-text').text('An error occurred: ' + textStatus);
-                    $('.alert-danger').show();
+                error: function(jqXHR, textStatus) {
+                    showAlert('danger', 'An error occurred. Please try again.');
+                    console.error('Login error:', textStatus);
+                },
+                complete: function() {
+                    submitButton.disabled = false;
                 }
             });
-        });
-
-        // Ensure alerts are hidden on page load
-        $(document).ready(function() {
-            $('.alert-success, .alert-danger').hide();
         });
     </script>
 </body>
