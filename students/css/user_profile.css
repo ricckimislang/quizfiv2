@@ -1,167 +1,310 @@
 @import url("https://fonts.googleapis.com/css2?family=Honk&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-body {
-  font-family: "Nunito", sans-serif;
-  color: #fff; /* Light text for better contrast */
-  margin: 0; /* Remove default margin */
+
+:root {
+  --primary-color: rgb(46, 94, 139);
+  --accent-color: rgb(165, 33, 165);
+  --shadow-color: rgba(1, 41, 112, 0.4);
+  --text-dark: #333;
+  --text-light: #666;
+  --transition-speed: 0.3s;
 }
 
+body {
+  font-family: "Nunito", sans-serif;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* Profile Container Styles */
 .leaderbox {
-  background-color: #ffffff !important;
+  background-color: #ffffff;
   border-radius: 20px;
-  max-width: 1200px; /* Ensures leaderbox has a limited width */
+  max-width: 1200px;
   min-height: 15vh;
   height: 100%;
   margin: 12px auto;
-  padding: 20px; /* Increased padding for spacing */
-  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.4);
-  overflow: hidden; /* Prevents overflow of any inner content */
+  padding: 25px;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
 }
 
-.leadTitle {
-  position: relative;
-  margin: 0 auto;
-  background-color: rgb(46, 94, 139); /* Bright yellow for visibility */
-  padding: 10px; /* Add some padding for spacing */
-  border-radius: 10px; /* Rounded corners */
-  margin-bottom: -32px; /* Pull the title closer to the leaderbox */
-  width: 100%; /* Adjust width for responsiveness */
-  max-width: 400px; /* Max width for larger screens */
-  z-index: 99; /* Ensure it stays above other elements */
+.leaderbox:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--shadow-color);
 }
+
 .profile-details {
-  color: black;
+  color: var(--text-dark);
   font-family: "Nunito", sans-serif;
 }
-.col-4 span {
-  font-size: 1.2rem;
-}
-.usertype {
-  border-radius: 10px;
-  padding: 5px;
-  font-size: 0.8rem !important;
-  background-color: rgb(165, 33, 165);
-  color: #fff;
-  font-weight: bold;
-}
+
+/* Profile Image Styles */
 .profile-img {
-  position: relative;
-  left: 20px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  overflow: hidden;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  transition: transform var(--transition-speed);
 }
+
+.profile-img:hover {
+  transform: scale(1.05);
+}
+
+/* Typography Styles */
+.col-4 span {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.usertype {
+  border-radius: 25px;
+  padding: 5px;
+  font-size: 0.8rem !important;
+  background-color: var(--accent-color);
+  color: #fff;
+  font-weight: bold;
+  transition: background-color var(--transition-speed);
+  width: 15%;
+}
+
+/* Button Styles */
 .button-group {
-  position: relative;
   text-align: right;
 }
-.btn-edit {
-  padding: 5px 10px 5px 10px;
-  font-size: 0.8rem !important;
-  background-color: rgb(255, 255, 255);
-  color: #000000;
-  font-family: "Nunito", sans-serif;
-  font-weight: bold;
-  border: 1px solid #8686869f;
-  border-radius: 5px;
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all var(--transition-speed);
+  position: relative;
+  overflow: hidden;
 }
 
+.btn-edit {
+  background-color: #fff;
+  color: var(--text-dark);
+  border: 1px solid rgba(134, 134, 134, 0.6);
+}
+
+.btn-edit:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Stats Section */
 .stats {
   width: 100%;
-}
-.ptsContainer {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-.progress {
-  height: 30px;
-  font-size: 1.1rem;
-  color: #333;
-  width: 60%;
-}
-.btns .btn {
-  margin: 0.2rem;
-  font-size: 1rem;
-}
-.tipPts {
-  font-size: 0.9rem;
-  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
+.ptsContainer {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Progress Bar Styles */
 .progress-container {
   width: 100%;
   height: 30px;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  overflow: hidden;
   position: relative;
+  margin: 1rem 0;
 }
 
 .progress-bar {
   height: 100%;
-  border-radius: 10px;
+  border-radius: 15px;
+  transition: width 0.5s ease-in-out;
 }
 
-.bx-edit {
-  background-image: url("../../assets/img/bx-edit.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
+#time-remaining {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 30px;
+  color: var(--text-dark);
+  font-weight: 600;
+  mix-blend-mode: difference;
 }
+
+/* Tips Section */
+.tipPts {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 2rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Icons */
 .icon-inline {
   display: inline-block;
   vertical-align: middle;
-  position: relative;
-  top: -1px; /* Adjust this value as needed */
-}
-.fa-wifi {
-  background-image: url("../../assets/img/wifi.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
+  margin-right: 8px;
   width: 20px;
   height: 20px;
 }
-.fa-ticket-alt {
-  background-image: url("../../assets/img/ticket.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 20px;
-  height: 20px;
+
+/* Loading State */
+.btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
 }
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: button-loading-spinner 0.6s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Modal Styles */
+.modal-content {
+  border-radius: 15px;
+  border: none;
+}
+
+.modal-header {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 15px 15px 0 0;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  transition: border-color var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(46, 94, 139, 0.25);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .usertype {
+    border-radius: 25px;
+    padding: 5px;
+    font-size: 0.8rem !important;
+    background-color: var(--accent-color);
+    color: #fff;
+    font-weight: bold;
+    transition: background-color var(--transition-speed);
+    width: auto;
+  }
+  .profile-details {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .col-2,
+  .col-4,
+  .col-6 {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .button-group {
+    text-align: center;
+  }
+
+  .profile-img {
+    margin: 0 auto;
+  }
+
+  .btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
   }
 }
 
 @media (max-width: 425px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile screens */
+  .usertype {
+    border-radius: 25px;
+    padding: 5px;
+    font-size: 0.8rem !important;
+    background-color: var(--accent-color);
+    color: #fff;
+    font-weight: bold;
+    transition: background-color var(--transition-speed);
+    width: auto;
   }
   .leaderbox {
-    height: 82%;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    padding: 15px;
+    margin: 8px;
   }
-  .profile-img {
-    width: 50px;
-    height: 50px;
-    left: 0;
-  }
-  .profile-details span,
-  .profile-details p {
-    font-size: 0.7rem;
-  }
-  .usertype {
-    padding: 2px;
-    font-size: 0.4rem !important;
-  }
-}
 
-@media (max-width: 576px) {
-  .card-grid {
-    grid-template-columns: 1fr; /* Full width on very small screens */
+  .profile-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ptsContainer {
+    font-size: 1.4rem;
+  }
+
+  .progress-container {
+    height: 25px;
+  }
+
+  #time-remaining {
+    font-size: 0.9rem;
+    line-height: 25px;
   }
 }
