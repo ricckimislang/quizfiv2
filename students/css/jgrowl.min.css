@@ -1,0 +1,121 @@
+.jGrowl {
+  z-index: 9999;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: fixed;
+}
+.jGrowl.top-left {
+  left: 0px;
+  top: 0px;
+}
+.jGrowl.top-right {
+  right: 0px;
+  top: 0px;
+}
+.jGrowl.bottom-left {
+  left: 0px;
+  bottom: 0px;
+}
+.jGrowl.bottom-right {
+  right: 0px;
+  bottom: 0px;
+}
+.jGrowl.center {
+  top: 0px;
+  width: 50%;
+  left: 25%;
+}
+.jGrowl.center .jGrowl-notification,
+.jGrowl.center .jGrowl-closer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.jGrowl-notification {
+  background-color: #2e3b4e; /* Darker background for game-like look */
+  border: 2px solid #ffcc00; /* Gold border for highlight */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+  opacity: 1;
+  width: 400px;
+  padding: 15px;
+  margin: 10px;
+  text-align: left;
+  display: none;
+  border-radius: 10px; /* More rounded corners */
+  min-height: 50px;
+  position: relative;
+}
+
+.jGrowl-notification .jGrowl-header {
+  font-weight: bold;
+  font-size: 1.6em;
+  color: #ffcc00; /* Gold header color */
+  margin-bottom: 5px;
+}
+
+.jGrowl-notification .jGrowl-message {
+  font-size: 1.2em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.jGrowl-notification .jGrowl-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 24px;
+  height: 24px;
+  background-image: url('path_to_icon.png'); /* Custom game icon */
+  background-size: cover;
+  z-index: 100;
+}
+
+.jGrowl-notification .jGrowl-close {
+  background-color: transparent;
+  color: #ffcc00;
+  border: none;
+  z-index: 99;
+  float: right;
+  font-weight: bold;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+.jGrowl-notification .jGrowl-close:hover {
+  color: #ff6600; /* Hover effect for close button */
+}
+
+.jGrowl-closer {
+  background-color: #ffcc00;
+  opacity: 0.95;
+  width: 300px;
+  padding: 12px;
+  margin: 10px auto;
+  text-align: left;
+  display: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  color: #2e3b4e;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.jGrowl-closer:hover {
+  background-color: #ff6600;
+  color: #fff;
+}
+
+@media print {
+  .jGrowl {
+    display: none;
+  }
+}
+
+@media(max-width: 425px){
+  .jGrowl-notification {
+    width: 300px;
+    right: 2px;
+  }
+}

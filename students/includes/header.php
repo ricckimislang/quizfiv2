@@ -7,7 +7,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/logo-quizfi.png" rel="icon" type="image/jpg">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -18,7 +18,8 @@
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery.jgrowl.min.js"></script>
     <link href="css/style.css" rel="stylesheet">
 
 </head>
