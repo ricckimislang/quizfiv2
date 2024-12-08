@@ -4,10 +4,14 @@
 <?php include("includes/header.php"); ?>
 <title>Quiz Login</title>
 <link rel="stylesheet" href="css/login-style.css">
+<link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+    <div id="loading-screen">
+        <img src="../assets/img/logo-quizfi.png" alt="Loading">
+    </div>
     <audio id="background-audio" loop muted>
         <source src="assets/img/login-mario.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -17,6 +21,19 @@
             <img src="../assets/img/logo-quizfi.png" alt="Quizfi Logo" class="logo">
             <h1 class="login-title">Welcome Back</h1>
             <p class="login-subtitle">Login to continue to Quizfi</p>
+            <!-- login notification -->
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-1"></i>
+                <span class="alert-text">You are Logged In!</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                <span class="alert-text">You have entered an incorrect username or password!</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!-- end of notification -->
         </div>
         <form id="loginForm">
             <div class="input-group">
@@ -25,8 +42,7 @@
             </div>
             <div class="input-group">
                 <i class="fas fa-lock input-icon"></i>
-                <input type="password" class="login-input" id="password" name="password" placeholder="Password"
-                    maxlength="15" minlength="8" required>
+                <input type="password" class="login-input" id="password" name="password" placeholder="Password" required>
                 <span class="password-toggle">
                     <i class="fas fa-eye-slash" id="togglePassword"></i>
                 </span>
@@ -88,48 +104,48 @@
                 dataType: "json", // Expecting JSON response
                 success: function(data) {
                     if (data.userType === 'student') {
-                        $.jGrowl("Logged In successfully!", {
-                            theme: "alert alert-success",
-                            life: 2000
-                        });
+                        $('.alert-danger').hide();
+                        $('.alert-success').find('.alert-text').text('Logged In successfully!');
+                        $('.alert-success').show();
                         setTimeout(function() {
                             window.location.href = "user_profile.php";
-                        }, 2000); // Notice the comma goes after the function, not inside it.
+                        }, 2000);
 
                     } else if (data.userType === 'educator') {
-                        $.jGrowl("Logged In successfully!", {
-                            theme: "alert alert-success",
-                            life: 2000
-                        });
+                        $('.alert-danger').hide();
+                        $('.alert-success').find('.alert-text').text('Logged In successfully!');
+                        $('.alert-success').show();
                         setTimeout(function() {
                             window.location.href = "../educator/manage_quiz.php";
-                        }, 2000); // Notice the comma goes after the function, not inside it.
+                        }, 2000);
 
                     } else if (data.userType === 'admin') {
-                        $.jGrowl("Logged In successfully!", {
-                            theme: "alert alert-success",
-                            life: 2000
-                        });
+                        $('.alert-danger').hide();
+                        $('.alert-success').find('.alert-text').text('Logged In successfully!');
+                        $('.alert-success').show();
                         setTimeout(function() {
                             window.location.href = "../admin/manage_quiz.php";
-                        }, 2000); // Notice the comma goes after the function, not inside it.
+                        }, 2000);
 
                     } else {
-                        $.jGrowl("Error: Incorrect username or password.", {
-                            theme: "alert alert-danger",
-                            life: 2000
-                        });
+                        $('.alert-success').hide();
+                        $('.alert-danger').find('.alert-text').text('Error: Incorrect username or password.');
+                        $('.alert-danger').show();
                         // Enable the button again if there is an error
                         $("button[type='submit']").attr("disabled", false);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $.jGrowl("An error occurred: " + textStatus, {
-                        sticky: false,
-                        life: 3000
-                    });
+                    $('.alert-success').hide();
+                    $('.alert-danger').find('.alert-text').text('An error occurred: ' + textStatus);
+                    $('.alert-danger').show();
                 }
             });
+        });
+
+        // Ensure alerts are hidden on page load
+        $(document).ready(function() {
+            $('.alert-success, .alert-danger').hide();
         });
     </script>
 </body>

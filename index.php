@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include 'includes/head.php'; ?>
-<link href="css/index.css" rel="stylesheet" />
-<link href="css/index-button.css" rel="stylesheet" />
-<!-- Add modern design libraries -->
-
 <body id="page-top" class="quiz-platform">
     <!-- Navigation-->
     <?php include("includes/nav.php"); ?>
