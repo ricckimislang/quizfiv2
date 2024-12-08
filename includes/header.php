@@ -8,7 +8,7 @@
             </div>
             <div class="col-lg-8 align-self-baseline">
                 <p class="small-hero text-white-75 mb-5">Test Your Knowledge and Get Amazing Rewards</p>
-                <a class="comic-button" href="clients/index.php">Play Now!</a>
+                <a class="comic-button" href="students/index.php">Play Now!</a>
             </div>
         </div>
     </div>
