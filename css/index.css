@@ -1,0 +1,224 @@
+/* Regular */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* ExtraLight */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+/* Regular */
+@font-face {
+  font-family: "Honk";
+  src: url("../fonts/Honk-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+/* ExtraLight Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+/* Light */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Light Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Medium */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Medium Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* SemiBold */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* SemiBold Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Bold */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* ExtraBold */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* ExtraBold Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Black */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Black Italic */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+.bg {
+  background-color: rgb(224, 223, 223);
+}
+/* Navigation Menu */
+.navbar-brand,
+.nav-item .nav-link {
+  font-family: "Honk", cursive !important;
+  font-size: 2rem;
+}
+.nav-item .nav-link {
+  font-size: 1.5rem !important;
+}
+#statsPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+}
+
+/*WElcome Title*/
+.hero-text {
+  font-family: "Honk", cursive !important;
+  font-size: 3rem !important;
+}
+
+.small-hero {
+  font-family: "nunito", sans-serif !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+}
+.button-hero {
+  font-family: "honk", sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+.ptsContainer {
+  height: auto;
+  font-size: 1rem;
+  padding: 0.7rem;
+  background-color: #007bff;
+  display: inline-block;
+  border-radius: 50px;
+  color: white;
+}
+
+.stats {
+  display: block;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.progress {
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  text-align: center;
+  margin-bottom: 1rem; /* Adds margin below the progress bar */
+  font: 1.8em sans-serif;
+  height: 70px;
+}
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    font-family: "nunito", sans-serif;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin: 3px;
+  }
+}
+.tipPts {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  * {
+    font-size: 0.8rem;
+    height: auto;
+    width: auto;
+  }
+}

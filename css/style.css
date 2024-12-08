@@ -1,62 +1,62 @@
-/**
-* Template Name: NiceAdmin
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Updated: Apr 20 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
-:root {
-  scroll-behavior: smooth;
-}
-
+/* General Styles */
 body {
-  font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
-  color: #444444;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
-a {
-  color: #4154f1;
-  text-decoration: none;
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
 }
 
-a:hover {
-  color: #717ff5;
-  text-decoration: none;
+/* Hero Section */
+.hero {
+    background: #007bff;
+    color: #fff;
+    padding: 60px 0;
+    text-align: center;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Nunito", sans-serif;
+.hero h1 {
+    font-size: 2.5em;
 }
 
-/*--------------------------------------------------------------
-# Main
---------------------------------------------------------------*/
-#main {
-  margin-top: 60px;
-  padding: 20px 30px;
-  transition: all 0.3s;
+.hero p {
+    font-size: 1.2em;
 }
 
-@media (max-width: 1199px) {
-  #main {
-    padding: 20px;
-  }
+.btn {
+    background: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
-/*--------------------------------------------------------------
-# Page Title
---------------------------------------------------------------*/
-.pagetitle {
+.btn:hover {
+    background: #218838;
+}
+
+/* Rewards Section */
+.rewards {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.rewards h2 {
+    font-size: 2em;
+}
+
+.rewards p {
+    font-size: 1.1em;
+}
+
+/* Footer */
+footer {
+    background: #333;
   margin-bottom: 10px;
 }
 
