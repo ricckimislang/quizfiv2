@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Honk&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+body {
+  font-family: "Nunito", sans-serif;
+  color: #fff; /* Light text for better contrast */
+  margin: 0; /* Remove default margin */
+}
+
+.leaderbox {
+  background-color: #ffffff !important;
+  border-radius: 20px;
+  max-width: 1200px; /* Ensures leaderbox has a limited width */
+  min-height: 15vh;
+  height: 100%;
+  margin: 12px auto;
+  padding: 20px; /* Increased padding for spacing */
+  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.4);
+  overflow: hidden; /* Prevents overflow of any inner content */
+}
+
+.leadTitle {
+  position: relative;
+  margin: 0 auto;
+  background-color: rgb(46, 94, 139); /* Bright yellow for visibility */
+  padding: 10px; /* Add some padding for spacing */
+  border-radius: 10px; /* Rounded corners */
+  margin-bottom: -32px; /* Pull the title closer to the leaderbox */
+  width: 100%; /* Adjust width for responsiveness */
+  max-width: 400px; /* Max width for larger screens */
+  z-index: 99; /* Ensure it stays above other elements */
+}
+.profile-details {
+  color: black;
+  font-family: "Nunito", sans-serif;
+}
+.col-4 span {
+  font-size: 1.2rem;
+}
+.usertype {
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 0.8rem !important;
+  background-color: rgb(165, 33, 165);
+  color: #fff;
+  font-weight: bold;
+}
+.profile-img {
+  position: relative;
+  left: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.button-group {
+  position: relative;
+  text-align: right;
+}
+.btn-edit {
+  padding: 5px 10px 5px 10px;
+  font-size: 0.8rem !important;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  border: 1px solid #8686869f;
+  border-radius: 5px;
+}
+
+.stats {
+  width: 100%;
+}
+.ptsContainer {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.progress {
+  height: 30px;
+  font-size: 1.1rem;
+  color: #333;
+  width: 60%;
+}
+.btns .btn {
+  margin: 0.2rem;
+  font-size: 1rem;
+}
+.tipPts {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.progress-container {
+  width: 100%;
+  height: 30px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.bx-edit {
+  background-image: url("../../assets/img/bx-edit.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.icon-inline {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -1px; /* Adjust this value as needed */
+}
+.fa-wifi {
+  background-image: url("../../assets/img/wifi.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+.fa-ticket-alt {
+  background-image: url("../../assets/img/ticket.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+  }
+}
+
+@media (max-width: 425px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile screens */
+  }
+  .leaderbox {
+    height: 82%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .profile-img {
+    width: 50px;
+    height: 50px;
+    left: 0;
+  }
+  .profile-details span,
+  .profile-details p {
+    font-size: 0.7rem;
+  }
+  .usertype {
+    padding: 2px;
+    font-size: 0.4rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-grid {
+    grid-template-columns: 1fr; /* Full width on very small screens */
+  }
+}

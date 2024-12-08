@@ -42,13 +42,11 @@
             <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
                 <i class="bi bi-check-circle me-1"></i>
                 <span class="alert-text"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
                 <i class="bi bi-exclamation-octagon me-1"></i>
                 <span class="alert-text"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
 
@@ -72,7 +70,7 @@
             </div>
         </form>
     </div>
-
+    <?php include("js/scripts.php"); ?>
     <script>
         // Initialize DOM elements
         const elements = {
@@ -147,6 +145,8 @@
 
                 if (type === 'success') {
                     setTimeout(() => alert.style.display = 'none', 5000);
+                } else {
+                    setTimeout(() => alert.style.display = 'none', 3000);
                 }
             }
         }
