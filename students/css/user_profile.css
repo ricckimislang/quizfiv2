@@ -25,18 +25,12 @@ body {
   margin: 12px auto;
   padding: 25px;
   box-shadow: 0 5px 15px var(--shadow-color);
-  transition: transform var(--transition-speed),
-    box-shadow var(--transition-speed);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .leaderbox:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px var(--shadow-color);
-}
-
-.profile-details {
-  color: var(--text-dark);
-  font-family: "Nunito", sans-serif;
 }
 
 /* Profile Image Styles */
@@ -53,36 +47,28 @@ body {
   transform: scale(1.05);
 }
 
-/* Typography Styles */
-.col-4 span {
-  font-size: 1.2rem;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.usertype {
-  border-radius: 25px;
-  padding: 5px;
-  font-size: 0.8rem !important;
-  background-color: var(--accent-color);
-  color: #fff;
-  font-weight: bold;
-  transition: background-color var(--transition-speed);
-  width: 15%;
-}
-
 /* Button Styles */
-.button-group {
-  text-align: right;
-}
-
 .btn {
   padding: 8px 16px;
   border-radius: 8px;
+  border: none;
   font-weight: 600;
   transition: all var(--transition-speed);
   position: relative;
   overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-warning {
+  background-color: #ffc107;
 }
 
 .btn-edit {
@@ -95,23 +81,6 @@ body {
   background-color: var(--primary-color);
   color: #fff;
   border-color: var(--primary-color);
-}
-
-.btn-success {
-  background-color: #28a745;
-}
-
-.btn-warning {
-  background-color: #ffc107;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.btn:active {
-  transform: translateY(0);
 }
 
 /* Stats Section */
@@ -145,16 +114,6 @@ body {
   transition: width 0.5s ease-in-out;
 }
 
-#time-remaining {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  line-height: 30px;
-  color: var(--text-dark);
-  font-weight: 600;
-  mix-blend-mode: difference;
-}
-
 /* Tips Section */
 .tipPts {
   background-color: #f8f9fa;
@@ -162,44 +121,6 @@ body {
   padding: 15px;
   margin-top: 2rem;
   border-left: 4px solid var(--primary-color);
-}
-
-/* Icons */
-.icon-inline {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  width: 20px;
-  height: 20px;
-}
-
-/* Loading State */
-.btn.loading {
-  pointer-events: none;
-  opacity: 0.8;
-}
-
-.btn.loading::after {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  top: 50%;
-  left: 50%;
-  margin: -8px 0 0 -8px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: button-loading-spinner 0.6s linear infinite;
-}
-
-@keyframes button-loading-spinner {
-  from {
-    transform: rotate(0turn);
-  }
-  to {
-    transform: rotate(1turn);
-  }
 }
 
 /* Modal Styles */
@@ -214,43 +135,14 @@ body {
   border-radius: 15px 15px 0 0;
 }
 
-.modal-body {
-  padding: 2rem;
-}
-
-.form-control {
-  border-radius: 8px;
-  padding: 12px;
-  border: 1px solid #dee2e6;
-  transition: border-color var(--transition-speed),
-    box-shadow var(--transition-speed);
-}
-
-.form-control:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(46, 94, 139, 0.25);
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
-  .usertype {
-    border-radius: 25px;
-    padding: 5px;
-    font-size: 0.8rem !important;
-    background-color: var(--accent-color);
-    color: #fff;
-    font-weight: bold;
-    transition: background-color var(--transition-speed);
-    width: auto;
-  }
   .profile-details {
     flex-direction: column;
     text-align: center;
   }
 
-  .col-2,
-  .col-4,
-  .col-6 {
+  .col-2, .col-4, .col-6 {
     width: 100%;
     margin: 10px 0;
   }
@@ -275,16 +167,6 @@ body {
 }
 
 @media (max-width: 425px) {
-  .usertype {
-    border-radius: 25px;
-    padding: 5px;
-    font-size: 0.8rem !important;
-    background-color: var(--accent-color);
-    color: #fff;
-    font-weight: bold;
-    transition: background-color var(--transition-speed);
-    width: auto;
-  }
   .leaderbox {
     padding: 15px;
     margin: 8px;
@@ -301,10 +183,5 @@ body {
 
   .progress-container {
     height: 25px;
-  }
-
-  #time-remaining {
-    font-size: 0.9rem;
-    line-height: 25px;
   }
 }

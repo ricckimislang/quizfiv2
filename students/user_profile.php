@@ -8,8 +8,18 @@ $totalDuration = $time_duration;
 
 <link rel="stylesheet" href="css/user_profile.css">
 <link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="css/loading-screen.css">
 
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="../assets/img/logo-quizfi.png" alt="Loading">
+        <div class="loading-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <?php include 'includes/nav-top.php'; ?>
         <?php include 'includes/sidebar.php'; ?>
@@ -19,18 +29,18 @@ $totalDuration = $time_duration;
                 <div class="row d-flex flex-column">
                     <!-- Profile Section -->
                     <div class="col">
-                        <div class="profile-details leaderbox d-flex">
+                        <div class="profile-details leaderbox d-flex flex-row p-4">
                             <div class="col-2">
                                 <img src="assets/students/profile.png" alt="Student Profile" class="profile-img">
                             </div>
                             <div class="col-4 mx-1">
-                                <span class="student-name"><?php echo htmlspecialchars($row1['lastname'] . ', ' . $row1['firstname']); ?></span>
-                                <span class="usertype">Student</span>
-                                <p class="department"><?php echo htmlspecialchars($row1['department']); ?></p>
+                                <span class="student-name fw-bold fs-5"><?php echo htmlspecialchars($row1['lastname'] . ', ' . $row1['firstname']); ?></span>
+                                <span class="usertype badge bg-secondary">Student</span>
+                                <p class="department text-muted"><?php echo htmlspecialchars($row1['department']); ?></p>
                             </div>
-                            <div class="col-6 button-group">
+                            <div class="col-6 button-group text-end">
                                 <button class="btn btn-edit" id="edit-profile-btn">
-                                    <i class="bx bx-edit"></i> Edit profile
+                                    <i class="bx bx-edit"></i> Edit Profile
                                 </button>
                             </div>
                         </div>
@@ -62,7 +72,7 @@ $totalDuration = $time_duration;
                                     <i class="fas fa-ticket-alt icon-inline"></i> Convert Points to Voucher
                                 </a>
                             </div>
-                            
+
                             <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn" style="display: none;">
                                 <i class="fas fa-pause"></i> Pause
                             </button>
@@ -89,7 +99,7 @@ $totalDuration = $time_duration;
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" id="voucher-code" name="voucher-code" class="form-control" placeholder="Insert your generated WIFI code here">
+                        <input type="text" id="voucher-code" name="voucher-code" class="form-control" placeholder="Insert your generated WIFI code here" aria-label="WIFI Code">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
                     </div>
                     <div class="modal-footer">
@@ -103,6 +113,18 @@ $totalDuration = $time_duration;
         <?php include 'js/scripts.php'; ?>
 
         <script>
+            // Replace existing loading screen script with this
+            document.addEventListener('DOMContentLoaded', () => {
+                const loadingScreen = document.getElementById('loading-screen');
+
+                window.addEventListener('load', () => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                });
+            });
+
             // Timer and UI Controller
             class TimerController {
                 constructor() {
@@ -186,14 +208,17 @@ $totalDuration = $time_duration;
 
                         if (response.ok) {
                             $.jGrowl(
-                                status === 'inactive' ? "You are now disconnected" : "You are now connected",
-                                { life: 3000, theme: 'alert alert-success', position: 'top-right' }
+                                status === 'inactive' ? "You are now disconnected" : "You are now connected", {
+                                    life: 3000,
+                                    theme: 'alert alert-success',
+                                    position: 'top-right'
+                                }
                             );
                             setTimeout(() => location.reload(), 1000);
                         }
                     } catch (error) {
                         console.error('Error updating timer status:', error);
-                        $.jGrowl("Error updating status", { 
+                        $.jGrowl("Error updating status", {
                             theme: 'alert alert-danger',
                             position: 'top-right'
                         });
@@ -292,4 +317,5 @@ $totalDuration = $time_duration;
             });
         </script>
 </body>
+
 </html>

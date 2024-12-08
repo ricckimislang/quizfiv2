@@ -6,9 +6,6 @@
     <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-<div id="loadingScreen" class="loading-screen" style="display: none;">
-    <img src="../assets/img/logo-spinner.png" alt="Loading..." class="spinner" />
-</div>
 
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
@@ -16,7 +13,7 @@
         <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <img src="../assets/img/students/profile.png" alt="Profile" class="rounded-circle" width="30" height="30">
+                <img src="assets/students/profile.png" alt="Profile" class="rounded-circle" width="30" height="30">
                 <span class="text-black d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['username']; ?></span>
             </a><!-- End Profile Iamge Icon -->
 
