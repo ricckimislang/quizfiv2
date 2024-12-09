@@ -44,8 +44,7 @@ $totalDuration = $time_duration;
                         <div
                             class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
                             <div class="stats d-flex flex-column justify-content-center align-items-center mb-1">
-                                <h3 class="ptsContainer text-primary">Available Points:
-                                    <?php echo $student_score; ?>
+                                <h3 class="ptsContainer text-primary">Available Points: <?php echo $student_score; ?>
                                 </h3>
 
                                 <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
@@ -95,23 +94,34 @@ $totalDuration = $time_duration;
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-light" id="codeModalLabel">Insert WIFI Code</h5>
+                        <h5 class="modal-title text-light" id="codeModalLabel">Redeem Code</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="text" id="voucher-code" name="voucher-code" class="form-control"
-                            placeholder="Insert your generated WIFI code here" aria-label="WIFI Code">
+                            placeholder="Insert your generated voucher code here" aria-label="WIFI Code">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-success" id="voucher-submit">Use</button>
+                        <button type="submit" class="btn btn-success" id="voucher-submit">Use</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <?php include 'js/scripts.php'; ?>
+        <!-- Alerts -->
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+            <i class="bi bi-check-circle me-1"></i>
+            <span class="alert-text"></span>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+            <i class="bi bi-exclamation-octagon me-1"></i>
+            <span class="alert-text"></span>
+        </div>
+
+        <?php include("js/scripts.php"); ?>
 
         <script>
             // Replace existing loading screen script with this
@@ -125,6 +135,23 @@ $totalDuration = $time_duration;
                     }, 500);
                 });
             });
+            // Alert Handling
+            function showAlert(type, message) {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => alert.style.display = 'none');
+
+                const alert = document.querySelector(`.alert-${type}`);
+                if (alert) {
+                    alert.querySelector('.alert-text').textContent = message;
+                    alert.style.display = 'block';
+
+                    if (type === 'success') {
+                        setTimeout(() => alert.style.display = 'none', 5000);
+                    } else {
+                        setTimeout(() => alert.style.display = 'none', 3000);
+                    }
+                }
+            }
 
             // Timer and UI Controller
             class TimerController {
@@ -248,32 +275,23 @@ $totalDuration = $time_duration;
                         submitBtn.disabled = true;
                         submitBtn.classList.add('loading');
 
+                        const formData = new FormData();
+                        formData.append('voucher_code', voucherCode);
+                        formData.append('user_id', userId);
+
                         const response = await fetch('process/validate_voucher.php', {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                voucher_code: voucherCode,
-                                user_id: userId,
-                            })
+                            body: formData
                         });
 
                         const data = await response.json();
 
                         if (data.status === 'success') {
-                            $.jGrowl('Voucher validated successfully', {
-                                life: 3000,
-                                theme: 'alert alert-success',
-                                position: 'top-right'
-                            });
-                            setTimeout(() => location.reload(), 1000);
+                            showAlert('success', 'Voucher validated successfully.');
+                            setTimeout(() => location.reload(), 2000);
                             bootstrap.Modal.getInstance(document.getElementById('codeModal')).hide();
                         } else {
-                            $.jGrowl(data.message, {
-                                theme: 'alert alert-danger',
-                                position: 'top-right'
-                            });
+                            showAlert('danger', data.message);
                         }
                     } catch (error) {
                         console.error('Error validating voucher:', error);

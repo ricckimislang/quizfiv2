@@ -82,3 +82,4 @@ if (isset($_POST['voucher_code'], $_POST['user_id'])) {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request.']);
 }
+?>
