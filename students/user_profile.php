@@ -44,13 +44,26 @@ $totalDuration = $time_duration;
                         <div
                             class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
                             <div class="stats d-flex flex-column justify-content-center align-items-center mb-1">
+
                                 <h3 class="ptsContainer text-primary">Available Points: <?php echo $student_score; ?>
                                 </h3>
 
                                 <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
                                 <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
                                 <p><strong>IP Address:</strong> <?php echo htmlspecialchars($user_ip); ?></p>
+                                <!-- Alerts -->
+                                <div class="alert alert-success alert-dismissible fade show" role="alert"
+                                    style="display: none;">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    <span class="alert-text"></span>
+                                </div>
 
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                    style="display: none;">
+                                    <i class="bi bi-exclamation-octagon me-1"></i>
+                                    <span class="alert-text"></span>
+                                </div>
+                                <!-- end of alert -->
                                 <!-- Progress Bar -->
                                 <div class="progress-container mt-3 bg-white shadow-sm rounded">
                                     <div id="progress-bar" class="progress-bar bg-primary rounded">
@@ -109,6 +122,7 @@ $totalDuration = $time_duration;
                             <i class="bi bi-exclamation-octagon me-1"></i>
                             <span class="alert-text"></span>
                         </div>
+                        <!-- end of alert -->
                         <input type="text" id="voucher-code" name="voucher-code" class="form-control"
                             placeholder="Insert your generated voucher code here" aria-label="WIFI Code">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
@@ -138,15 +152,36 @@ $totalDuration = $time_duration;
                 });
             });
             // Alert Handling
-            function showAlert(type, message) {
-                const alerts = document.querySelectorAll('.alert');
+            function showAlert(type, message, context = 'modal') {
+                let alertSelector;
+
+                // Determine the selector based on the context
+                if (context === 'modal') {
+                    alertSelector = '#codeModal .alert';
+                } else if (context === 'stats') {
+                    alertSelector = '.stats .alert';
+                } else {
+                    // Default to modal if an invalid context is provided
+                    alertSelector = '#codeModal .alert';
+                }
+
+                // Find alerts within the specified context
+                const alerts = document.querySelectorAll(alertSelector);
+
+                // Hide all alerts first
                 alerts.forEach(alert => alert.style.display = 'none');
 
-                const alert = document.querySelector(`.alert-${type}`);
+                // Find the specific alert type within the context
+                const alert = document.querySelector(`${alertSelector}-${type}`);
+
                 if (alert) {
+                    // Set the alert text
                     alert.querySelector('.alert-text').textContent = message;
+
+                    // Show the alert
                     alert.style.display = 'block';
 
+                    // Auto-hide based on alert type
                     if (type === 'success') {
                         setTimeout(() => alert.style.display = 'none', 5000);
                     } else {
@@ -237,14 +272,20 @@ $totalDuration = $time_duration;
                         });
 
                         if (response.ok) {
-                            $.jGrowl(
-                                status === 'inactive' ? "You are now disconnected" : "You are now connected", {
-                                life: 3000,
-                                theme: 'alert alert-success',
-                                position: 'top-right'
+                            const data = await response.json();
+                            if (status === 'active') {
+                                showAlert('success', data.message, 'stats');
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
                             }
-                            );
-                            setTimeout(() => location.reload(), 1000);
+                            else {
+                                showAlert('danger', 'You have Disconnected.', 'stats');
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            }
+
                         }
                     } catch (error) {
                         console.error('Error updating timer status:', error);

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("si", $timer_status, $user_id);
 
         if ($stmt->execute()) {
-            echo json_encode(['status' => 'success']);
+            echo json_encode(['status' => 'success', 'message' => 'You are now Connected.']);
         } else {
             echo json_encode(['status' => 'error', 'message' => $stmt->error]);
         }
