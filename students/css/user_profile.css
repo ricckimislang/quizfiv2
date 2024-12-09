@@ -100,7 +100,6 @@ body {
   font-size: 1.8rem;
   font-weight: bold;
   color: var(--primary-color);
-  margin-bottom: 1.5rem;
 }
 
 /* Progress Bar Styles */
@@ -170,9 +169,6 @@ body {
     gap: 10px;
   }
 
-  .btn {
-    width: 100%;
-  }
 }
 
 @media (max-width: 425px) {
@@ -189,7 +185,9 @@ body {
   .ptsContainer {
     font-size: 1.4rem;
   }
-
+  .button-group{
+    text-align: center;
+  }
   .progress-container {
     height: 25px;
   }

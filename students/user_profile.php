@@ -7,7 +7,6 @@ $totalDuration = $time_duration;
 ?>
 
 <link rel="stylesheet" href="css/user_profile.css">
-<link rel="stylesheet" href="css/sidebar.css">
 <link rel="stylesheet" href="css/loading-screen.css">
 
 <body>
@@ -51,8 +50,8 @@ $totalDuration = $time_duration;
                     <div class="col">
                         <div
                             class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
-                            <div class="stats d-flex flex-column justify-content-center align-items-center mb-4">
-                                <h3 class="ptsContainer text-primary">Your Available Points:
+                            <div class="stats d-flex flex-column justify-content-center align-items-center mb-1">
+                                <h3 class="ptsContainer text-primary">Available Points:
                                     <?php echo $student_score; ?>
                                 </h3>
 
@@ -69,20 +68,22 @@ $totalDuration = $time_duration;
                             </div>
 
                             <div class="btns my-4">
-                                <button id="voucher-button" type="button" class="btn btn-success me-2 px-3 py-2">
+                                <button id="voucher-button" type="button" class="btn btn-success me-2 px-3 py-2"
+                                    style="border-radius: 0;">
                                     <span class="fas fa-wifi icon-inline"></span> Redeem Voucher
                                 </button>
-                                <a href="convert_voucher.php" class="btn btn-warning px-3 py-2">
+                                <a href="convert_voucher.php" class="btn btn-warning px-3 py-2"
+                                    style="border-radius: 0;">
                                     <i class="fas fa-ticket-alt icon-inline"></i> Exchange Points for Voucher
                                 </a>
                             </div>
 
                             <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn"
-                                style="display: none;">
+                                style="display: none; border-radius: 0;">
                                 <i class="fas fa-pause"></i> Pause
                             </button>
                             <button type="button" class="btn btn-success px-3 py-2" id="continue-btn"
-                                style="display: none;">
+                                style="display: none; border-radius: 0;">
                                 <i class="fas fa-play"></i> Continue
                             </button>
 
