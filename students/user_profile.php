@@ -11,14 +11,7 @@ $totalDuration = $time_duration;
 
 <body>
     <!-- Loading Screen -->
-    <div id="loading-screen">
-        <img src="../assets/img/logo-quizfi.png" alt="Loading">
-        <div class="loading-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
+    <?php include("includes/loading-screen.php"); ?>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <?php include 'includes/nav-top.php'; ?>
         <?php include 'includes/sidebar.php'; ?>
