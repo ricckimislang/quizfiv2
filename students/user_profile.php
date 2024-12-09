@@ -29,14 +29,15 @@ $totalDuration = $time_duration;
                 <div class="row d-flex flex-column">
                     <!-- Profile Section -->
                     <div class="col">
-                        <div class="profile-details leaderbox d-flex flex-row p-4">
-                            <div class="col-2">
+                        <div class="profile-details leaderbox p-4">
+                            <div class="col-2 text-center">
                                 <img src="assets/students/profile.png" alt="Student Profile" class="profile-img">
                             </div>
                             <div class="col-4 mx-1">
-                                <span class="student-name fw-bold fs-5"><?php echo htmlspecialchars($row1['lastname'] . ', ' . $row1['firstname']); ?></span>
-                                <span class="usertype badge bg-secondary">Student</span>
-                                <p class="department text-muted"><?php echo htmlspecialchars($row1['department']); ?></p>
+                                <span
+                                    class="student-name fw-bold fs-5"><?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?></span>
+                                <p class="department text-muted"><?php echo htmlspecialchars($row1['department']); ?>
+                                </p>
                             </div>
                             <div class="col-6 button-group text-end">
                                 <button class="btn btn-edit" id="edit-profile-btn">
@@ -48,9 +49,12 @@ $totalDuration = $time_duration;
 
                     <!-- Stats Section -->
                     <div class="col">
-                        <div class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
+                        <div
+                            class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
                             <div class="stats d-flex flex-column justify-content-center align-items-center mb-4">
-                                <h3 class="ptsContainer text-primary">Points Available: <?php echo $student_score; ?></h3>
+                                <h3 class="ptsContainer text-primary">Your Available Points:
+                                    <?php echo $student_score; ?>
+                                </h3>
 
                                 <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
                                 <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
@@ -66,17 +70,19 @@ $totalDuration = $time_duration;
 
                             <div class="btns my-4">
                                 <button id="voucher-button" type="button" class="btn btn-success me-2 px-3 py-2">
-                                    <span class="fas fa-wifi icon-inline"></span> Use Wifi Voucher
+                                    <span class="fas fa-wifi icon-inline"></span> Redeem Voucher
                                 </button>
                                 <a href="convert_voucher.php" class="btn btn-warning px-3 py-2">
-                                    <i class="fas fa-ticket-alt icon-inline"></i> Convert Points to Voucher
+                                    <i class="fas fa-ticket-alt icon-inline"></i> Exchange Points for Voucher
                                 </a>
                             </div>
 
-                            <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn" style="display: none;">
+                            <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn"
+                                style="display: none;">
                                 <i class="fas fa-pause"></i> Pause
                             </button>
-                            <button type="button" class="btn btn-success px-3 py-2" id="continue-btn" style="display: none;">
+                            <button type="button" class="btn btn-success px-3 py-2" id="continue-btn"
+                                style="display: none;">
                                 <i class="fas fa-play"></i> Continue
                             </button>
 
@@ -99,7 +105,8 @@ $totalDuration = $time_duration;
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" id="voucher-code" name="voucher-code" class="form-control" placeholder="Insert your generated WIFI code here" aria-label="WIFI Code">
+                        <input type="text" id="voucher-code" name="voucher-code" class="form-control"
+                            placeholder="Insert your generated WIFI code here" aria-label="WIFI Code">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
                     </div>
                     <div class="modal-footer">
@@ -209,10 +216,10 @@ $totalDuration = $time_duration;
                         if (response.ok) {
                             $.jGrowl(
                                 status === 'inactive' ? "You are now disconnected" : "You are now connected", {
-                                    life: 3000,
-                                    theme: 'alert alert-success',
-                                    position: 'top-right'
-                                }
+                                life: 3000,
+                                theme: 'alert alert-success',
+                                position: 'top-right'
+                            }
                             );
                             setTimeout(() => location.reload(), 1000);
                         }

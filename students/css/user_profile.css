@@ -25,7 +25,8 @@ body {
   margin: 12px auto;
   padding: 25px;
   box-shadow: 0 5px 15px var(--shadow-color);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
 }
 
 .leaderbox:hover {
@@ -34,6 +35,11 @@ body {
 }
 
 /* Profile Image Styles */
+.profile-details {
+  display: flex;
+  flex-direction: row;
+}
+
 .profile-img {
   width: 100px;
   height: 100px;
@@ -121,6 +127,7 @@ body {
   padding: 15px;
   margin-top: 2rem;
   border-left: 4px solid var(--primary-color);
+  border-right: 4px solid var(--primary-color);
 }
 
 /* Modal Styles */
@@ -142,7 +149,9 @@ body {
     text-align: center;
   }
 
-  .col-2, .col-4, .col-6 {
+  .col-2,
+  .col-4,
+  .col-6 {
     width: 100%;
     margin: 10px 0;
   }

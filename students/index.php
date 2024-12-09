@@ -58,7 +58,8 @@
             </div>
             <div class="input-group">
                 <i class="fas fa-lock input-icon"></i>
-                <input type="password" class="login-input" id="password" name="password" placeholder="Password" required>
+                <input type="password" class="login-input" id="password" name="password" placeholder="Password"
+                    required>
                 <span class="password-toggle">
                     <i class="fas fa-eye-slash" id="togglePassword"></i>
                 </span>
@@ -113,7 +114,7 @@
         }
 
         // Password Toggle
-        elements.togglePassword.addEventListener('click', function() {
+        elements.togglePassword.addEventListener('click', function () {
             const type = elements.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             elements.passwordInput.setAttribute('type', type);
             this.classList.toggle('fa-eye');
@@ -152,7 +153,7 @@
         }
 
         // Form Submission
-        elements.loginForm.addEventListener('submit', function(e) {
+        elements.loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.disabled = true;
@@ -175,7 +176,7 @@
                     password
                 },
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     const redirects = {
                         'student': "user_profile.php",
                         'educator': "../educator/manage_quiz.php",
@@ -191,11 +192,11 @@
                         showAlert('danger', 'Error: Incorrect username or password.');
                     }
                 },
-                error: function(jqXHR, textStatus) {
+                error: function (jqXHR, textStatus) {
                     showAlert('danger', 'An error occurred. Please try again.');
                     console.error('Login error:', textStatus);
                 },
-                complete: function() {
+                complete: function () {
                     submitButton.disabled = false;
                 }
             });
