@@ -98,6 +98,17 @@ $totalDuration = $time_duration;
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <!-- Alerts -->
+                        <div class="alert alert-success alert-dismissible fade show" role="alert"
+                            style="display: none;">
+                            <i class="bi bi-check-circle me-1"></i>
+                            <span class="alert-text"></span>
+                        </div>
+
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+                            <i class="bi bi-exclamation-octagon me-1"></i>
+                            <span class="alert-text"></span>
+                        </div>
                         <input type="text" id="voucher-code" name="voucher-code" class="form-control"
                             placeholder="Insert your generated voucher code here" aria-label="WIFI Code">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
@@ -110,16 +121,7 @@ $totalDuration = $time_duration;
             </div>
         </div>
 
-        <!-- Alerts -->
-        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
-            <i class="bi bi-check-circle me-1"></i>
-            <span class="alert-text"></span>
-        </div>
 
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
-            <i class="bi bi-exclamation-octagon me-1"></i>
-            <span class="alert-text"></span>
-        </div>
 
         <?php include("js/scripts.php"); ?>
 
