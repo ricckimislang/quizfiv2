@@ -10,14 +10,7 @@
 
 <body>
     <!-- Loading Screen -->
-    <div id="loading-screen">
-        <img src="../assets/img/logo-quizfi.png" alt="Loading">
-        <div class="loading-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
+    <?php include("includes/loading-screen.php"); ?>
 
     <!-- Audio Control -->
     <div class="audio-control-container" style="position: fixed; top: 20px; right: 20px; z-index: 100;">
