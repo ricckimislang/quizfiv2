@@ -156,7 +156,7 @@ body {
   }
 
   .button-group {
-    text-align: center;
+    text-align: center !important;
   }
 
   .profile-img {
@@ -186,7 +186,7 @@ body {
     font-size: 1.4rem;
   }
   .button-group{
-    text-align: center;
+    text-align: center !important;
   }
   .progress-container {
     height: 25px;
