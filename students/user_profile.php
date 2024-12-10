@@ -17,42 +17,54 @@ $totalDuration = $time_duration;
         <?php include 'includes/sidebar.php'; ?>
 
         <main id="main" class="main" height="100vh">
-            <section class="section dashboard">
+            <section class="section ">
                 <div class="row d-flex flex-column">
                     <div class="row">
-
                         <!-- Profile Section -->
                         <div class="col">
                             <div class="profile-details leaderbox p-4">
-                                <div class="col-2 text-center">
-                                    <img src="assets/students/profile.png"
+                                <div class="top-background"></div>
+                                <div class="col-2 text-center z-2">
+                                    <img src="assets/students/profile.jpg"
                                         alt="Profile picture of <?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>"
                                         class="profile-img" role="img" aria-label="Profile picture">
                                 </div>
-                                <div class="col-4 mx-1">
+                                <div class="col-4 mt-5  z-2" style="margin-left: 15px !important;">
                                     <span
-                                        class="student-name fw-bold fs-5"><?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?></span>
-                                    <p class="department text-muted">
+                                        class="student-name fw-bold"><?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>
+                                    </span>
+                                    <br>
+                                    <span class="text-muted" style="font-size: 10px">
                                         <?php echo htmlspecialchars($row1['department']); ?>
-                                    </p>
+                                    </span>
+
+                                    <div class="coins-container d-flex align-items-center">
+                                        <span class="ranking-badge bg-success text-white px-2 py-1">
+                                            Rank <?php echo htmlspecialchars("1"); ?>
+                                        </span>
+                                        <img src="assets/img/coin.png" alt="Coins" class="coins-icon"
+                                            style="width: 26px; height: 26px;">
+                                        <span class="coins-amount fw-bold">
+                                            <?php echo htmlspecialchars($student_score); ?> Coins
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-6 button-group text-end">
                                     <button class="btn btn-edit" id="edit-profile-btn">
-                                        <i class="bx bx-edit"></i> Edit Profile
+                                        <i class="bx bx-edit"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="leaderbox d-flex justify-content-center align-center p-4">
+                            <div
+                                class="top-bg leaderbox position-relative d-flex justify-content-center align-center p-4">
                                 <div class="btns">
-                                    <button id="voucher-button" type="button" class="btn btn-success me-2 px-3 py-2"
-                                        style="border-radius: 0;">
-                                        <i class="bx bx-wifi"></i> Redeem Voucher
+                                    <button id="voucher-button" type="button" class="btn btn-success px-3 py-2">
+                                        <i class="bx bxs-coupon"></i> Redeem Voucher
                                     </button>
-                                    <a href="convert_voucher.php" class="btn btn-warning px-3 py-2"
-                                        style="border-radius: 0;">
-                                        <i class="bx bxs-purchase-tag"></i> Exchange Points for Voucher
+                                    <a href="convert_voucher.php" class="btn btn-warning px-3 py-2">
+                                        <i class="bi bi-currency-exchange"></i> Exchange Points for Voucher
                                     </a>
                                 </div>
                             </div>
