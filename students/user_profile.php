@@ -19,82 +19,96 @@ $totalDuration = $time_duration;
         <main id="main" class="main" height="100vh">
             <section class="section dashboard">
                 <div class="row d-flex flex-column">
-                    <!-- Profile Section -->
-                    <div class="col">
-                        <div class="profile-details leaderbox p-4">
-                            <div class="col-2 text-center">
-                                <img src="assets/students/profile.png" alt="Student Profile" class="profile-img">
+                    <div class="row">
+
+                        <!-- Profile Section -->
+                        <div class="col">
+                            <div class="profile-details leaderbox p-4">
+                                <div class="col-2 text-center">
+                                    <img src="assets/students/profile.png"
+                                        alt="Profile picture of <?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>"
+                                        class="profile-img" role="img" aria-label="Profile picture">
+                                </div>
+                                <div class="col-4 mx-1">
+                                    <span
+                                        class="student-name fw-bold fs-5"><?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?></span>
+                                    <p class="department text-muted">
+                                        <?php echo htmlspecialchars($row1['department']); ?>
+                                    </p>
+                                </div>
+                                <div class="col-6 button-group text-end">
+                                    <button class="btn btn-edit" id="edit-profile-btn">
+                                        <i class="bx bx-edit"></i> Edit Profile
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-4 mx-1">
-                                <span
-                                    class="student-name fw-bold fs-5"><?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?></span>
-                                <p class="department text-muted"><?php echo htmlspecialchars($row1['department']); ?>
-                                </p>
-                            </div>
-                            <div class="col-6 button-group text-end">
-                                <button class="btn btn-edit" id="edit-profile-btn">
-                                    <i class="bx bx-edit"></i> Edit Profile
-                                </button>
+                        </div>
+                        <div class="col-4">
+                            <div class="leaderbox d-flex justify-content-center align-center p-4">
+                                <div class="btns">
+                                    <button id="voucher-button" type="button" class="btn btn-success me-2 px-3 py-2"
+                                        style="border-radius: 0;">
+                                        <i class="bx bx-wifi"></i> Redeem Voucher
+                                    </button>
+                                    <a href="convert_voucher.php" class="btn btn-warning px-3 py-2"
+                                        style="border-radius: 0;">
+                                        <i class="bx bxs-purchase-tag"></i> Exchange Points for Voucher
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Stats Section -->
-                    <div class="col">
-                        <div
-                            class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
-                            <div class="stats d-flex flex-column justify-content-center align-items-center mb-1">
+                    <div class="row mt-3">
+                        <!-- Stats Section -->
+                        <div class="col">
+                            <div
+                                class="profile-details leaderbox d-flex justify-content-center align-items-center flex-column text-center p-4">
+                                <div class="stats d-flex flex-column justify-content-center align-items-center mb-1">
 
-                                <h3 class="ptsContainer text-primary">Available Points: <?php echo $student_score; ?>
-                                </h3>
+                                    <h3 class="ptsContainer text-primary">Available Points:
+                                        <?php echo $student_score; ?>
+                                    </h3>
 
-                                <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
-                                <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
-                                <p><strong>IP Address:</strong> <?php echo htmlspecialchars($user_ip); ?></p>
-                                <!-- Alerts -->
-                                <div class="alert alert-success alert-dismissible fade show" role="alert"
-                                    style="display: none;">
-                                    <i class="bi bi-check-circle me-1"></i>
-                                    <span class="alert-text"></span>
-                                </div>
+                                    <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
+                                    <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
+                                    <p><strong>IP Address:</strong> <?php echo htmlspecialchars($user_ip); ?></p>
+                                    <!-- Alerts -->
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert"
+                                        style="display: none;">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        <span class="alert-text"></span>
+                                    </div>
 
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
-                                    style="display: none;">
-                                    <i class="bi bi-exclamation-octagon me-1"></i>
-                                    <span class="alert-text"></span>
-                                </div>
-                                <!-- end of alert -->
-                                <!-- Progress Bar -->
-                                <div class="progress-container mt-3 bg-white shadow-sm rounded">
-                                    <div id="progress-bar" class="progress-bar bg-primary rounded">
-                                        <span id="time-remaining" class="text-dark position-absolute w-100"></span>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                        style="display: none;">
+                                        <i class="bi bi-exclamation-octagon me-1"></i>
+                                        <span class="alert-text"></span>
+                                    </div>
+                                    <!-- end of alert -->
+                                    <!-- Progress Bar -->
+                                    <div class="progress-container mt-3 bg-white shadow-sm rounded">
+                                        <div id="progress-bar" class="progress-bar bg-primary rounded">
+                                            <span id="time-remaining" class="text-dark position-absolute w-100"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="btns my-4">
-                                <button id="voucher-button" type="button" class="btn btn-success me-2 px-3 py-2"
-                                    style="border-radius: 0;">
-                                    <span class="fas fa-wifi icon-inline"></span> Redeem Voucher
+
+                                <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn"
+                                    style="display: none; border-radius: 0;">
+                                    <i class="fas fa-pause"></i> Pause
                                 </button>
-                                <a href="convert_voucher.php" class="btn btn-warning px-3 py-2"
-                                    style="border-radius: 0;">
-                                    <i class="fas fa-ticket-alt icon-inline"></i> Exchange Points for Voucher
-                                </a>
-                            </div>
+                                <button type="button" class="btn btn-success px-3 py-2" id="continue-btn"
+                                    style="display: none; border-radius: 0;">
+                                    <i class="fas fa-play"></i> Continue
+                                </button>
 
-                            <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn"
-                                style="display: none; border-radius: 0;">
-                                <i class="fas fa-pause"></i> Pause
-                            </button>
-                            <button type="button" class="btn btn-success px-3 py-2" id="continue-btn"
-                                style="display: none; border-radius: 0;">
-                                <i class="fas fa-play"></i> Continue
-                            </button>
-
-                            <div class="tipPts mt-3 p-2 rounded bg-light">
-                                <strong>Tip:</strong> Not enough points? Gain more by participating in quizzes!
-                                <a href="take_quiz.php" class="text-decoration-none fw-bold text-primary">Play Now</a>
+                                <div class="tipPts mt-3 p-2 rounded bg-light">
+                                    <strong>Tip:</strong> Not enough points? Gain more by participating in quizzes!
+                                    <a href="take_quiz.php" class="text-decoration-none fw-bold text-primary">Play
+                                        Now</a>
+                                </div>
                             </div>
                         </div>
                     </div>

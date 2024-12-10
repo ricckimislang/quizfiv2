@@ -88,6 +88,13 @@ body {
   color: #fff;
   border-color: var(--primary-color);
 }
+.btns{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
 /* Stats Section */
 .stats {
