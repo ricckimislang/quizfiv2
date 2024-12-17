@@ -1,0 +1,511 @@
+/* Modern gradient background and container styling */
+.leaderboard-container {
+  padding: 30px;
+  margin: 20px;
+  background: linear-gradient(180deg, #bf90ec 0%, #a766e5 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(1, 41, 112, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.leaderboard-container::before {
+  content: "";
+  position: absolute;
+  top: -150px;
+  left: -25%;
+  width: 150%;
+  height: 300px;
+  background: #a45ce7;
+  border-radius: 0 0 50% 50%;
+  z-index: 0;
+}
+
+/* Enhanced header styling */
+.leaderboard-header {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #012970;
+  font-family: "Nunito", sans-serif;
+  position: relative;
+  z-index: 1;
+}
+.leaderboard-header h1 {
+  background: linear-gradient(135deg, #fcb825 0%, #e2e2e2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.leaderboard-header h2 {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  background: #012970;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-header p {
+  color: #012970;
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Improved podium container */
+.podium-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  margin: 0;
+  min-height: 400px;
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+}
+
+/* Enhanced podium items */
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  transform-origin: bottom;
+}
+
+.podium-item:hover {
+  transform: translateY(-15px) scale(1.05);
+}
+
+/* Position ordering with improved spacing */
+.position-2 {
+  order: 1;
+}
+
+.position-1 {
+  order: 2;
+}
+
+.position-3 {
+  order: 3;
+}
+
+/* Enhanced avatar styling */
+.avatar-container {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+  background: #f6f9ff;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.avatar-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.avatar-container:hover img {
+  transform: scale(1.1);
+}
+
+.position-1 .avatar-container {
+  width: 160px;
+  height: 160px;
+  border: 6px solid #ffd700;
+}
+
+/* Improved crown animation */
+.crown {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 45px;
+  color: #ffd700;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+  animation: float 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+/* Enhanced podium base with 3D effect */
+.podium-base {
+  width: 130px;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  color: white;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: all 0.3s ease;
+}
+
+.podium-base::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  transform: rotateX(90deg) translateZ(-10px);
+  transform-origin: bottom;
+}
+
+.position-1 .podium-base {
+  height: 200px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  width: 160px;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.position-2 .podium-base {
+  height: 160px;
+  background: linear-gradient(135deg, #c0c0c0 0%, #e5e5e5 100%);
+  box-shadow: 0 10px 30px rgba(192, 192, 192, 0.3);
+}
+
+.position-3 .podium-base {
+  height: 120px;
+  background: linear-gradient(135deg, #cd7f32 0%, #e6b17e 100%);
+  box-shadow: 0 10px 30px rgba(205, 127, 50, 0.3);
+}
+
+/* Improved player name styling */
+.player-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #012970;
+  margin: 15px 0;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.position-1 .player-name {
+  font-size: 24px;
+  background: linear-gradient(135deg, #012970 0%, #4154f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Enhanced score display */
+.score {
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  margin-top: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.position-1 .score {
+  font-size: 32px;
+}
+
+.score::after {
+  content: "pts";
+  font-size: 0.6em;
+  opacity: 0.8;
+}
+
+/* Improved rank badges */
+.rank-badge {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  font-size: 20px;
+  border: 2px solid;
+}
+
+.position-1 .rank-badge {
+  background: #ffd700;
+  color: white;
+  border-color: #ffed4a;
+  width: 45px;
+  height: 45px;
+  font-size: 22px;
+}
+
+.position-2 .rank-badge {
+  background: #c0c0c0;
+  color: white;
+  border-color: #e5e5e5;
+}
+
+.position-3 .rank-badge {
+  background: #cd7f32;
+  color: white;
+  border-color: #e6b17e;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0% {
+    transform: translateX(-50%) translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-15px) rotate(5deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.score {
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+/* Trophy icons styling */
+.podium-base i {
+  font-size: 24px;
+  margin-top: 10px;
+  opacity: 0.9;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.position-1 .podium-base i {
+  font-size: 28px;
+  color: #ffed4a;
+}
+
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+  .podium-container {
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .avatar-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .position-1 .avatar-container {
+    width: 130px;
+    height: 130px;
+  }
+
+  .podium-base {
+    width: 110px;
+  }
+
+  .position-1 .podium-base {
+    width: 140px;
+  }
+
+  .player-name {
+    font-size: 16px;
+  }
+
+  .position-1 .player-name {
+    font-size: 20px;
+  }
+
+  .score {
+    font-size: 22px;
+  }
+
+  .position-1 .score {
+    font-size: 26px;
+  }
+
+  .rank-badge {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    top: -15px;
+    right: -15px;
+  }
+
+  .position-1 .rank-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .crown {
+    font-size: 35px;
+    top: -30px;
+  }
+}
+
+/* Remaining Leaders Section */
+.remaining-leaders {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 2px solid rgba(1, 41, 112, 0.1);
+}
+
+.remaining-leaders h2 {
+  text-align: center;
+  color: #012970;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.leaders-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.leader-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(1, 41, 112, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leader-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 20px rgba(1, 41, 112, 0.12);
+}
+
+.leader-rank {
+  width: 35px;
+  height: 35px;
+  background: #f6f9ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #012970;
+  margin-right: 20px;
+  font-size: 16px;
+  border: 2px solid rgba(1, 41, 112, 0.1);
+}
+
+.leader-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20px;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 10px rgba(1, 41, 112, 0.1);
+}
+
+.leader-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leader-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leader-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #012970;
+}
+
+.leader-score {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4154f1;
+  background: #f6f9ff;
+  padding: 8px 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(65, 84, 241, 0.15);
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 480px) {
+  .leaderboard-container {
+    padding: 20px 15px;
+    margin: 10px;
+  }
+
+  .leaderboard-header h1 {
+    font-size: 28px;
+  }
+
+  .leaderboard-header p {
+    font-size: 16px;
+  }
+
+  .podium-container {
+    gap: 15px;
+  }
+
+  .remaining-leaders {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .remaining-leaders h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .leader-item {
+    padding: 12px 15px;
+  }
+
+  .leader-rank {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    margin-right: 15px;
+  }
+
+  .leader-avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  }
+
+  .leader-name {
+    font-size: 16px;
+  }
+
+  .leader-score {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+}
