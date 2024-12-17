@@ -64,15 +64,21 @@ body {
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: solid #f9f9f9 10px;
+  border: solid #f9f9f9 6px;
 }
 
 .student-name {
   font-size: 1.8rem;
 }
+.student-details {
+  overflow: hidden;
+  width: auto;
+  position: relative;
+  top: -27px;
+}
 .ranking-badge {
   font-size: 0.6rem;
-  width: 30%;
+  width: auto;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -96,7 +102,7 @@ body {
 }
 /* Button Styles */
 .btn {
-  padding: 10px 20px; /* Increased padding */
+  padding: 10px; /* Increased padding */
   border-radius: 8px;
   border: none;
   font-weight: 600;
@@ -204,7 +210,10 @@ body {
     flex-direction: column;
     text-align: center;
   }
-
+  .student-details {
+    position: relative;
+    top: 0.5rem;
+  }
   .col-2,
   .col-4,
   .col-6 {
@@ -217,6 +226,7 @@ body {
   }
 
   .profile-img {
+    top: 20px;
     margin: 0 auto;
   }
 
@@ -236,6 +246,7 @@ body {
   .profile-img {
     width: 80px;
     height: 80px;
+    top: 20px;
   }
 
   .ptsContainer {

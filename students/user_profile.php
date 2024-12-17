@@ -29,7 +29,7 @@ $totalDuration = $time_duration;
                                         alt="Profile picture of <?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>"
                                         class="profile-img" role="img" aria-label="Profile picture">
                                 </div>
-                                <div class="col-4 mt-5  z-2" style="margin-left: 15px !important;">
+                                <div class="col-4 student-details  z-2" style="margin-left: 15px !important;">
                                     <span
                                         class="student-name fw-bold"><?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>
                                     </span>
@@ -49,11 +49,11 @@ $totalDuration = $time_duration;
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-6 button-group text-end">
+                                <!-- <div class="col-6 button-group text-end">
                                     <button class="btn btn-edit" id="edit-profile-btn">
                                         <i class="bx bx-edit"></i>
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-4">
@@ -98,6 +98,7 @@ $totalDuration = $time_duration;
                                         <span class="alert-text"></span>
                                     </div>
                                     <!-- end of alert -->
+
                                     <!-- Progress Bar -->
                                     <div class="progress-container mt-3 bg-white shadow-sm rounded">
                                         <div id="progress-bar" class="progress-bar bg-primary rounded">
@@ -107,11 +108,11 @@ $totalDuration = $time_duration;
                                 </div>
 
 
-                                <button type="button" class="btn btn-secondary px-3 py-2 me-2" id="pause-btn"
+                                <button type="button" class="btn btn-secondary px-3 py-2 rounded" id="pause-btn"
                                     style="display: none; border-radius: 0;">
                                     <i class="fas fa-pause"></i> Pause
                                 </button>
-                                <button type="button" class="btn btn-success px-3 py-2" id="continue-btn"
+                                <button type="button" class="btn btn-success px-3 py-2 rounded" id="continue-btn"
                                     style="display: none; border-radius: 0;">
                                     <i class="fas fa-play"></i> Continue
                                 </button>
