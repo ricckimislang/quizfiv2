@@ -20,6 +20,7 @@ include('includes/session.php');
                     <div class="d-flex flex-row justify-content-center">
                         <h1>🏆</h1>
                         <h2>Top Performers</h2>
+                        <h1>🏆</h1>
                     </div>
 
                     <p>Our brightest quiz champions</p>
@@ -136,17 +137,24 @@ include('includes/session.php');
             // Animate score counting
             function animateValue(element, start, end, duration) {
                 if (start === end) return;
+
                 const range = end - start;
+                const increment = Math.ceil(range / (duration / 100)); // Calculate increment based on duration
                 let current = start;
-                const increment = end > start ? 1 : -1;
-                const stepTime = Math.abs(Math.floor(duration / range));
-                const timer = setInterval(() => {
-                    current += increment;
-                    element.textContent = current;
-                    if (current === end) {
-                        clearInterval(timer);
+
+                function update() {
+                    current += (end > start) ? increment : -increment; // Increment or decrement
+                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                        current = end; // Ensure we don't overshoot
                     }
-                }, stepTime);
+                    element.textContent = current;
+
+                    if (current !== end) {
+                        requestAnimationFrame(update); // Continue the animation
+                    }
+                }
+
+                requestAnimationFrame(update); // Start the animation
             }
 
             // Animate all score elements when page loads
@@ -162,10 +170,11 @@ include('includes/session.php');
 
                 document.querySelectorAll('.score').forEach(scoreElement => {
                     const finalScore = parseInt(scoreElement.dataset.score);
-                    animateValue(scoreElement, 0, finalScore, 2000);
+                    animateValue(scoreElement, 0, finalScore, 10000); // You can adjust the duration here
                 });
             });
         </script>
+
 
         <?php include('js/scripts.php'); ?>
 </body>
