@@ -1,9 +1,27 @@
 :root {
-  --primary-color: rgb(46, 94, 139);
-  --accent-color: rgb(165, 33, 165);
-  --shadow-color: rgba(1, 41, 112, 0.4);
-  --text-dark: #333;
-  --text-light: #666;
+  /* Primary Colors */
+  --primary-color: #2563eb;      /* Brighter, more vibrant blue */
+  --primary-dark: #1d4ed8;       /* Darker blue for hover states */
+  --accent-color: #8b5cf6;       /* Softer purple that complements the blue */
+  
+  /* Neutral Colors */
+  --background: #ffffff;         /* Pure white */
+  --background-alt: #f8fafc;     /* Light gray for alternate backgrounds */
+  --text-dark: #1e293b;         /* Darker, softer black for main text */
+  --text-light: #64748b;        /* Medium gray for secondary text */
+  
+  /* UI Colors */
+  --success: #22c55e;           /* Vibrant green */
+  --warning: #eab308;           /* Warm yellow */
+  --error: #ef4444;             /* Bright red */
+  --coins: #f59e0b;             /* Warmer orange for coins */
+  
+  /* Component Colors */
+  --card-bg: #ffffff;           /* Card background */
+  --shadow-color: rgba(15, 23, 42, 0.1);  /* Softer shadow */
+  --border-color: #e2e8f0;      /* Subtle border color */
+  
+  /* Other */
   --transition-speed: 0.3s;
 }
 
@@ -15,7 +33,7 @@ body {
 
 /* Profile Container Styles */
 .leaderbox {
-  background-color: #f9f9f9; /* Added subtle background color */
+  background-color: var(--card-bg);
   border-radius: 20px;
   max-width: 100%;
   min-height: 15vh;
@@ -52,19 +70,20 @@ body {
   border-radius: 20px 20px 0 0; /* Match the border radius of the parent */
 }
 .top-bg {
-  background-color: #ceeafd;
+  background-color: var(--background-alt);
+  border-bottom: 1px solid var(--border-color);
   z-index: 1; /* Place behind the content */
 }
 
 .profile-img {
   position: relative;
-  background-color: #211d1d;
+  background-color: var(--text-dark);
   top: -25px;
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: solid #f9f9f9 6px;
+  border: solid var(--card-bg) 6px;
 }
 
 .student-name {
@@ -84,21 +103,26 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  border: 2px solid #fff;
+  border: 2px solid var(--background);
+  background-color: var(--accent-color);
+  color: var(--background);
+  padding: 4px 8px;
 }
 
 .coins-container {
-  background-color: #f8f9fa;
+  background-color: var(--background-alt);
   border-radius: 20px;
+  border: 1px solid var(--border-color);
 }
 
 .coins-icon {
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(1px 1px 2px var(--shadow-color));
 }
 
 .coins-amount {
-  color: #ffa500;
+  color: var(--coins);
   font-size: 0.9rem;
+  font-weight: 600;
 }
 /* Button Styles */
 .btn {
@@ -117,31 +141,34 @@ body {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .btn-success {
-  background-color: #28a745;
+  background-color: var(--success);
+  color: var(--background);
 }
 
 .btn-warning {
-  background-color: #ffc107;
+  background-color: var(--warning);
+  color: var(--text-dark);
 }
 
 .btn-edit {
   position: absolute;
-  top: 10;
-  right: 10;
-  background-color: #fff;
+  top: 10px;
+  right: 10px;
+  background-color: var(--background);
   color: var(--text-dark);
-  border: 1px solid rgba(134, 134, 134, 0.6);
+  border: 1px solid var(--border-color);
   z-index: 2;
+  padding: 8px 16px;
 }
 
 .btn-edit:hover {
   background-color: var(--primary-color);
-  color: #fff;
-  border-color: var(--primary-color);
+  color: var(--background);
+  border-color: var(--primary-dark);
 }
 
 .btns {
@@ -169,7 +196,8 @@ body {
 .progress-container {
   width: 100%;
   height: 30px;
-  background-color: #f8f9fa;
+  background-color: var(--background-alt);
+  border: 1px solid var(--border-color);
   border-radius: 15px;
   overflow: hidden;
   position: relative;
@@ -184,7 +212,7 @@ body {
 
 /* Tips Section */
 .tipPts {
-  background-color: #f8f9fa;
+  background-color: var(--background-alt);
   border-radius: 10px;
   padding: 15px;
   margin-top: 2rem;
@@ -200,7 +228,7 @@ body {
 
 .modal-header {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--background);
   border-radius: 15px 15px 0 0;
 }
 
@@ -234,6 +262,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+  .coins-container {
+    display: flex;
+    justify-content: center;
   }
 }
 
