@@ -301,12 +301,13 @@
   font-size: 20px;
   margin-top: 8px;
   opacity: 0.9;
-  filter: drop-shadow(2px 2px 4px var(--shadow-color));
+  filter: drop-shadow(2px 2px 4px var(--shadow-color)) !important;
 }
 
 .position-1 .podium-base i {
   font-size: 24px;
-  color: rgb(184, 166, 63);
+  color: rgb(255, 255, 1);
+  filter: drop-shadow(0 0 1px rgb(0,0,0,0.2));
 }
 
 /* Remaining Leaders Section */

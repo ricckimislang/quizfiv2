@@ -10,6 +10,8 @@
 # General
 --------------------------------------------------------------*/
 :root {
+  --background: #ffffff; /* Pure white */
+
   --color-background-body: #f0f4f8;
   --color-background-sidebar: #2c3e50;
   --color-background-header: #2980b9;
@@ -396,7 +398,7 @@ h6 {
 .logo span {
   font-size: 26px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Nunito", sans-serif;
 }
 
@@ -415,7 +417,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .header .search-bar {
@@ -506,7 +508,7 @@ h6 {
 }
 
 .header-nav .nav-profile span {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
 }
