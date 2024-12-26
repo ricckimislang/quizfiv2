@@ -125,4 +125,7 @@ body {
     width: 90%;
     padding: 30px 20px;
   }
+  body{
+    background-size: cover;
+  }
 }

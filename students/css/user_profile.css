@@ -1,26 +1,26 @@
 :root {
   /* Primary Colors */
-  --primary-color: #2563eb;      /* Brighter, more vibrant blue */
-  --primary-dark: #1d4ed8;       /* Darker blue for hover states */
-  --accent-color: #8b5cf6;       /* Softer purple that complements the blue */
-  
+  --primary-color: #2563eb; /* Brighter, more vibrant blue */
+  --primary-dark: #1d4ed8; /* Darker blue for hover states */
+  --accent-color: #8b5cf6; /* Softer purple that complements the blue */
+  --one-color: #2980b9;
   /* Neutral Colors */
-  --background: #ffffff;         /* Pure white */
-  --background-alt: #f8fafc;     /* Light gray for alternate backgrounds */
-  --text-dark: #1e293b;         /* Darker, softer black for main text */
-  --text-light: #64748b;        /* Medium gray for secondary text */
-  
+  --background: #ffffff; /* Pure white */
+  --background-alt: #f8fafc; /* Light gray for alternate backgrounds */
+  --text-dark: #1e293b; /* Darker, softer black for main text */
+  --text-light: #64748b; /* Medium gray for secondary text */
+
   /* UI Colors */
-  --success: #22c55e;           /* Vibrant green */
-  --warning: #eab308;           /* Warm yellow */
-  --error: #ef4444;             /* Bright red */
-  --coins: #f59e0b;             /* Warmer orange for coins */
-  
+  --success: #22c55e; /* Vibrant green */
+  --warning: #eab308; /* Warm yellow */
+  --error: #ef4444; /* Bright red */
+  --coins: #f59e0b; /* Warmer orange for coins */
+
   /* Component Colors */
-  --card-bg: #ffffff;           /* Card background */
-  --shadow-color: rgba(15, 23, 42, 0.1);  /* Softer shadow */
-  --border-color: #e2e8f0;      /* Subtle border color */
-  
+  --card-bg: #ffffff; /* Card background */
+  --shadow-color: rgba(15, 23, 42, 0.1); /* Softer shadow */
+  --border-color: #e2e8f0; /* Subtle border color */
+
   /* Other */
   --transition-speed: 0.3s;
 }
@@ -30,16 +30,18 @@ body {
   color: var(--text-dark);
   margin: 0;
 }
-
+.main {
+  margin-top: 110px !important;
+}
 /* Profile Container Styles */
 .leaderbox {
-  background-color: var(--card-bg);
-  border-radius: 20px;
-  max-width: 100%;
-  min-height: 15vh;
-  height: 100%;
+  position: relative;
+  background-color: var(--background-alt);
+  border-radius: 10px;
+  max-width: 50%;
+  min-height: 55vh;
+  height: auto;
   margin: 12px auto;
-  padding: 15px; /* Reduced padding */
   box-shadow: 0 5px 15px var(--shadow-color);
   transition: transform var(--transition-speed),
     box-shadow var(--transition-speed);
@@ -49,51 +51,50 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px var(--shadow-color);
 }
-
+.container {
+  position: relative;
+  padding: 2rem;
+}
 /* Profile Image Styles */
-.profile-details {
+.logo-header {
   position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center; /* Center align items */
 }
-.top-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 35%; /* Adjust the height as needed */
-  background-image: url("../assets/img/profile-top.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 1; /* Place behind the content */
-  border-radius: 20px 20px 0 0; /* Match the border radius of the parent */
+.logo-header h2 {
+  font-weight: bold;
 }
-.top-bg {
-  background-color: var(--background-alt);
-  border-bottom: 1px solid var(--border-color);
-  z-index: 1; /* Place behind the content */
+.logo-header p {
+  font-size: 0.7rem;
 }
 
-.profile-img {
+.profile-info {
   position: relative;
-  background-color: var(--text-dark);
-  top: -25px;
+  margin-top: -35px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  z-index: 2;
+}
+.profile-avatar {
+  position: relative;
+}
+
+.profile-avatar .profile-img {
+  margin-top: -50px;
+  margin-bottom: 1rem;
+  background-color: var(--background);
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: solid var(--card-bg) 6px;
+  border: solid var(--background-alt) 8px;
 }
 
-.student-name {
-  font-size: 1.8rem;
-}
-.student-details {
-  overflow: hidden;
-  width: auto;
+.coins-container {
   position: relative;
-  top: -27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ranking-badge {
   font-size: 0.6rem;
@@ -103,8 +104,8 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  border: 2px solid var(--background);
   background-color: var(--accent-color);
+  box-shadow: 0 4px 8px var(--shadow-color);
   color: var(--background);
   padding: 4px 8px;
 }
@@ -118,6 +119,7 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
 }
+
 /* Button Styles */
 .btn {
   padding: 10px; /* Increased padding */
@@ -130,7 +132,7 @@ body {
 }
 
 .btns .btn {
-  width: 100%;
+  width: 40%;
 }
 
 .btn:hover {
@@ -149,20 +151,19 @@ body {
 }
 
 .btn-edit {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: var(--background);
-  color: var(--text-dark);
-  border: 1px solid var(--border-color);
-  z-index: 2;
-  padding: 8px 16px;
+  position: absolute; /* Position the button absolutely */
+  bottom: 10px; /* Distance from the bottom of the image */
+  right: 0; /* Distance from the left of the image */
+  background-color: var(--one-color); /* Semi-transparent background */
+  color: rgba(255, 255, 255, 1); /* Text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding for the button */
+  transition: background-color 0.3s; /* Smooth background transition */
 }
 
 .btn-edit:hover {
-  background-color: var(--primary-color);
-  color: var(--background);
-  border-color: var(--primary-dark);
+  background-color: rgba(255, 255, 255, 1); /* Fully opaque on hover */
 }
 
 .btns {
@@ -212,6 +213,7 @@ body {
   margin-top: 2rem;
   border-left: 4px solid var(--primary-color);
   border-right: 4px solid var(--primary-color);
+  font-size: 0.8rem;
 }
 
 /* Modal Styles */
@@ -228,34 +230,29 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .leaderbox {
+    max-width: 100%;
+  }
   .profile-details {
     flex-direction: column;
     text-align: center;
   }
-  .student-details {
-    position: relative;
-    top: 0.5rem;
+  .profile-avatar .profile-img {
+    margin-top: -60px;
+    width: 130px;
+    height: 130px;
   }
-  .col-2,
-  .col-4,
-  .col-6 {
-    width: 100%;
-    margin: 10px 0;
-  }
-
   .button-group {
     text-align: center !important;
-  }
-
-  .profile-img {
-    top: 20px;
-    margin: 0 auto;
   }
 
   .btns {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+  .btns .btn {
+    width: 50%;
   }
   .coins-container {
     display: flex;
@@ -264,15 +261,17 @@ body {
 }
 
 @media (max-width: 425px) {
+  body {
+    background-size: cover;
+  }
   .leaderbox {
-    padding: 15px;
-    margin: 8px;
+    max-width: 100%;
   }
 
-  .profile-img {
-    width: 80px;
-    height: 80px;
-    top: 20px;
+  .profile-avatar .profile-img {
+    margin-top: -60px;
+    width: 120px;
+    height: 120px;
   }
 
   .ptsContainer {
@@ -285,5 +284,8 @@ body {
 
   .progress-container {
     height: 25px;
+  }
+  .btns .btn {
+    width: 100%;
   }
 }
