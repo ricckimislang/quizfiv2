@@ -69,7 +69,6 @@ $totalDuration = $time_duration;
                                 </div>
                             </div>
                             <div class="btns">
-
                                 <button type="button" class="btn btn-secondary px-3 py-2 rounded" id="pause-btn"
                                     style="display: none; border-radius: 0;">
                                     <i class="fas fa-pause"></i> Pause

@@ -125,15 +125,13 @@ body {
   padding: 10px; /* Increased padding */
   border-radius: 8px;
   border: none;
-  font-weight: 600;
+  font-size: .8rem;
+  font-weight: 400;
   transition: all var(--transition-speed);
   position: relative;
   overflow: hidden;
 }
 
-.btns .btn {
-  width: 40%;
-}
 
 .btn:hover {
   transform: translateY(-2px);
@@ -168,7 +166,7 @@ body {
 
 .btns {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;
