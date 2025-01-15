@@ -296,7 +296,40 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive Design */
+/* Pagination Styles */
+.pagination {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  margin: 0 5px;
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.pagination .current-page {
+  font-weight: bold;
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #2980b9;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.pagination a:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+
 @media (min-width: 426px) and (max-width: 768px) {
   .quiz-selection {
     padding: 1rem;

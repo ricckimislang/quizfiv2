@@ -25,17 +25,17 @@ include('includes/session.php');
             </div>
 
             <div class="difficulty-filters">
-                <button class="difficulty-btn easy active" data-difficulty="easy">
+                <button class="difficulty-btn easy active" data-difficulty="Easy">
                     <i class="fas fa-star-half-alt"></i>
                     <span>Easy</span>
                     <small>(Beginner)</small>
                 </button>
-                <button class="difficulty-btn moderate" data-difficulty="moderate">
+                <button class="difficulty-btn moderate" data-difficulty="Moderate">
                     <i class="fas fa-star"></i>
                     <span>Moderate</span>
                     <small>(Intermediate)</small>
                 </button>
-                <button class="difficulty-btn hard" data-difficulty="hard">
+                <button class="difficulty-btn hard" data-difficulty="Hard">
                     <i class="fas fa-crown"></i>
                     <span>Hard</span>
                     <small>(Advanced)</small>
@@ -43,134 +43,140 @@ include('includes/session.php');
             </div>
 
             <div class="quiz-grid">
-                <!-- Easy Quiz Cards -->
-                <div class="quiz-card" data-difficulty="easy">
-                    <div class="quiz-card-header">
-                        <span class="difficulty-badge easy">Easy</span>
-                    </div>
-                    <div class="quiz-card-body">
-                        <h3 class="quiz-title">
-                            <i class="fas fa-calculator me-2"></i>
-                            Basic Mathematics
-                        </h3>
-                        <p class="quiz-description">Master fundamental math concepts through engaging problems. Perfect
-                            for building a strong foundation in arithmetic and basic problem-solving.</p>
-                        <div class="quiz-meta">
-                            <span><i class="fas fa-clock"></i>15 mins</span>
-                            <span><i class="fas fa-question-circle"></i>10 questions</span>
-                        </div>
-                        <button class="start-quiz-btn" onclick="startQuiz(1)">
-                            <i class="fas fa-play"></i>Start Quiz
-                        </button>
-                    </div>
-                </div>
+                <!-- Query to show quiz cards -->
+                <?php
+                // Determine the selected difficulty
+                $selectedDifficulty = isset($_GET['difficulty']) ? $_GET['difficulty'] : 'Easy';
 
-                <div class="quiz-card" data-difficulty="easy">
-                    <div class="quiz-card-header">
-                        <span class="difficulty-badge easy">Easy</span>
-                    </div>
-                    <div class="quiz-card-body">
-                        <h3 class="quiz-title">
-                            <i class="fas fa-globe me-2"></i>
-                            General Knowledge
-                        </h3>
-                        <p class="quiz-description">Explore fascinating facts about the world around us. An excellent
-                            starting point for expanding your knowledge across various topics.</p>
-                        <div class="quiz-meta">
-                            <span><i class="fas fa-clock"></i>20 mins</span>
-                            <span><i class="fas fa-question-circle"></i>15 questions</span>
-                        </div>
-                        <button class="start-quiz-btn" onclick="startQuiz(2)">
-                            <i class="fas fa-play"></i>Start Quiz
-                        </button>
-                    </div>
-                </div>
+                // Pagination logic
+                $limit = 4; // Limit to 3 quizzes per page
+                $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // Get current page or default to 1
+                $offset = ($page - 1) * $limit; // Calculate offset for SQL query
+                
+                // Fetch total number of quizzes to calculate total pages
+                $totalQuizzesQuery = "SELECT COUNT(*) as total FROM quiz WHERE difficulty = ? AND classroom_id = 0";
+                $totalStmt = $conn->prepare($totalQuizzesQuery);
+                if ($totalStmt === false) {
+                    die('Error preparing the SQL statement: ' . $conn->error);
+                }
+                $totalStmt->bind_param('s', $selectedDifficulty);
+                $totalStmt->execute();
+                $totalResult = $totalStmt->get_result();
+                $totalRow = $totalResult->fetch_assoc();
+                $totalQuizzes = $totalRow['total'];
+                $totalPages = ceil($totalQuizzes / $limit); // Calculate total pages
+                
+                // Fetch quizzes for the current page based on the selected difficulty with LIMIT and OFFSET
+                $quizzesQuery = "SELECT * FROM quiz WHERE difficulty = ? AND classroom_id = 0 LIMIT ? OFFSET ?";
+                $qstmt = $conn->prepare($quizzesQuery);
+                if ($qstmt === false) {
+                    die('Error preparing the SQL statement: ' . $conn->error);
+                }
 
-                <!-- Moderate Quiz Cards -->
-                <div class="quiz-card" data-difficulty="moderate">
-                    <div class="quiz-card-header">
-                        <span class="difficulty-badge moderate">Moderate</span>
-                    </div>
-                    <div class="quiz-card-body">
-                        <h3 class="quiz-title">
-                            <i class="fas fa-landmark me-2"></i>
-                            World History
-                        </h3>
-                        <p class="quiz-description">Journey through time with questions about significant historical
-                            events, civilizations, and influential figures who shaped our world.</p>
-                        <div class="quiz-meta">
-                            <span><i class="fas fa-clock"></i>25 mins</span>
-                            <span><i class="fas fa-question-circle"></i>20 questions</span>
-                        </div>
-                        <button class="start-quiz-btn" onclick="startQuiz(3)">
-                            <i class="fas fa-play"></i>Start Quiz
-                        </button>
-                    </div>
-                </div>
+                $qstmt->bind_param('sii', $selectedDifficulty, $limit, $offset);
+                $qstmt->execute();
+                $qresult = $qstmt->get_result();
 
-                <div class="quiz-card" data-difficulty="moderate">
-                    <div class="quiz-card-header">
-                        <span class="difficulty-badge moderate">Moderate</span>
-                    </div>
-                    <div class="quiz-card-body">
-                        <h3 class="quiz-title">
-                            <i class="fas fa-microchip me-2"></i>
-                            Science & Technology
-                        </h3>
-                        <p class="quiz-description">Discover the wonders of scientific discoveries and technological
-                            innovations that drive our modern world forward.</p>
-                        <div class="quiz-meta">
-                            <span><i class="fas fa-clock"></i>30 mins</span>
-                            <span><i class="fas fa-question-circle"></i>25 questions</span>
-                        </div>
-                        <button class="start-quiz-btn" onclick="startQuiz(4)">
-                            <i class="fas fa-play"></i>Start Quiz
-                        </button>
-                    </div>
-                </div>
+                $counter = 0; // Counter to track quizzes per row
+                
+                while ($quiz = $qresult->fetch_assoc()) {
+                    // Start a new row after every 4 quizzes
+                    if ($counter % 4 == 0 && $counter > 0) {
+                        echo '</div><div class="row card-grid">'; // Close current row and start a new one
+                    }
+                    ?>
 
-                <!-- Hard Quiz Cards -->
-                <div class="quiz-card" data-difficulty="hard">
-                    <div class="quiz-card-header">
-                        <span class="difficulty-badge hard">Hard</span>
-                    </div>
-                    <div class="quiz-card-body">
-                        <h3 class="quiz-title">
-                            <i class="fas fa-atom me-2"></i>
-                            Advanced Physics
-                        </h3>
-                        <p class="quiz-description">Challenge yourself with complex physics problems and theoretical
-                            concepts. Test your understanding of the fundamental laws of the universe.</p>
-                        <div class="quiz-meta">
-                            <span><i class="fas fa-clock"></i>45 mins</span>
-                            <span><i class="fas fa-question-circle"></i>30 questions</span>
+                    <!-- Easy Quiz Cards -->
+                    <div class="quiz-card" data-difficulty="<?php echo htmlspecialchars($quiz['difficulty']); ?>">
+                        <div class="quiz-card-header">
+                            <span
+                                class="difficulty-badge <?php echo htmlspecialchars($quiz['difficulty']); ?>"><?php echo htmlspecialchars($quiz['difficulty']); ?></span>
                         </div>
-                        <button class="start-quiz-btn" onclick="startQuiz(5)">
-                            <i class="fas fa-play"></i>Start Quiz
-                        </button>
+                        <div class="quiz-card-body">
+                            <h3 class="quiz-title">
+                                <?php echo htmlspecialchars($quiz['quiz_title']); ?>
+                            </h3>
+                            <p class="quiz-description"><?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
+                            <div class="quiz-meta">
+                                <span><i class="fas fa-clock"></i>
+                                    <?php
+                                    // Dynamic time based on difficulty
+                                    switch ($quiz['difficulty']) {
+                                        case 'Easy':
+                                            echo '10 mins';
+                                            break;
+                                        case 'Moderate':
+                                            echo '20 mins';
+                                            break;
+                                        case 'Hard':
+                                            echo '30 mins';
+                                            break;
+                                        default:
+                                            echo '10 mins'; // fallback
+                                    }
+                                    ?>
+                                </span>
+                                <span><i class="fas fa-question-circle"></i>
+                                    <?php
+                                    // Dynamic time based on difficulty
+                                    switch ($quiz['difficulty']) {
+                                        case 'Easy':
+                                            echo '10';
+                                            break;
+                                        case 'Moderate':
+                                            echo '20';
+                                            break;
+                                        case 'Hard':
+                                            echo '30';
+                                            break;
+                                        default:
+                                            echo '10'; // fallback
+                                    }
+                                    ?>
+                                    questions</span>
+                            </div>
+                            <button class="start-quiz-btn" onclick="startQuiz(1)">
+                                <i class="fas fa-play"></i>Start Quiz
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="quiz-card" data-difficulty="hard">
-                    <div class="quiz-card-header">
-                        <span class="difficulty-badge hard">Hard</span>
-                    </div>
-                    <div class="quiz-card-body">
-                        <h3 class="quiz-title">
-                            <i class="fas fa-square-root-alt me-2"></i>
-                            Advanced Mathematics
-                        </h3>
-                        <p class="quiz-description">Push your mathematical abilities to the limit with advanced concepts
-                            and challenging problem-solving scenarios.</p>
-                        <div class="quiz-meta">
-                            <span><i class="fas fa-clock"></i>40 mins</span>
-                            <span><i class="fas fa-question-circle"></i>25 questions</span>
-                        </div>
-                        <button class="start-quiz-btn" onclick="startQuiz(6)">
-                            <i class="fas fa-play"></i>Start Quiz
-                        </button>
-                    </div>
-                </div>
+                    <?php
+                    $counter++; // Increment counter after displaying a quiz
+                }
+
+                // Close the last row if there are quizzes
+                if ($counter > 0) {
+                    echo '</div>';
+                }
+
+                // Pagination controls
+                if ($totalPages > 1) {
+                    echo '<div class="pagination">';
+
+                    // Previous page link
+                    if ($page > 1) {
+                        echo '<a href="?difficulty=' . $selectedDifficulty . '&page=' . ($page - 1) . '">&laquo; Previous</a>';
+                    }
+
+                    // Display page numbers
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        if ($i == $page) {
+                            echo '<span class="current-page">' . $i . '</span>';
+                        } else {
+                            echo '<a href="?difficulty=' . $selectedDifficulty . '&page=' . $i . '">' . $i . '</a>';
+                        }
+                    }
+
+                    // Next page link
+                    if ($page < $totalPages) {
+                        echo '<a href="?difficulty=' . $selectedDifficulty . '&page=' . ($page + 1) . '">Next &raquo;</a>';
+                    }
+
+                    echo '</div>';
+                }
+                ?>
+
             </div>
         </div>
     </main>
@@ -193,16 +199,11 @@ include('includes/session.php');
                     difficultyBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    // Filter quiz cards with animation
+                    // Get the selected difficulty
                     const difficulty = btn.dataset.difficulty;
-                    quizCards.forEach(card => {
-                        if (difficulty === 'all' || card.dataset.difficulty === difficulty) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeIn 0.6s ease-out forwards';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+
+                    // Redirect to the page with the selected difficulty
+                    window.location.href = `?difficulty=${difficulty}`;
                 });
             });
         });
@@ -210,7 +211,7 @@ include('includes/session.php');
         function startQuiz(quizId) {
             // Enhanced confirmation dialog
             if (confirm('Ready to begin? Make sure you have enough time to complete the quiz. Click OK to start your learning journey!')) {
-                window.location.href = `start_quiz.php?id=${quizId}`;
+                window.location.href = `quiz_time.php?quiz_id=${quizId}`;
             }
         }
     </script>
