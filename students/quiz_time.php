@@ -4,8 +4,6 @@ include 'includes/session.php';
 include 'includes/header.php';
 include 'db/dbconn.php'; // Include your database connection file
 
-
-
 $quizId = isset($_GET['quiz_id']) ? intval($_GET['quiz_id']) : 0;
 $userId = $_SESSION['user_id']; // Get user ID from session
 
@@ -41,7 +39,6 @@ if ($quizId > 0) {
     exit();
 }
 
-
 $quiz_id = $_GET['quiz_id'];
 $classroom_id = isset($_GET['roomId']) ? $_GET['roomId'] : 0;
 
@@ -49,11 +46,9 @@ $classroom_id = isset($_GET['roomId']) ? $_GET['roomId'] : 0;
 $questionQuery = "SELECT * FROM questions WHERE quiz_id = $quiz_id ORDER BY question_id ASC LIMIT 1";
 $result = $conn->query($questionQuery);
 $question = $result->fetch_assoc();
-
 ?>
 <link rel="stylesheet" href="css/quiz_time.css">
 <link rel="stylesheet" href="css/loading-screen.css">
-
 
 <audio id="background-audio" loop muted>
     <source src="assets/img/quiz-music.mp3" type="audio/mpeg">
@@ -65,9 +60,8 @@ $question = $result->fetch_assoc();
 <body>
     <?php include("includes/loading-screen.php"); ?>
 
-
     <main id="main" class="main">
-        <section class="section mt-5" data-question-number="1">
+        <section class="section" data-question-number="1">
             <div class="quiz-question">
                 <h1><?php echo $question['quiz_question']; ?></h1> <!-- Display the question text -->
             </div>
@@ -223,8 +217,6 @@ $question = $result->fetch_assoc();
                 });
         }
 
-
-
         function displayNextQuestion(question) {
             document.querySelector('.quiz-question h1').innerText = question.quiz_question;
 
@@ -269,7 +261,6 @@ $question = $result->fetch_assoc();
                     });
                 }
             }, 0);
-
         }
 
         function calculateScore() {
@@ -282,8 +273,6 @@ $question = $result->fetch_assoc();
                     const consolationPoints = data.pointsCriteria.consolation;
 
                     let score = 0;
-                    //console.log('Correct Answers:', correctAnswers);
-                    //console.log('Selected Answers:', selectedAnswers);
 
                     // Calculate the score by comparing selected answers with correct answers
                     for (const questionId in selectedAnswers) {
@@ -315,7 +304,6 @@ $question = $result->fetch_assoc();
                                 // Redirect to the result page with score and earned points in the URL
                                 window.location.href = 'quiz_result.php?quiz_id=' + <?php echo $quiz_id; ?> +
                                     '&score=' + score + '&points=' + earnedPoints;
-                                //alert(`Your score: ${score}/${totalQuestions}`);
                             } else {
                                 console.error('Error recording attempt:', data.error);
                             }

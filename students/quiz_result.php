@@ -7,6 +7,7 @@ include 'db/dbconn.php'; // Include your database connection file
 
 <link rel="stylesheet" href="css/quiz_result.css">
 
+
 <body>
     <main id="main" class="main">
         <section class="section mt-2">
