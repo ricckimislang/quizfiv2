@@ -56,10 +56,10 @@ $question = $result->fetch_assoc();
 
 
 <audio id="background-audio" loop muted>
-    <source src="../assets/quiz-music.mp3" type="audio/mpeg">
+    <source src="assets/img/quiz-music.mp3" type="audio/mpeg">
 </audio>
 <audio id="answer-sound">
-    <source src="../assets/click.mp3" type="audio/mpeg"> <!-- Add your answer sound file here -->
+    <source src="assets/img/click.mp3" type="audio/mpeg"> <!-- Add your answer sound file here -->
 </audio>
 
 <body>
@@ -107,7 +107,7 @@ $question = $result->fetch_assoc();
         </div>
     </main>
 
-    <?php include 'includes/scripts.php'; ?>
+    <?php include 'js/scripts.php'; ?>
 
     <script>
         const audio = document.getElementById('background-audio');
@@ -148,6 +148,7 @@ $question = $result->fetch_assoc();
             if (loadingScreen) {
                 loadingScreen.style.display = 'none';
             }
+
             sessionStorage.clear();
             // Attach keypress event for Enter key to submit the short answer if it's the first question
             const initialShortAnswerInput = document.getElementById('shortAnswer');
@@ -186,14 +187,14 @@ $question = $result->fetch_assoc();
             console.log('Stored Selected Answers:', selectedAnswers);
 
             // Show the loading screen
-            document.getElementById('loadingScreen').style.display = 'flex';
+            document.getElementById('loading-screen').style.display = 'flex';
 
             // Fetch the next question
             fetch(`process/fetch_next_question.php?current_id=${currentQuestionId}&quiz_id=<?php echo $quiz_id; ?>`)
                 .then(response => response.json())
                 .then(data => {
                     // Minimum display time for the loading screen
-                    const minimumLoadingTime = 1000; // in milliseconds
+                    const minimumLoadingTime = 2000; // in milliseconds
                     const startTime = Date.now();
 
                     // Hide the loading screen after a delay
@@ -201,7 +202,7 @@ $question = $result->fetch_assoc();
                         const elapsedTime = Date.now() - startTime;
                         const delay = Math.max(0, minimumLoadingTime - elapsedTime);
                         setTimeout(() => {
-                            document.getElementById('loadingScreen').style.display = 'none';
+                            document.getElementById('loading-screen').style.display = 'none';
                             if (data.success) {
                                 displayNextQuestion(data.question);
                                 currentQuestionId = data.question.question_id;
@@ -217,7 +218,7 @@ $question = $result->fetch_assoc();
                 })
                 .catch(error => {
                     // Ensure the loading screen is hidden on error
-                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.getElementById('loading-screen').style.display = 'none';
                     console.error('Error fetching next question:', error);
                 });
         }
@@ -310,7 +311,7 @@ $question = $result->fetch_assoc();
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                document.getElementById('loadingScreen').style.display = 'flex';
+                                document.getElementById('loading-screen').style.display = 'flex';
                                 // Redirect to the result page with score and earned points in the URL
                                 window.location.href = 'quiz_result.php?quiz_id=' + <?php echo $quiz_id; ?> +
                                     '&score=' + score + '&points=' + earnedPoints;

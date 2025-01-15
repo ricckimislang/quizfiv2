@@ -135,7 +135,7 @@ include('includes/session.php');
                                     ?>
                                     questions</span>
                             </div>
-                            <button class="start-quiz-btn" onclick="startQuiz(1)">
+                            <button class="start-quiz-btn" onclick="startQuiz(<?php echo $quiz['quiz_id']; ?>)">
                                 <i class="fas fa-play"></i>Start Quiz
                             </button>
                         </div>
