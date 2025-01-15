@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../db/dbconn.php';
+include '../db/dbconn.php';
 
 $quiz_id = $_GET['quiz_id'];
 

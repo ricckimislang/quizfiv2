@@ -194,7 +194,7 @@ $question = $result->fetch_assoc();
                 .then(response => response.json())
                 .then(data => {
                     // Minimum display time for the loading screen
-                    const minimumLoadingTime = 2000; // in milliseconds
+                    const minimumLoadingTime = 1000; // in milliseconds
                     const startTime = Date.now();
 
                     // Hide the loading screen after a delay

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../db/dbconn.php';
+include '../db/dbconn.php';
 header("Content-Type: application/json");
 
 // Use prepared statements to prevent SQL injection
