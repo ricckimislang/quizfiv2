@@ -8,6 +8,81 @@
   --text-color: #ffffff;
   --accent-color: #f231a5;
 }
+.timer-container {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+}
+
+.timer-icon {
+  margin-right: 10px;
+  color: #333;
+  font-size: 24px;
+}
+
+.timer-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.timer-progress {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.timer-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #81c784);
+  transition: width 0.5s ease-in-out, background 0.5s ease;
+}
+
+/* Urgent timer states */
+.timer-container.warning {
+  border-color: #ffc107;
+  background-color: rgba(255, 193, 7, 0.1);
+  .timer-text{
+    color: #ffc107;
+  }
+}
+
+.timer-container.danger {
+  border-color: #f44336;
+  background-color: rgba(244, 67, 54, 0.1);
+  .timer-text{
+    color: #f44336;
+  }
+}
+
+.timer-container.warning .timer-bar {
+  background: linear-gradient(to right, #ffc107, #ffd54f);
+}
+
+.timer-container.danger .timer-bar {
+  background: linear-gradient(to right, #f44336, #ef5350);
+}
 
 body {
   background: linear-gradient(135deg, var(--background-color), #16213e);
@@ -29,9 +104,8 @@ body {
 
 .main2 {
   margin-top: 0 !important;
-  height: 50vh; /* Takes the remaining half of viewport height */
+  height: 40vh; /* Takes the remaining half of viewport height */
 }
-
 
 .section {
   background: rgba(255, 255, 255, 0.1);

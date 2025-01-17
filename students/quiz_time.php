@@ -46,9 +46,24 @@ $classroom_id = isset($_GET['roomId']) ? $_GET['roomId'] : 0;
 $questionQuery = "SELECT * FROM questions WHERE quiz_id = $quiz_id ORDER BY question_id ASC LIMIT 1";
 $result = $conn->query($questionQuery);
 $question = $result->fetch_assoc();
+
+// Fetch difficulty
+$quizDiff = $conn->prepare("SELECT difficulty FROM quiz WHERE quiz_id = ?");
+$quizDiff->bind_param("i", $quiz_id);
+$quizDiff->execute();
+$result = $quizDiff->get_result();
+$difficultyRow = $result->fetch_assoc(); // Fetch the row
+$difficulty = $difficultyRow['difficulty']; // Get the difficulty value
+$quizDiff->close();
 ?>
+
+
+
+
 <link rel="stylesheet" href="css/quiz_time.css">
 <link rel="stylesheet" href="css/loading-screen.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
 <audio id="background-audio" loop muted>
     <source src="assets/img/quiz-music.mp3" type="audio/mpeg">
@@ -59,6 +74,18 @@ $question = $result->fetch_assoc();
 
 <body>
     <?php include("includes/loading-screen.php"); ?>
+    <div class="timer-container">
+        <input type="hidden" value="<?php echo $difficulty; ?>" id="quiz_difficulty">
+        <div class="timer-icon">
+            <i class="fas fa-clock"></i> <!-- Use Font Awesome or any icon library -->
+        </div>
+        <div class="timer-content">
+            <div class="timer-text">Loading...</div>
+            <div class="timer-progress">
+                <div class="timer-bar"></div>
+            </div>
+        </div>
+    </div>
 
     <main id="main" class="main">
         <section class="section" data-question-number="1">
@@ -174,6 +201,65 @@ $question = $result->fetch_assoc();
             const selectedAnswer = document.getElementById('shortAnswer').value;
             storeAnswerAndLoadNext(selectedAnswer);
         });
+
+        // Timer functionality
+        const quizDifficulty = document.querySelector('#quiz_difficulty').value;
+        const timeLimit = quizDifficulty === 'Easy' ? 10 : quizDifficulty === 'Moderate' ? 20 : 30;
+        const TOTAL_TIME = timeLimit * 60; // 10 minutes in seconds
+        let remainingTime = TOTAL_TIME;
+        const timerContainer = document.querySelector('.timer-container');
+        const timerBar = document.querySelector('.timer-bar');
+        const timerText = document.querySelector('.timer-text');
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        function updateTimer() {
+            remainingTime--;
+
+            // Update timer bar width
+            const percentage = (remainingTime / TOTAL_TIME) * 100;
+            timerBar.style.width = `${percentage}%`;
+
+            // Update timer text
+            timerText.textContent = formatTime(remainingTime);
+
+            // Update container state based on remaining time
+            if (remainingTime <= 60) {
+                timerContainer.classList.remove('warning');
+                timerContainer.classList.add('danger');
+            } else if (remainingTime <= 180) {
+                timerContainer.classList.add('warning');
+            }
+
+            // Vibration and sound warning for last 10 seconds
+            if (remainingTime <= 10) {
+                // Optional: Add vibration for mobile devices
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(200);
+                }
+            }
+
+            // When timer reaches 0
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                // Automatically submit the quiz with blank answers
+                Object.keys(selectedAnswers).forEach(questionId => {
+                    if (!selectedAnswers[questionId]) {
+                        selectedAnswers[questionId] = ''; // Mark as blank
+                    }
+                });
+                calculateScore();
+            }
+        }
+
+        // Start the timer when the page loads
+        const timerInterval = setInterval(updateTimer, 1000);
+
+
 
         function storeAnswerAndLoadNext(selectedAnswer) {
             selectedAnswers[currentQuestionId] = selectedAnswer;
