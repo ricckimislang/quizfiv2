@@ -21,15 +21,20 @@ $totalDuration = $time_duration;
                 <div class="profile-details leaderbox">
                     <div class="container text-center p-0">
                         <div class="logo-header">
+                            <div class="background-header">
+                            </div>
                             <div class="profile-avatar">
                                 <img class="profile-img" src="assets/students/profile.jpg" alt="Logo">
                             </div>
+
                             <h2>
                                 <?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>
                             </h2>
+
                             <p>
                                 <?php echo htmlspecialchars($row1['department']); ?>
                             </p>
+                            
                             <div class="coins-container">
                                 <span class="ranking-badge bg-success text-white px-2 py-1">
                                     Rank <?php echo htmlspecialchars("1"); ?>
@@ -81,7 +86,7 @@ $totalDuration = $time_duration;
                                     <i class="bx bxs-coupon"></i> Redeem
                                 </button>
                                 <a href="convert_voucher.php" class="btn btn-warning px-3 py-2">
-                                    <i class="bi bi-currency-exchange"></i> Exchange Points
+                                    <i class="bi bi-currency-exchange"></i> Exchange
                                 </a>
                             </div>
 
