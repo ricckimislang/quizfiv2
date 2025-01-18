@@ -5,64 +5,82 @@ include 'includes/header.php';
 include 'db/dbconn.php'; // Include your database connection file
 ?>
 
-<link rel="stylesheet" href="css/quiz_result.css">
-
+<link rel="stylesheet" href="css/quiz_result.css"> <!-- Updated CSS file -->
 
 <body>
     <main id="main" class="main">
-        <section class="section mt-2">
-            <div class="row" style="margin-top: 0;">
-                <div class="col-12">
-                    <h3 class="text-center">Quiz Results</h3>
+        <div class="quiz-results-container">
+
+            <div class="results-header">
+                <div class="profile-section">
+                    <h2 class="student-name"><?php echo $studentName; ?></h2>
+                    <div class="profile-img"></div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center align-items-center mt-4">
-                <div class="col-5 profile-img">
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center align-items-center mt-4">
-                <div class="col">
-                    <h2 class="text-center"><?php echo $studentName; ?></h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col box1">
-                    <div class="score-container">
-                        <div class="score-text">
-                            <h3>Score</h3>
-                            <span><?php echo $_GET['score']; ?></span>
-                        </div>
-                        <div class="result-img"></div>
+
+            <div class="results-grid mt-2 ">
+                <div class="result-card score-card">
+                    <div class="card-content">
+                        <h3>Score</h3>
+                        <span class="result-value"><?php echo $_GET['score']; ?></span>
                     </div>
+                    <div class="card-icon result-img"></div>
                 </div>
-                <div class="col box2">
-                    <div class="score-container">
-                        <div class="score-text">
-                            <h3>Points</h3>
-                            <span><?php echo $student_score; ?></span>
-                        </div>
-                        <div class="points-img"></div>
+
+                <div class="result-card points-card">
+                    <div class="card-content">
+                        <h3>Points</h3>
+                        <span class="result-value"><?php echo $student_score; ?></span>
                     </div>
+                    <div class="card-icon points-img"></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col box3">
-                    <h4>Congratulations! You earned Points</h4>
-                    <h4><?php echo $_GET['points'] ?></h4>
-                </div>
+
+            <div class="congratulations-banner">
+                <h4>Congratulations!</h4>
+                <p>You earned <?php echo $_GET['points']; ?> points</p>
             </div>
-            <div class="row button-group">
-                <div class="col">
-                    <a href="take_quiz.php" class="btn btn-primary">New Quiz</a>
-                </div>
+
+            <div class="action-buttons">
+                <a href="take_quiz.php" class="btn btn-primary">Start New Quiz</a>
+                <a href="leaderboard.php" class="btn btn-secondary">Back to Home</a>
             </div>
-            <div class="row button-group">
-                <div class="col">
-                    <div class="col">
-                        <a href="leader.php" class="btn btn-primary">Home</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
+
+    <script>
+        function createParticles() {
+            const container = document.querySelector('.quiz-results-container');
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Random sizing
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                // Random positioning
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.8 + 0.5;
+
+                // Random gradient background
+                particle.style.background = `linear-gradient(45deg, 
+                rgba(106, 17, 203, ${Math.random() * 0.3}), 
+                rgba(37, 117, 252, ${Math.random() * 0.3}))`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        // Create particles when the page loads
+        window.addEventListener('load', createParticles);
+    </script>
 </body>
