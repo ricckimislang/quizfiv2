@@ -1,0 +1,127 @@
+:root {
+  --button-color: #2980b9;
+}
+
+/* Styles for the join classroom input */
+.join-classroom-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.join-classroom-container h2 {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.classroom-code {
+  width: 80%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 2px solid var(--button-color);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.classroom-code:focus {
+  border-color: #0056b3;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.join-button {
+  width: 20%;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.join-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.join-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.classroom-code-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* classroom container */
+
+.classroom-container {
+  max-width: 100%;
+  height: auto;
+  margin: 10 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.card-grid {
+  margin: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 4 equal columns */
+  gap: 15px; /* Space between cards */
+}
+
+.classroom-card {
+  background-color: rgb(255, 180, 180);
+  flex: 0 0 calc(25% - 10px); /* Adjust the percentage for number of cards per row */
+  height: 200px;
+  margin: 0; /* Remove margin */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .join-classroom-container {
+    padding: 15px;
+  }
+
+  .classroom-code-group {
+    display: block;
+  }
+
+  .classroom-code,
+  .join-button {
+    margin: 5px;
+    font-size: 0.7rem;
+    width: 100%;
+  }
+
+  /* classroom container */
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr); /* 4 equal columns */
+  }
+  
+}
