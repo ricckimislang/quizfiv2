@@ -26,7 +26,7 @@
         </li><!-- End Quiz Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-register.html">
+            <a class="nav-link collapsed" href="classroom.php">
                 <i class="bi bi-card-list"></i>
                 <span>Classroom</span>
             </a>

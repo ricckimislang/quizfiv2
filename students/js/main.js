@@ -261,3 +261,18 @@
     }, 200);
   }
 })();
+
+function toggleDropdown(event) {
+  const dropdown = document.getElementById("dropdown");
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
+  event.stopPropagation(); // Prevent event from bubbling up
+}
+
+// Close the dropdown if clicked outside
+window.onclick = function (event) {
+  const dropdown = document.getElementById("dropdown");
+  if (event.target !== dropdown && event.target.closest(".menu") === null) {
+    dropdown.style.display = "none";
+  }
+};
