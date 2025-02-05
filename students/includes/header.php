@@ -21,6 +21,8 @@
 
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/jquery.jgrowl.min.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
+    
     <link href="css/style.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
 

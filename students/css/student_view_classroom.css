@@ -1,0 +1,230 @@
+:root {
+  --background: #ffffff;
+  --alt-background: #cdcdcd;
+  --link-hover: #f0f0f0; /* Define your hover color here */
+  --underline-color: #000; /* Color of the underline */
+  --active-border-color: blue; /* Color for active state */
+  --text-color: #333; /* Darker text color for better readability */
+  --link-color: #007bff; /* Link color */
+  --link-hover-color: #000000; /* Darker link color on hover */
+}
+
+.main {
+  padding: 0 !important;
+  background-color: var(--background);
+  height: 100%;
+}
+
+/* top bar navigation */
+.top-bar {
+  position: relative;
+  background-color: var(--background);
+  width: 100%;
+  height: 6vh;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1;
+  display: flex; /* Added to align items in the top-bar */
+  align-items: center; /* Center items vertically */
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: row;
+  max-width: 600px;
+  z-index: 2;
+}
+
+.menu-nav ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+  margin: 0 auto; /* Center the menu */
+  display: flex; /* Use flexbox for the list */
+}
+
+.menu-nav li {
+  position: relative; /* Position relative for the ::after pseudo-element */
+  padding: 10px;
+  margin: 0 auto; /* Space between links */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for background color and transform */
+  border-radius: 10px 10px 0 0; /* Rounded corners for modern look */
+}
+
+.menu-nav li:last-child {
+  margin-right: 0; /* Remove margin for the last item */
+}
+
+.menu-nav li:hover {
+  background-color: var(--link-hover); /* Background color on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.menu-nav li:active {
+  border-bottom: 2px solid var(--active-border-color); /* Active state with border */
+}
+
+.menu-nav a {
+  text-decoration: none; /* Remove underline from links */
+  color: var(--link-color); /* Set link color */
+  padding: 10px 15px; /* Add padding for better click area */
+  border-radius: 5px; /* Rounded corners for links */
+  transition: color 0.3s ease; /* Smooth transition for link color */
+}
+
+.menu-nav a:hover {
+  color: var(--link-hover-color); /* Change link color on hover */
+}
+
+/* Underline effect for active link */
+.menu-nav a.active {
+  color: var(--link-hover-color); /* Change color for active link */
+}
+
+.menu-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px; /* Position it just below the link */
+  height: 2px; /* Height of the underline */
+  background-color: var(--underline-color); /* Color of the underline */
+}
+
+/* Underline effect */
+.menu-nav li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; /* Position it at the bottom of the li */
+  height: 2px; /* Height of the underline */
+  background-color: var(--underline-color); /* Color of the underline */
+  transform: scaleX(0); /* Initially scale to 0 (hidden) */
+  transition: transform 0.3s ease; /* Smooth transition for the underline */
+}
+
+.menu-nav li:hover::after {
+  transform: scaleX(1); /* Scale to full width on hover */
+}
+
+/* content */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 20px 40px;
+  height: 100%;
+  gap: 20px;
+}
+
+.info-container {
+  position: relative;
+  background-color: var(--alt-background);
+  position: relative;
+  height: 30vh;
+  border-radius: 10px;
+}
+
+.student-container {
+  position: relative;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.student-title h1 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 10px;
+  border-bottom: solid 2px var(--underline-color);
+}
+
+/* Existing student-list container style */
+.student-list {
+    height: auto;
+    min-height: 150px;
+    padding: 20px;
+  }
+  
+  /* Each student list item */
+  .student-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Separates info and kebab button */
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Group for checkbox, profile and name */
+  .student-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Style for the checkbox */
+  .student-checkbox {
+    margin-right: 10px;
+  }
+  
+  /* Profile picture styling */
+  .student-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  /* Student name styling */
+  .student-name {
+    font-size: 1rem;
+    color: var(--text-color, #333);
+  }
+  
+  /* Kebab button styling */
+  .kebab-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-color, #333);
+    padding: 5px;
+  }
+  
+  /* Optional: Hover effect for the kebab button */
+  .kebab-button:hover {
+    color: var(--link-hover-color, #0056b3);
+  }
+  
+
+  .dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 30px; /* Adjust based on your design */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+  }
+  
+  .dropdown ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  .dropdown li {
+    font-size: 0.8em;
+    padding: 0 20px;
+    cursor: pointer;
+  }
+  
+  .dropdown li:hover {
+    background-color: #f1f1f1; /* Highlight on hover */
+  }
