@@ -33,34 +33,53 @@ include('includes/session.php');
 
             <!-- Content -->
             <div class="content">
-                <div class="info-container">
 
-                </div>
-
-                <div class="student-container">
-                    <div class="student-title">
-                        <h1>Students</h1>
+                <!-- classroom content -->
+                <div class="classroom-content">
+                    <div class="info-container">
+                        <div class="room-title">
+                            <h1>Classroom Name</h1>
+                            <div class="subtitle">
+                                <span>Classroom Code</span>
+                                <span>Creator Name</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn change-background">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Customize
+                        </button>
                     </div>
 
-                    <div class="student-list">
-                        <div class="student-item">
-                            <div class="student-info">
-                                <input type="checkbox" class="student-checkbox">
-                                <img src="assets/3d-profiles/male-1.jpg" alt="Student Profile" class="student-profile">
-                                <span class="student-name">John Doe</span>
-                            </div>
-                            
-                            <!-- menu option -->
-                            <button class="kebab-button">
-                                <i class="fa fa-ellipsis-v" onclick="toggleDropdown(event)"></i>
-                                <div class="dropdown" id="dropdown">
-                                    <ul>
-                                        <li onclick="deleteItem()">Delete</li>
-                                    </ul>
+                    <div class="student-container">
+                        <div class="student-title">
+                            <h1>Students</h1>
+                        </div>
+
+                        <div class="student-list">
+                            <div class="student-item">
+                                <div class="student-info">
+                                    <input type="checkbox" class="student-checkbox">
+                                    <img src="assets/3d-profiles/male-1.jpg" alt="Student Profile"
+                                        class="student-profile">
+                                    <span class="student-name">John Doe</span>
                                 </div>
-                            </button>
+
+                                <!-- menu option -->
+                                <button class="kebab-button">
+                                    <i class="fa fa-ellipsis-v" onclick="toggleDropdown(event)"></i>
+                                    <div class="dropdown" id="dropdown">
+                                        <ul>
+                                            <li onclick="deleteItem()">Delete</li>
+                                        </ul>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="quiz-content">
+
                 </div>
 
             </div>
@@ -93,22 +112,39 @@ include('includes/session.php');
         <!-- Nav Link Active -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
+                // Select the navigation links
                 const menuLinks = document.querySelectorAll('.menu-nav a');
 
+                // Select the two content sections
+                const classroomDiv = document.querySelector('.classroom-content');
+                const quizContentDiv = document.querySelector('.quiz-content');
+
+                // Initially, ensure that only the classroom content is active
+                classroomDiv.classList.add('active');
+                quizContentDiv.classList.remove('active');
+
+                // Add click event listeners for each menu link
                 menuLinks.forEach(link => {
                     link.addEventListener('click', function (event) {
-                        // Prevent default link behavior for demonstration
                         event.preventDefault();
 
-                        // Remove 'active' class from all links
+                        // Remove 'active' class from all menu links
                         menuLinks.forEach(link => link.classList.remove('active'));
-
-                        // Add 'active' class to the clicked link
+                        // Add 'active' to the clicked link
                         this.classList.add('active');
 
+                        // Toggle the active class on the content sections based on the clicked link's id
+                        if (this.id === 'room') {
+                            classroomDiv.classList.add('active');
+                            quizContentDiv.classList.remove('active');
+                        } else if (this.id === 'quizzes') {
+                            classroomDiv.classList.remove('active');
+                            quizContentDiv.classList.add('active');
+                        }
                     });
                 });
             });
+
         </script>
         <?php include('js/scripts.php'); ?>
 </body>

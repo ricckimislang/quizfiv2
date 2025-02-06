@@ -4,7 +4,8 @@
   --link-hover: #f0f0f0; /* Define your hover color here */
   --underline-color: #000; /* Color of the underline */
   --active-border-color: blue; /* Color for active state */
-  --text-color: #333; /* Darker text color for better readability */
+  --text-color-dark: #333; /* Darker text color for better readability */
+  --text-color-white: #ffffff; /* Lighter text color */
   --link-color: #007bff; /* Link color */
   --link-hover-color: #000000; /* Darker link color on hover */
 }
@@ -118,12 +119,69 @@
   gap: 20px;
 }
 
+/* Base style for content sections */
+.classroom-content,
+.quiz-content {
+  opacity: 0;
+  transform: translateY(10px); /* slight downward shift */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  /* Optional: prevent interaction when hidden */
+  pointer-events: none;
+}
+
+/* Active content */
+.classroom-content.active,
+.quiz-content.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* info container */
+
 .info-container {
   position: relative;
   background-color: var(--alt-background);
+  background-image: url("../assets/classroom-bg/pe-bg.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
   position: relative;
-  height: 30vh;
+  min-height: 40vh;
   border-radius: 10px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.room-title {
+  position: relative;
+  color: var(--text-color-white);
+  line-height: 1.5;
+}
+.room-title h1 {
+  font-size: 3em;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5em;
+  color: var(--text-subtitle-white);
+}
+
+.change-background {
+  position: absolute;
+  bottom: 20;
+  right: 20;
+  background-color: var(--background);
+  padding: 5px 10px;
+  border-radius: 5px !important;
+  color: var(--link-color);
+}
+
+.btn:hover {
+  background-color: var(--link-hover);
+  color: var(--link-hover-color);
 }
 
 .student-container {
@@ -142,89 +200,116 @@
 
 /* Existing student-list container style */
 .student-list {
-    height: auto;
-    min-height: 150px;
+  height: auto;
+  min-height: 150px;
+  padding: 20px;
+}
+
+/* Each student list item */
+.student-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Separates info and kebab button */
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Group for checkbox, profile and name */
+.student-info {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the checkbox */
+.student-checkbox {
+  margin-right: 10px;
+}
+
+/* Profile picture styling */
+.student-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* Student name styling */
+.student-name {
+  font-size: 1rem;
+  color: var(--text-color, #333);
+}
+
+/* Kebab button styling */
+.kebab-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--text-color, #333);
+  padding: 5px;
+}
+
+/* Optional: Hover effect for the kebab button */
+.kebab-button:hover {
+  color: var(--link-hover-color, #0056b3);
+}
+
+.dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 30px; /* Adjust based on your design */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+.dropdown ul {
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.dropdown li {
+  font-size: 0.8em;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #f1f1f1; /* Highlight on hover */
+}
+
+@media (max-width: 480px) {
+  .content {
     padding: 20px;
   }
-  
-  /* Each student list item */
-  .student-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Separates info and kebab button */
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Group for checkbox, profile and name */
-  .student-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Style for the checkbox */
-  .student-checkbox {
-    margin-right: 10px;
-  }
-  
-  /* Profile picture styling */
-  .student-profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  /* Student name styling */
-  .student-name {
-    font-size: 1rem;
-    color: var(--text-color, #333);
-  }
-  
-  /* Kebab button styling */
-  .kebab-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: var(--text-color, #333);
-    padding: 5px;
-  }
-  
-  /* Optional: Hover effect for the kebab button */
-  .kebab-button:hover {
-    color: var(--link-hover-color, #0056b3);
-  }
-  
 
-  .dropdown {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 30px; /* Adjust based on your design */
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 3;
+  .info-container {
+    background-size: cover;
+    background-position: right;
+    min-height: 15vh;
   }
-  
-  .dropdown ul {
-    list-style: none;
-    padding: 10px 0;
+
+  .room-title h1 {
+    font-size: 1.5em;
     margin: 0;
   }
-  
-  .dropdown li {
-    font-size: 0.8em;
-    padding: 0 20px;
-    cursor: pointer;
+  .subtitle {
+    font-size: 0.7em;
   }
-  
-  .dropdown li:hover {
-    background-color: #f1f1f1; /* Highlight on hover */
+
+  .change-background{
+    font-size: 0.5em;
   }
+
+  .student-title h1 {
+    font-size: 1em;
+  }
+}
