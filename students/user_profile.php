@@ -34,7 +34,7 @@ $totalDuration = $time_duration;
                             <p>
                                 <?php echo htmlspecialchars($row1['department']); ?>
                             </p>
-                            
+
                             <div class="coins-container">
                                 <span class="ranking-badge bg-success text-white px-2 py-1">
                                     Rank <?php echo htmlspecialchars("1"); ?>
@@ -52,19 +52,7 @@ $totalDuration = $time_duration;
                                 <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
                                 <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
                                 <p><strong>IP Address:</strong> <?php echo htmlspecialchars($user_ip); ?></p>
-                                <!-- Alerts -->
-                                <div class="alert alert-success alert-dismissible fade show" role="alert"
-                                    style="display: none;">
-                                    <i class="bi bi-check-circle me-1"></i>
-                                    <span class="alert-text"></span>
-                                </div>
 
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
-                                    style="display: none;">
-                                    <i class="bi bi-exclamation-octagon me-1"></i>
-                                    <span class="alert-text"></span>
-                                </div>
-                                <!-- end of alert -->
 
                                 <!-- Progress Bar -->
                                 <div class="progress-container mt-3 bg-white shadow-sm rounded">
@@ -110,18 +98,6 @@ $totalDuration = $time_duration;
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Alerts -->
-                        <div class="alert alert-success alert-dismissible fade show" role="alert"
-                            style="display: none;">
-                            <i class="bi bi-check-circle me-1"></i>
-                            <span class="alert-text"></span>
-                        </div>
-
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
-                            <i class="bi bi-exclamation-octagon me-1"></i>
-                            <span class="alert-text"></span>
-                        </div>
-                        <!-- end of alert -->
                         <input type="text" id="voucher-code" name="voucher-code" class="form-control"
                             placeholder="Insert your generated voucher code here" aria-label="WIFI Code">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
@@ -137,7 +113,6 @@ $totalDuration = $time_duration;
 
 
         <?php include("js/scripts.php"); ?>
-
         <script>
             // Replace existing loading screen script with this
             document.addEventListener('DOMContentLoaded', () => {
@@ -150,44 +125,6 @@ $totalDuration = $time_duration;
                     }, 500);
                 });
             });
-            // Alert Handling
-            function showAlert(type, message, context = 'modal') {
-                let alertSelector;
-
-                // Determine the selector based on the context
-                if (context === 'modal') {
-                    alertSelector = '#codeModal .alert';
-                } else if (context === 'stats') {
-                    alertSelector = '.stats .alert';
-                } else {
-                    // Default to modal if an invalid context is provided
-                    alertSelector = '#codeModal .alert';
-                }
-
-                // Find alerts within the specified context
-                const alerts = document.querySelectorAll(alertSelector);
-
-                // Hide all alerts first
-                alerts.forEach(alert => alert.style.display = 'none');
-
-                // Find the specific alert type within the context
-                const alert = document.querySelector(`${alertSelector}-${type}`);
-
-                if (alert) {
-                    // Set the alert text
-                    alert.querySelector('.alert-text').textContent = message;
-
-                    // Show the alert
-                    alert.style.display = 'block';
-
-                    // Auto-hide based on alert type
-                    if (type === 'success') {
-                        setTimeout(() => alert.style.display = 'none', 5000);
-                    } else {
-                        setTimeout(() => alert.style.display = 'none', 3000);
-                    }
-                }
-            }
 
             // Timer and UI Controller
             class TimerController {
@@ -273,13 +210,13 @@ $totalDuration = $time_duration;
                         if (response.ok) {
                             const data = await response.json();
                             if (status === 'active') {
-                                showAlert('success', data.message, 'stats');
+                                toastr["success"](data.message);
                                 setTimeout(function () {
                                     location.reload();
                                 }, 1000);
                             }
                             else {
-                                showAlert('danger', 'You have Disconnected.', 'stats');
+                                toastr["warning"]("You have Disconnected!");
                                 setTimeout(function () {
                                     location.reload();
                                 }, 1000);
@@ -288,10 +225,7 @@ $totalDuration = $time_duration;
                         }
                     } catch (error) {
                         console.error('Error updating timer status:', error);
-                        $.jGrowl("Error updating status", {
-                            theme: 'alert alert-danger',
-                            position: 'top-right'
-                        });
+                        toastr["error"]("Error updating timer status".error);
                     }
                 }
 
@@ -329,18 +263,15 @@ $totalDuration = $time_duration;
                         const data = await response.json();
 
                         if (data.status === 'success') {
-                            showAlert('success', 'Voucher validated successfully.');
+                            toastr["success"]("Voucher validated successfully!")
                             setTimeout(() => location.reload(), 2000);
                             bootstrap.Modal.getInstance(document.getElementById('codeModal')).hide();
                         } else {
-                            showAlert('danger', data.message);
+                            toastr["error"](data.message);
                         }
                     } catch (error) {
                         console.error('Error validating voucher:', error);
-                        $.jGrowl('An error occurred while validating the voucher', {
-                            theme: 'alert alert-danger',
-                            position: 'top-right'
-                        });
+                        toastr["error"]("Error validating voucher");
                     } finally {
                         submitBtn.disabled = false;
                         submitBtn.classList.remove('loading');

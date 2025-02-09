@@ -13,7 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-        
+
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -22,9 +22,12 @@
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/jquery.jgrowl.min.js"></script>
     <script src="js/sweetalert2@11.js"></script>
-    
+    <script src="js/toastr.min.js"></script>
+
+
     <link href="css/style.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/toastr.css">
 
 
 </head>
