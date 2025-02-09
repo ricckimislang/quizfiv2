@@ -398,6 +398,9 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .card-header {
+    max-height: 150px;
+  }
   .profile-img {
     width: 100px;
     height: 100px;

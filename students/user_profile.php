@@ -89,7 +89,7 @@ $totalDuration = $time_duration;
                             <button id="voucher-button" type="button" class="action-btn primary-btn">
                                 <i class="bx bxs-coupon"></i> Redeem
                             </button>
-                            <a href="convert_voucher.php" class="action-btn secondary-btn">
+                            <a href="convert_voucher.php" class="action-btn primary-btn">
                                 <i class="bi bi-currency-exchange"></i> Exchange
                             </a>
                         </div>

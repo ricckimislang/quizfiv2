@@ -1,7 +1,6 @@
 <div class="quizTitle d-flex align-items-center justify-content-between">
     <a href="#" class="logo d-flex align-items-center">
-        <img src="#" alt="">
-        <span class="d-none d-lg-block">QuizFi</span>
+        <img src="assets/img/logo-quizfi.png" alt="quizfi logo">
     </a>
     <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
