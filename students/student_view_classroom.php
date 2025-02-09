@@ -9,6 +9,9 @@ include('includes/session.php');
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="css/student_view_classroom.css">
 
+<?php
+$classroom_id = $_GET['roomId'];
+?>
 
 <!-- Main Section -->
 
@@ -34,14 +37,25 @@ include('includes/session.php');
             <!-- Content -->
             <div class="content">
 
+                <?php
+                $classroom_id = isset($_GET['roomId']) ? (int) $_GET['roomId'] : 0;
+                //get room name
+                $rQuery = $conn->prepare("SELECT classroom_name, classroom_code FROM classroom WHERE classroom_id = ?");
+                $rQuery->bind_param("i", $classroom_id);
+                $rQuery->execute();
+                $rResult = $rQuery->get_result();
+                $rRow = $rResult->fetch_assoc();
+                $roomName = $rRow['classroom_name'];
+                $roomCode = $rRow['classroom_code'];
+                ?>
+
                 <!-- classroom content -->
                 <div class="classroom-content">
                     <div class="info-container">
                         <div class="room-title">
-                            <h1>Classroom Name</h1>
+                            <h1><?= htmlspecialchars($roomName) ?></h1>
                             <div class="subtitle">
-                                <span>Classroom Code</span>
-                                <span>Creator Name</span>
+                                <span><?= htmlspecialchars($roomCode) ?></span>
                             </div>
                         </div>
                         <button type="button" class="btn change-background">
@@ -55,31 +69,83 @@ include('includes/session.php');
                             <h1>Students</h1>
                         </div>
 
+                        <?php
+                        $classroom_id = isset($_GET['roomId']) ? (int) $_GET['roomId'] : 0;
+                        // Get student list
+                        $listQuery = $conn->prepare("
+                                            SELECT sc.student_id AS student_id, s.firstname AS firstname, s.lastname AS lastname 
+                                            FROM student_classroom sc
+                                            LEFT JOIN students s ON sc.student_id = s.student_id 
+                                            WHERE sc.classroom_id = ?
+                                        ");
+                        $listQuery->bind_param("i", $classroom_id);
+                        $listQuery->execute();
+                        $listResult = $listQuery->get_result();
+                        ?>
+
                         <div class="student-list">
-                            <div class="student-item">
-                                <div class="student-info">
-                                    <input type="checkbox" class="student-checkbox">
-                                    <img src="assets/3d-profiles/male-1.jpg" alt="Student Profile"
-                                        class="student-profile">
-                                    <span class="student-name">John Doe</span>
+
+                            <?php while ($listrow = $listResult->fetch_assoc()): ?>
+
+                                <div class="student-item">
+                                    <div class="student-info">
+                                        <input type="checkbox" class="student-checkbox">
+                                        <img src="assets/3d-profiles/male-1.jpg" alt="Student Profile"
+                                            class="student-profile">
+                                        <span
+                                            class="student-name"><?= htmlspecialchars($listrow['firstname'] . ' ' . $listrow['lastname']); ?></span>
+                                    </div>
+
+                                    <!-- menu option -->
+                                    <button class="kebab-button">
+                                        <i class="fa fa-ellipsis-v" onclick="toggleDropdown(event)"></i>
+                                        <div class="dropdown" id="dropdown">
+                                            <ul>
+                                                <li onclick="deleteItem()">Delete</li>
+                                            </ul>
+                                        </div>
+                                    </button>
                                 </div>
 
-                                <!-- menu option -->
-                                <button class="kebab-button">
-                                    <i class="fa fa-ellipsis-v" onclick="toggleDropdown(event)"></i>
-                                    <div class="dropdown" id="dropdown">
-                                        <ul>
-                                            <li onclick="deleteItem()">Delete</li>
-                                        </ul>
-                                    </div>
-                                </button>
-                            </div>
+                            <?php endwhile; ?>
+
                         </div>
                     </div>
                 </div>
 
                 <div class="quiz-content">
+                    <div class="quiz-container">
+                        <div class="quiz-title">
+                            <h1>Quizzes</h1>
+                        </div>
+                    </div>
+                    <div class="quiz-list">
 
+                        <?php
+                        //get quizzes assigned to classroom
+                        $classroom_id = isset($_GET['roomId']) ? (int) $_GET['roomId'] : 0;
+                        $quizQuery = $conn->prepare("SELECT * FROM quiz WHERE classroom_id = ?");
+                        $quizQuery->bind_param("i", $classroom_id);
+                        $quizQuery->execute();
+                        $quizResult = $quizQuery->get_result();
+                        ?>
+
+                        <?php while ($quizRow = $quizResult->fetch_assoc()): ?>
+
+                            <div class="quiz-item">
+                                <div class="quiz-info">
+                                    <i class="fa-solid fa-clipboard-list quiz-icon"></i>
+                                    <span class="quiz-name"><?php echo htmlspecialchars($quizRow['quiz_title']); ?></span>
+                                </div>
+
+                                <!-- play link -->
+                                <a href="javascript: void(0);"
+                                    onclick="confirmQuiz('<?php echo htmlspecialchars($quizRow['quiz_title']) ?>', '<?php echo htmlspecialchars($quizRow['quiz_id']); ?>', '<?php echo $classroom_id; ?>')"
+                                    class="btn play-button"><i class="fa fa-play"></i>
+                                </a>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
                 </div>
 
             </div>

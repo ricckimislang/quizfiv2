@@ -122,11 +122,15 @@
 /* Base style for content sections */
 .classroom-content,
 .quiz-content {
+  position: absolute; /* Stack on top of each other */
+  width: 100%;
+  top: 0;
+  left: 0;
   opacity: 0;
-  transform: translateY(10px); /* slight downward shift */
+  transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  /* Optional: prevent interaction when hidden */
   pointer-events: none;
+  visibility: hidden; /* Hide without removing from layout */
 }
 
 /* Active content */
@@ -135,6 +139,8 @@
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  visibility: visible; /* Make it visible */
+  position: relative; /* Reposition the active one */
 }
 
 /* info container */
@@ -286,6 +292,68 @@
   background-color: #f1f1f1; /* Highlight on hover */
 }
 
+/* Quizzes Content */
+
+.quiz-container {
+  position: relative;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.quiz-title h1 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 10px;
+  border-bottom: solid 2px var(--underline-color);
+}
+
+.quiz-list {
+  height: auto;
+  min-height: 150px;
+  padding: 20px;
+}
+
+/* Each quiz list item */
+.quiz-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Separates info and kebab button */
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-info {
+  display: flex;
+  align-items: center;
+}
+
+/* Profile picture styling */
+.quiz-icon {
+  border-radius: 50%;
+  background-color: #3795fa;
+  color: var(--background);
+  font-size: 1.5rem;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+/* Student name styling */
+.quiz-name {
+  font-size: 1rem;
+  color: var(--text-color, #333);
+}
+
+/* hover effects */
+
+.student-item:hover,
+.quiz-item:hover {
+  background-color: #fbfbfb;
+}
+
 @media (max-width: 480px) {
   .content {
     padding: 20px;
@@ -305,7 +373,7 @@
     font-size: 0.7em;
   }
 
-  .change-background{
+  .change-background {
     font-size: 0.5em;
   }
 

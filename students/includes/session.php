@@ -34,7 +34,8 @@ $time_duration = $row1['duration'] ?? 0;
 $currentStatus = $row1['status'] ?? 'unknown';
 
 // Function to get user IP address
-function getUserIP() {
+function getUserIP()
+{
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
     } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -60,3 +61,7 @@ if (!$addIp->execute()) {
 $stmt->close();
 $addIp->close();
 ?>
+<script>
+    console.log("User ID: " + "<?php echo $user_id ?>");
+    console.log("Student ID: " + "<?php echo $studentId ?>");
+</script>

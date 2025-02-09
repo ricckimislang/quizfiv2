@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="css/login-style.css">
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="css/toastr.css">
 </head>
 
 <body>
@@ -30,17 +31,6 @@
             <img src="../assets/img/logo-quizfi.png" alt="Quizfi Logo" class="logo">
             <h1 class="login-title">Welcome Back</h1>
             <p class="login-subtitle">Login to continue to Quizfi</p>
-
-            <!-- Alerts -->
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
-                <i class="bi bi-check-circle me-1"></i>
-                <span class="alert-text"></span>
-            </div>
-
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
-                <i class="bi bi-exclamation-octagon me-1"></i>
-                <span class="alert-text"></span>
-            </div>
         </div>
 
         <!-- Login Form -->
@@ -65,6 +55,7 @@
         </form>
     </div>
     <?php include("js/scripts.php"); ?>
+    <script src="js/toastr.min.js"></script>
     <script>
         // Initialize DOM elements
         const elements = {
@@ -127,24 +118,6 @@
             }, 500);
         });
 
-        // Alert Handling
-        function showAlert(type, message) {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => alert.style.display = 'none');
-
-            const alert = document.querySelector(`.alert-${type}`);
-            if (alert) {
-                alert.querySelector('.alert-text').textContent = message;
-                alert.style.display = 'block';
-
-                if (type === 'success') {
-                    setTimeout(() => alert.style.display = 'none', 5000);
-                } else {
-                    setTimeout(() => alert.style.display = 'none', 3000);
-                }
-            }
-        }
-
         // Form Submission
         elements.loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -177,12 +150,12 @@
                     };
 
                     if (data.userType && redirects[data.userType]) {
-                        showAlert('success', 'Logged in successfully!');
+                        toastr["success"]("Logged in successfully", "Success")
                         setTimeout(() => {
                             window.location.href = redirects[data.userType];
                         }, 2000);
                     } else {
-                        showAlert('danger', 'Error: Incorrect username or password.');
+                        toastr["error"]("Incorrect Username or Password", "Error")
                     }
                 },
                 error: function (jqXHR, textStatus) {

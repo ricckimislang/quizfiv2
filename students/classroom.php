@@ -20,7 +20,7 @@ include('includes/session.php');
                 <h2>Join a Classroom</h2>
                 <form id="joinClassroom">
                     <div class="classroom-code-group">
-                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $studentId; ?>">
                         <input type="text" id="classroom-code" class="classroom-code" placeholder="Enter classroom code"
                             required />
                         <button type="submit" class="join-button">Join Classroom</button>
@@ -30,6 +30,7 @@ include('includes/session.php');
             <!-- classroom container -->
             <div class="classroom-container">
                 <div class="classroom-card-grid">
+
                     <?php
                     // Pagination logic
                     $limit = 6; // Limit to 3 quizzes per page
@@ -37,11 +38,12 @@ include('includes/session.php');
                     $offset = ($page - 1) * $limit; // Calculate offset for SQL query
                     
                     // Fetch total number of quizzes to calculate total pages
-                    $totalClassrooms = "SELECT COUNT(*) as total FROM classroom";
+                    $totalClassrooms = "SELECT COUNT(*) as total FROM student_classroom WHERE student_id = ?";
                     $totalStmt = $conn->prepare($totalClassrooms);
                     if ($totalStmt === false) {
                         die('Error preparing the SQL statement: ' . $conn->error);
                     }
+                    $totalStmt->bind_param("i", $studentId);
                     $totalStmt->execute();
                     $totalResult = $totalStmt->get_result();
                     $totalRow = $totalResult->fetch_assoc();
