@@ -8,6 +8,7 @@ $totalDuration = $time_duration;
 
 <link rel="stylesheet" href="css/user_profile.css">
 <link rel="stylesheet" href="css/loading-screen.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <body>
     <!-- Loading Screen -->
@@ -17,75 +18,115 @@ $totalDuration = $time_duration;
         <?php include 'includes/sidebar.php'; ?>
 
         <main id="main" class="main" height="100vh">
-            <section class="section ">
-                <div class="profile-details leaderbox">
-                    <div class="container text-center p-0">
-                        <div class="logo-header">
-                            <div class="background-header">
+            <section class="section">
+                <div class="profile-card">
+                    <!-- Card Header -->
+                    <div class="card-header">
+                        <div class="menu">
+                            <div class="dots1" onclick="toggleDropdown(event)">
+                                <div class="dot1"></div>
+                                <div class="dot1"></div>
+                                <div class="dot1"></div>
                             </div>
-                            <div class="profile-avatar">
-                                <img class="profile-img" src="assets/students/profile.jpg" alt="Logo">
-                            </div>
-
-                            <h2>
-                                <?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>
-                            </h2>
-
-                            <p>
-                                <?php echo htmlspecialchars($row1['department']); ?>
-                            </p>
-
-                            <div class="coins-container">
-                                <span class="ranking-badge bg-success text-white px-2 py-1">
-                                    Rank <?php echo htmlspecialchars("1"); ?>
-                                </span>
-                                <img src="assets/img/coin.png" alt="Coins" class="coins-icon"
-                                    style="width: 26px; height: 26px;">
-                                <span class="coins-amount fw-bold">
-                                    <?php echo htmlspecialchars($student_score); ?> Coins
-                                </span>
+                            <div class="dropdown" id="dropdown">
+                                <ul>
+                                    <li onclick="ChangeProfile()">Change Profile Picture</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="stats d-flex flex-column justify-content-center align-items-center mb-1">
-
-                                <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
-                                <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
-                                <p><strong>IP Address:</strong> <?php echo htmlspecialchars($user_ip); ?></p>
-
-
-                                <!-- Progress Bar -->
-                                <div class="progress-container mt-3 bg-white shadow-sm rounded">
-                                    <div id="progress-bar" class="progress-bar bg-primary rounded">
-                                        <span id="time-remaining" class="text-dark position-absolute w-100"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btns">
-                                <button type="button" class="btn btn-secondary px-3 py-2 rounded" id="pause-btn"
-                                    style="display: none; border-radius: 0;">
-                                    <i class="fas fa-pause"></i> Pause
-                                </button>
-                                <button type="button" class="btn btn-success px-3 py-2 rounded" id="continue-btn"
-                                    style="display: none; border-radius: 0;">
-                                    <i class="fas fa-play"></i> Continue
-                                </button>
-                                <button id="voucher-button" type="button" class="btn btn-success px-3 py-2">
-                                    <i class="bx bxs-coupon"></i> Redeem
-                                </button>
-                                <a href="convert_voucher.php" class="btn btn-warning px-3 py-2">
-                                    <i class="bi bi-currency-exchange"></i> Exchange
-                                </a>
-                            </div>
-
-                            <div class="tipPts mt-3 p-2 rounded bg-light">
-                                <strong>Tip:</strong> Not enough points? Gain more by participating in quizzes!
-                                <a href="take_quiz.php" class="text-decoration-none fw-bold text-primary">Play
-                                    Now</a>
-                            </div>
-                            </>
+                        <div class="profile-img-wrapper">
+                            <img class="profile-img" src="assets/students/profile.jpg" alt="Profile Picture">
                         </div>
                     </div>
+
+                    <!-- Card Content -->
+                    <div class="card-content">
+                        <h2 class="profile-name">
+                            <?php echo htmlspecialchars($row1['firstname'] . ' ' . $row1['lastname']); ?>
+                        </h2>
+                        <p class="profile-role">
+                            <?php echo htmlspecialchars($row1['department']); ?>
+                        </p>
+
+                        <!-- Stats Section -->
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">
+                                    <img src="assets/img/coin.png" alt="Coins" style="width: 20px; height: 20px;">
+                                    <?php echo htmlspecialchars($student_score); ?>
+                                </div>
+                                <div class="stat-label">Coins</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value"><?php echo htmlspecialchars("1"); ?></div>
+                                <div class="stat-label">Rank</div>
+                            </div>
+                        </div>
+
+                        <!-- Timer Section -->
+                        <div class="timer-section">
+                            <input type="hidden" id="totalDurationTime" value="<?php echo $totalDuration; ?>">
+                            <input type="hidden" id="currentStatus" value="<?php echo $currentStatus; ?>">
+                            <p class="ip-address"><strong>IP:</strong> <?php echo htmlspecialchars($user_ip); ?></p>
+
+                            <!-- Progress Bar -->
+                            <div class="progress-container mt-3 bg-white shadow-sm rounded">
+                                <div id="progress-bar" class="progress-bar bg-primary rounded">
+                                    <span id="time-remaining" class="text-dark position-absolute w-100"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="profile-actions">
+                            <button type="button" class="action-btn primary-btn" id="pause-btn" style="display: none;">
+                                <i class="fas fa-pause"></i> Pause
+                            </button>
+                            <button type="button" class="action-btn primary-btn" id="continue-btn"
+                                style="display: none;">
+                                <i class="fas fa-play"></i> Continue
+                            </button>
+                            <button id="voucher-button" type="button" class="action-btn primary-btn">
+                                <i class="bx bxs-coupon"></i> Redeem
+                            </button>
+                            <a href="convert_voucher.php" class="action-btn secondary-btn">
+                                <i class="bi bi-currency-exchange"></i> Exchange
+                            </a>
+                        </div>
+
+                        <!-- Tip Section -->
+                        <div class="profile-bio">
+                            <strong>Tip:</strong> Not enough points? Gain more by participating in quizzes!
+                            <a href="take_quiz.php" class="text-primary">Play Now</a>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="social-links">
+                            <a href="javascript:void(0);" class="social-icon badge" data-tooltip="Coming Soon!..">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="javascript:void(0);" class="social-icon badge" data-tooltip="Coming Soon!..">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="javascript:void(0);" class="social-icon badge" data-tooltip="Coming Soon!..">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+
+                        <!-- Achievements -->
+                        <div class="achievements">
+                            <div class="badge" data-tooltip="Quiz Master">
+                                <i class="fas fa-trophy" style="color: #FFD700;"></i>
+                            </div>
+                            <div class="badge" data-tooltip="Fast Learner">
+                                <i class="fas fa-bolt" style="color: #00BFFF;"></i>
+                            </div>
+                            <div class="badge" data-tooltip="Top Performer">
+                                <i class="fas fa-star" style="color: #FF6B6B;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
 
@@ -94,7 +135,7 @@ $totalDuration = $time_duration;
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-light" id="codeModalLabel">Redeem Code</h5>
+                        <h5 class="modal-title" id="codeModalLabel">Redeem Code</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -110,11 +151,9 @@ $totalDuration = $time_duration;
             </div>
         </div>
 
-
-
         <?php include("js/scripts.php"); ?>
         <script>
-            // Replace existing loading screen script with this
+            // Loading screen script
             document.addEventListener('DOMContentLoaded', () => {
                 const loadingScreen = document.getElementById('loading-screen');
 
@@ -221,7 +260,6 @@ $totalDuration = $time_duration;
                                     location.reload();
                                 }, 1000);
                             }
-
                         }
                     } catch (error) {
                         console.error('Error updating timer status:', error);
