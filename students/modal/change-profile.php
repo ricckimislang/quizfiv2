@@ -1,0 +1,38 @@
+<!-- Profile Picture Modal -->
+<div class="modal fade" id="change-profile-modal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileModalLabel">Choose Your Avatar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="profilePictureForm">
+                    <div class="avatar-grid">
+                        <?php
+                        // Directory containing avatar images
+                        $avatar_dir = 'assets/avatars/';
+                        $avatars = glob($avatar_dir . "*.{jpg,jpeg,png,gif}", GLOB_BRACE);
+
+                        foreach ($avatars as $avatar) {
+                            $avatar_name = basename($avatar);
+                            echo "
+                            <div class='avatar-item'>
+                                <input type='radio' name='selected_avatar' id='$avatar_name' value='$avatar' class='avatar-input'>
+                                <label for='$avatar_name' class='avatar-label'>
+                                    <img src='$avatar' alt='Avatar' class='avatar-option'>
+                                </label>
+                            </div>";
+                        }
+                        ?>
+                    </div>
+                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-profile-picture">Save Selection</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -30,12 +30,13 @@ $totalDuration = $time_duration;
                             </div>
                             <div class="dropdown" id="dropdown">
                                 <ul>
-                                    <li onclick="ChangeProfile()">Change Profile Picture</li>
+                                    <li id="change-profile" onclick="showChangeProfileModal()">Change Profile Picture
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="profile-img-wrapper">
-                            <img class="profile-img" src="assets/students/profile.jpg" alt="Profile Picture">
+                            <img class="profile-img" src="<?php echo $row1['profile_path']; ?>" alt="Profile Picture">
                         </div>
                     </div>
 
@@ -129,18 +130,19 @@ $totalDuration = $time_duration;
                 </div>
             </section>
         </main>
+        <?php include_once('modal/change-profile.php'); ?>
 
         <!-- Voucher Modal -->
-        <div class="modal fade" id="codeModal" tabindex="-1" aria-labelledby="codeModalLabel" aria-hidden="true">
+        <div class="modal fade" id="codeModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="codeModalLabel">Redeem Code</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <input type="text" id="voucher-code" name="voucher-code" class="form-control"
-                            placeholder="Insert your generated voucher code here" aria-label="WIFI Code">
+                            placeholder="Insert your generated voucher code here">
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
                     </div>
                     <div class="modal-footer">
@@ -344,6 +346,61 @@ $totalDuration = $time_duration;
             document.addEventListener("DOMContentLoaded", () => {
                 const timerController = new TimerController();
                 timerController.startTimer();
+            });
+
+
+
+        </script>
+        <script>
+            // Function to show the avatar selection modal
+            function showChangeProfileModal() {
+                const modal = new bootstrap.Modal(document.getElementById('change-profile-modal'));
+                modal.show();
+            }
+
+            // Avatar Selection
+            document.addEventListener("DOMContentLoaded", function () {
+                const saveProfileBtn = document.getElementById('save-profile-picture');
+
+                // Handle avatar selection
+                saveProfileBtn.addEventListener('click', async function () {
+                    const selectedAvatar = document.querySelector('input[name="selected_avatar"]:checked');
+
+                    if (!selectedAvatar) {
+                        toastr["warning"]("Please select an avatar");
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('selected_avatar', selectedAvatar.value);
+                    formData.append('user_id', document.querySelector('input[name="user_id"]').value);
+
+                    try {
+                        saveProfileBtn.disabled = true;
+                        saveProfileBtn.innerHTML = 'Saving...';
+
+                        const response = await fetch('process/update_avatar.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        const data = await response.json();
+
+                        if (data.status === 'success') {
+                            toastr["success"]("Avatar updated successfully!");
+                            setTimeout(() => location.reload(), 1500);
+                            bootstrap.Modal.getInstance(document.getElementById('change-profile-modal')).hide();
+                        } else {
+                            toastr["error"](data.message || "Error updating avatar");
+                        }
+                    } catch (error) {
+                        console.error('Error updating avatar:', error);
+                        toastr["error"]("Error updating avatar");
+                    } finally {
+                        saveProfileBtn.disabled = false;
+                        saveProfileBtn.innerHTML = 'Save Selection';
+                    }
+                });
             });
         </script>
 </body>
