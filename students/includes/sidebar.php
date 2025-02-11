@@ -1,44 +1,39 @@
 <!-- sidebar -->
 <aside id="sidebar" class="sidebar">
-
     <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-heading">Pages</li>
-
         <li class="nav-item">
-            <a class="nav-link collapsed" href="user_profile.php">
+            <a class="nav-link" href="user_profile.php">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
-        </li><!-- End Profile Page Nav -->
+        </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="leaderboard.php">
-                <i class="bi bi-question-circle"></i>
+            <a class="nav-link" href="leaderboard.php">
+                <i class="bi bi-trophy"></i>
                 <span>Leaderboards</span>
             </a>
-        </li><!-- End Leaderboards Page Nav -->
+        </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="take_quiz.php">
-                <i class="bi bi-envelope"></i>
+            <a class="nav-link" href="take_quiz.php">
+                <i class="bi bi-book"></i>
                 <span>Quiz</span>
             </a>
-        </li><!-- End Quiz Page Nav -->
+        </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="classroom.php">
-                <i class="bi bi-card-list"></i>
+            <a class="nav-link" href="classroom.php">
+                <i class="bi bi-mortarboard"></i>
                 <span>Classroom</span>
             </a>
-        </li><!-- End Classroom Page Nav -->
+        </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="logout.php">
-                <i class="bi bi-box-arrow-in-right"></i>
+        <li class="nav-item logout">
+            <a class="nav-link" href="logout.php">
+                <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
             </a>
-        </li><!-- End Logout Page Nav -->
-
+        </li>
     </ul>
-
-</aside><!-- End Sidebar-->
+</aside>
