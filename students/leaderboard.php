@@ -61,7 +61,7 @@ include('includes/session.php');
                                 <?php } ?>
 
                                 <div class="avatar-container">
-                                    <img src="<?php echo $student ? 'assets/students/' . ($student['profile_pic'] ?? 'profile.jpg') : 'assets/students/profile.jpg'; ?>"
+                                    <img src="<?php echo $student ? ($student['profile_path'] ?? 'assets/avatars/no-profile.jpg') : 'assets/avatars/no-profile.jpg'; ?>"
                                         alt="Player <?php echo $position; ?>">
                                     <div class="rank-badge"><?php echo $position; ?></div>
                                 </div>
@@ -114,7 +114,7 @@ include('includes/session.php');
                                 <div class="leader-item">
                                     <div class="leader-rank"><?php echo $position; ?></div>
                                     <div class="leader-avatar">
-                                        <img src="<?php echo 'assets/students/' . ($student['profile_pic'] ?? 'profile.jpg'); ?>"
+                                        <img src="<?php echo $student ? ($student['profile_path'] ?? 'assets/avatars/no-profile.jpg') : 'assets/avatars/no-profile.jpg'; ?>"
                                             alt="Player <?php echo $position; ?>">
                                     </div>
                                     <div class="leader-info">
