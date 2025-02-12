@@ -135,7 +135,8 @@ include('includes/session.php');
                                     ?>
                                     questions</span>
                             </div>
-                            <button class="start-quiz-btn" onclick="startQuiz(<?php echo $quiz['quiz_id']; ?>)">
+                            <button class="start-quiz-btn"
+                                onclick="startQuiz('<?php echo htmlspecialchars($quiz['quiz_title']); ?>',<?php echo $quiz['quiz_id']; ?>)">
                                 <i class="fas fa-play"></i>Start Quiz
                             </button>
                         </div>
@@ -208,11 +209,56 @@ include('includes/session.php');
             });
         });
 
-        function startQuiz(quizId) {
-            // Enhanced confirmation dialog
-            if (confirm('Ready to begin? Make sure you have enough time to complete the quiz. Click OK to start your learning journey!')) {
-                window.location.href = `quiz_time.php?quiz_id=${quizId}`;
-            }
+        function startQuiz(quizTitle, quizId) {
+            console.log("Quiz clicked: " + quizTitle); // Debugging line
+            $.ajax({
+                type: "POST",
+                url: "process/check_availability.php", // Ensure this path is correct
+                data: {
+                    quizId: quizId, // Match the parameter name
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Take Quiz?',
+                            text: "Are you sure you want to take the quiz: " + quizTitle + "?",
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, start quiz!',
+                            cancelButtonText: 'No, cancel!',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Log the attempt and redirect to the quiz
+                                window.location.href = "quiz_time.php?quiz_id=" + quizId;
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You chose not to take the quiz.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Not Allowed',
+                            text: response.message, // Use the message from the PHP response
+                            icon: 'warning',
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error: " + textStatus + ": " + errorThrown);
+                    Swal.fire({
+                        title: 'Error',
+                        text: "There was an error checking quiz availability. Please try again later.",
+                        icon: 'error',
+                        confirmButtonText: 'Okay'
+                    });
+                }
+            });
         }
     </script>
 
