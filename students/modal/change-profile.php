@@ -30,8 +30,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="save-profile-picture">Save Selection</button>
+                <button type="button" class="btn primary-btn" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn primary-btn" id="save-profile-picture">Save Selection</button>
             </div>
         </div>
     </div>

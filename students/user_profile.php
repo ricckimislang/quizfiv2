@@ -146,8 +146,8 @@ $totalDuration = $time_duration;
                         <input type="hidden" id="user-id" name="user-id" value="<?php echo $user_id; ?>">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success" id="voucher-submit">Use</button>
+                        <button type="button" class="btn primary-btn" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn primary-btn" id="voucher-submit">Use</button>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,10 @@
+:root{
+  --modal-header: #6b48ff;
+  --modal-footer: #273345;
+  --modal-body: #f9f9f9;
+
+}
+
 /* Profile Card Container */
 .profile-card {
   width: 50%;
@@ -441,6 +448,10 @@
   transform: scale(1.05);
   border-color: var(--primary-color);
 }
+
+
+
+
 
 
 
