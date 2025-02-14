@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../db/dbconn.php'; // Ensure your database connection is included
+include '../db/dbconn.php'; // Ensure your database connection is included
 
 header('Content-Type: application/json');
 

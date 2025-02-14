@@ -449,48 +449,113 @@
   border-color: var(--primary-color);
 }
 
-
-
-
-
-
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .card-header {
-    max-height: 150px;
+    max-height: 120px;
   }
   .profile-img {
-    width: 100px;
-    height: 100px;
-    bottom: -50px;
+    width: 80px;
+    height: 80px;
+    bottom: -40px;
   }
   .profile-card {
-    width: 90%;
-    max-width: 340px;
-    margin: 20px auto;
+    width: 95%;
+    max-width: 320px;
+    margin: 10px auto;
+    padding-bottom: 10px;
+  }
+
+  .profile-name {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .profile-role {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .profile-bio {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 15px;
   }
 
   .profile-stats {
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 10px 0;
   }
 
   .stat-item {
-    width: calc(50% - 15px);
+    width: calc(50% - 5px);
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 11px;
   }
 
   .profile-actions {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    padding: 0 15px 15px;
   }
 
   .action-btn {
     width: 100%;
+    padding: 8px 20px;
+    font-size: 14px;
   }
 
   .social-links {
-    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .social-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .achievements {
+    gap: 8px;
+    margin: 10px 0;
+    padding: 0 15px;
+  }
+
+  .badge {
+    width: 35px;
+    height: 35px;
+  }
+
+  .badge img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .timer-section {
+    margin: 15px 0;
+    padding: 15px;
+  }
+
+  .timer-section .ip-address {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .timer-section .progress-container {
+    height: 20px !important;
+  }
+
+  .timer-section #time-remaining {
+    font-size: 12px !important;
+    line-height: 20px !important;
   }
 }
 
