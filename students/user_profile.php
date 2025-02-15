@@ -23,7 +23,7 @@ $totalDuration = $time_duration;
                     <!-- Card Header -->
                     <div class="card-header">
                         <div class="menu">
-                            <div class="dots1" onclick="toggleDropdown(event)">
+                            <div class="dots1" onclick="changeProfile(event)">
                                 <div class="dot1"></div>
                                 <div class="dot1"></div>
                                 <div class="dot1"></div>

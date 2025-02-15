@@ -1,39 +1,92 @@
 /* Modern gradient background and container styling */
 :root {
-  /* Primary Colors */
-  --primary-color: #6366f1;      /* Indigo 500 */
-  --primary-dark: #4f46e5;       /* Indigo 600 */
-  --accent-color: #a855f7;       /* Purple 500 */
-  
+  --card-header-color: linear-gradient(135deg, #2980b9 0%, #4c6e91 100%);
+  --secondary-color: #4ecdc4;
+  --background: linear-gradient(135deg, #1a1a1d 0%, #4e4e50 100%);
+  --card-background: #2c2c2e;
+  --text-color: #ffffff;
+  --text-color-secondary: #c5c6c7;
+  --success-color: #4caf50;
+  --warning-color: #ffc107;
+  --error-color: #f44336;
+  --transition-duration: 0.3s;
+  --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
   /* Medal Colors */
-  --gold: #eab308;              /* Yellow 500 - Richer gold */
-  --gold-light: #facc15;        /* Yellow 400 - Brighter gold */
-  --silver: #94a3b8;            /* Slate 400 - Modern silver */
-  --silver-light: #cbd5e1;      /* Slate 300 - Light silver */
-  --bronze: #b45309;            /* Amber 700 - Deep bronze */
-  --bronze-light: #d97706;      /* Amber 600 - Light bronze */
-  
-  /* Neutral Colors */
-  --background: #ffffff;         /* Pure white */
-  --background-alt: #f1f5f9;    /* Subtle gray background */
-  --text-dark: #0f172a;         /* Deep blue-black */
-  --text-light: #afc3e1;        /* Slate gray */
-  
+  --gold: #eab308;
+  --gold-light: #facc15;
+  --silver: #94a3b8;
+  --silver-light: #cbd5e1;
+  --bronze: #b45309;
+  --bronze-light: #d97706;
+
   /* Component Colors */
-  --card-bg: #ffffff;           /* Card background */
-  --shadow-color: rgba(15, 23, 42, 0.08);  /* Subtle shadow */
-  --border-color: #e2e8f0;      /* Subtle border */
-  
-  /* Accent Colors */
-  --success: #10b981;           /* Emerald green */
-  --warning: #f59e0b;           /* Amber */
-  --error: #ef4444;             /* Red */
-  
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --border-color: rgba(255, 255, 255, 0.1);
+
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-  --gradient-gold: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  --gradient-silver: linear-gradient(135deg, var(--silver) 0%, var(--silver-light) 100%);
-  --gradient-bronze: linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--card-header-color) 0%,
+    var(--secondary-color) 100%
+  );
+  --gradient-gold: linear-gradient(
+    135deg,
+    var(--gold) 0%,
+    var(--gold-light) 100%
+  );
+  --gradient-silver: linear-gradient(
+    135deg,
+    var(--silver) 0%,
+    var(--silver-light) 100%
+  );
+  --gradient-bronze: linear-gradient(
+    135deg,
+    var(--bronze) 0%,
+    var(--bronze-light) 100%
+  );
+
+  /* New Variables */
+  --progress-bar-bg: rgba(255, 255, 255, 0.1);
+  --progress-bar-fill: var(--secondary-color);
+  --badge-bg: var(--card-background);
+  --badge-color: var(--text-color);
+  --search-bg: rgba(255, 255, 255, 0.1);
+  --search-border: var(--secondary-color);
+}
+
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-left: 8px;
+}
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.loading-animation::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--secondary-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .leaderboard-container {
@@ -53,25 +106,27 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 200px;
-  background: #4f46e5;
-  border-radius: 0 0 50% 50%;
-  opacity: 0.5;
+  height: 300px;
+  background: linear-gradient(to bottom right, #6b48ff, #1ea5fc);
+  clip-path: polygon(0 0, 100% 0, 85% 70%, 15% 70%);
+  opacity: 0.6;
   z-index: 0;
+  transform: translateY(-40%);
 }
+
 
 /* Enhanced header styling */
 .leaderboard-header {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--text-dark);
+  color: var(--text-color);
   font-family: "Nunito", sans-serif;
   position: relative;
   z-index: 1;
 }
 
 .leaderboard-header h1 {
-  color: var(--primary-color);
+  color: var(--secondary-color);
   font-size: 32px;
   margin-bottom: 5px;
   font-weight: 800;
@@ -81,11 +136,11 @@
   font-size: 28px;
   font-weight: 800;
   margin-bottom: 10px;
-  color: var(--text-dark);
+  color: var(--text-color);
 }
 
 .leaderboard-header p {
-  color: var(--text-light);
+  color: var(--text-color-secondary);
   font-size: 16px;
   font-weight: 500;
 }
@@ -119,9 +174,15 @@
 }
 
 /* Position ordering with improved spacing */
-.position-2 { order: 1; }
-.position-1 { order: 2; }
-.position-3 { order: 3; }
+.position-2 {
+  order: 1;
+}
+.position-1 {
+  order: 2;
+}
+.position-3 {
+  order: 3;
+}
 
 /* Enhanced avatar styling */
 .avatar-container {
@@ -132,7 +193,7 @@
   border: 4px solid var(--background);
   box-shadow: 0 5px 15px var(--shadow-color);
   margin-bottom: 15px;
-  background: var(--background-alt);
+  background: var(--card-background);
   position: relative;
   transition: all 0.3s ease;
 }
@@ -195,6 +256,7 @@
   background: var(--gradient-silver);
   box-shadow: 0 8px 20px var(--shadow-color);
   border: 1px solid var(--silver-light);
+  color: var(--silver-light);
 }
 
 .position-3 .podium-base {
@@ -202,13 +264,14 @@
   background: var(--gradient-bronze);
   box-shadow: 0 8px 20px var(--shadow-color);
   border: 1px solid var(--bronze-light);
+  color: var(--bronze-light);
 }
 
 /* Improved player name styling */
 .player-name {
   font-size: 16px;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--text-color);
   margin: 10px 0;
   text-align: center;
   text-shadow: 1px 1px 2px var(--shadow-color);
@@ -216,7 +279,7 @@
 
 .position-1 .player-name {
   font-size: 20px;
-  color: var(--text-dark);
+  color: var(--text-color);
   font-weight: 800;
 }
 
@@ -224,7 +287,7 @@
 .score {
   font-size: 22px;
   font-weight: 800;
-  color: var(--background);
+  color: #fff;
   margin-top: 5px;
   text-shadow: 2px 2px 4px var(--shadow-color);
   display: flex;
@@ -271,8 +334,8 @@
 
 .position-2 .rank-badge {
   background: var(--silver);
-  color: var(--background);
-  border-color: var(--silver);
+  color: var(--silver-light);
+  border-color: var(--silver-light);
 }
 
 .position-3 .rank-badge {
@@ -283,13 +346,23 @@
 
 /* Enhanced animations */
 @keyframes float {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-8px);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .score {
@@ -307,7 +380,7 @@
 .position-1 .podium-base i {
   font-size: 24px;
   color: rgb(255, 255, 1);
-  filter: drop-shadow(0 0 1px rgb(0,0,0,0.2));
+  filter: drop-shadow(0 0 1px rgb(0, 0, 0, 0.2));
 }
 
 /* Remaining Leaders Section */
@@ -319,7 +392,7 @@
 
 .remaining-leaders h2 {
   text-align: center;
-  color: var(--text-dark);
+  color: var(--text-color);
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 25px;
@@ -373,13 +446,13 @@
 .leader-rank {
   width: 30px;
   height: 30px;
-  background: var(--background-alt);
+  background: var(--card-background);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--text-color);
   margin-right: 15px;
   font-size: 14px;
   border: 2px solid var(--border-color);
@@ -411,15 +484,15 @@
 .leader-name {
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--text-color);
 }
 
 /* Enhanced score display with gradient hover effect */
 .leader-score {
   font-size: 18px;
   font-weight: 700;
-  color: var(--primary-color);
-  background: var(--background-alt);
+  color: var(--secondary-color);
+  background: var(--card-background);
   padding: 8px 16px;
   border-radius: 20px;
   box-shadow: 0 2px 6px var(--shadow-color);
@@ -433,8 +506,6 @@
   position: relative;
   z-index: 1;
 }
-
-
 
 .leader-score:hover::before {
   opacity: 1;
