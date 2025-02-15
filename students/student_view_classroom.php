@@ -73,7 +73,7 @@ $classroom_id = $_GET['roomId'];
                         $classroom_id = isset($_GET['roomId']) ? (int) $_GET['roomId'] : 0;
                         // Get student list
                         $listQuery = $conn->prepare("
-                                            SELECT sc.student_id AS student_id, s.firstname AS firstname, s.lastname AS lastname 
+                                            SELECT sc.student_id AS student_id, s.profile_path AS profile_path, s.firstname AS firstname, s.lastname AS lastname 
                                             FROM student_classroom sc
                                             LEFT JOIN students s ON sc.student_id = s.student_id 
                                             WHERE sc.classroom_id = ?
@@ -90,8 +90,7 @@ $classroom_id = $_GET['roomId'];
                                 <div class="student-item">
                                     <div class="student-info">
                                         <input type="checkbox" class="student-checkbox">
-                                        <img src="assets/3d-profiles/male-1.jpg" alt="Student Profile"
-                                            class="student-profile">
+                                        <img src="<?php echo $listrow ? ($listrow['profile_path'] ?? 'assets/avatars/no-profile.jpg') : 'assets/avatars/no-profile.jpg'; ?>" alt="Student Profile" class="student-profile">
                                         <span
                                             class="student-name"><?= htmlspecialchars($listrow['firstname'] . ' ' . $listrow['lastname']); ?></span>
                                     </div>

@@ -1,11 +1,12 @@
 :root {
-  --background: #ffffff;
+  --background: linear-gradient(135deg, #1a1a1d 0%, #4e4e50 100%);
+  --button: #ffffff;
   --alt-background: #cdcdcd;
   --link-hover: #f0f0f0; /* Define your hover color here */
-  --underline-color: #000; /* Color of the underline */
   --active-border-color: blue; /* Color for active state */
-  --text-color-dark: #333; /* Darker text color for better readability */
-  --text-color-white: #ffffff; /* Lighter text color */
+  --text-color-black: #000; /* Color of the underline */
+  --text-color: #ffffff;
+  --text-color-secondary: #c5c6c7;
   --link-color: #007bff; /* Link color */
   --link-hover-color: #000000; /* Darker link color on hover */
 }
@@ -34,78 +35,44 @@
   flex-direction: row;
   max-width: 600px;
   z-index: 2;
+  margin-left: auto;
 }
 
 .menu-nav ul {
-  list-style: none; /* Remove default list styling */
-  padding: 0; /* Remove default padding */
-  margin: 0 auto; /* Center the menu */
-  display: flex; /* Use flexbox for the list */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
 }
 
 .menu-nav li {
-  position: relative; /* Position relative for the ::after pseudo-element */
+  position: relative;
   padding: 10px;
-  margin: 0 auto; /* Space between links */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for background color and transform */
-  border-radius: 10px 10px 0 0; /* Rounded corners for modern look */
-}
-
-.menu-nav li:last-child {
-  margin-right: 0; /* Remove margin for the last item */
+  margin: 0 10px;
+  transition: all var(--transition-duration) var(--transition-timing-function);
+  border-radius: 10px 10px 0 0;
 }
 
 .menu-nav li:hover {
-  background-color: var(--link-hover); /* Background color on hover */
-  transform: translateY(-2px); /* Slight lift effect on hover */
-}
-
-.menu-nav li:active {
-  border-bottom: 2px solid var(--active-border-color); /* Active state with border */
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .menu-nav a {
-  text-decoration: none; /* Remove underline from links */
-  color: var(--link-color); /* Set link color */
-  padding: 10px 15px; /* Add padding for better click area */
-  border-radius: 5px; /* Rounded corners for links */
-  transition: color 0.3s ease; /* Smooth transition for link color */
+  text-decoration: none;
+  color: var(--text-color-secondary);
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: all var(--transition-duration) var(--transition-timing-function);
 }
 
 .menu-nav a:hover {
-  color: var(--link-hover-color); /* Change link color on hover */
+  color: var(--text-color);
 }
 
-/* Underline effect for active link */
 .menu-nav a.active {
-  color: var(--link-hover-color); /* Change color for active link */
-}
-
-.menu-nav a.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0px; /* Position it just below the link */
-  height: 2px; /* Height of the underline */
-  background-color: var(--underline-color); /* Color of the underline */
-}
-
-/* Underline effect */
-.menu-nav li::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0; /* Position it at the bottom of the li */
-  height: 2px; /* Height of the underline */
-  background-color: var(--underline-color); /* Color of the underline */
-  transform: scaleX(0); /* Initially scale to 0 (hidden) */
-  transition: transform 0.3s ease; /* Smooth transition for the underline */
-}
-
-.menu-nav li:hover::after {
-  transform: scaleX(1); /* Scale to full width on hover */
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 /* content */
@@ -148,7 +115,7 @@
 .info-container {
   position: relative;
   background-color: var(--alt-background);
-  background-image: url("../assets/classroom-bg/pe-bg.png");
+  background-image: url("../assets/classroom-bg/accounting-bg.png");
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -161,7 +128,7 @@
 
 .room-title {
   position: relative;
-  color: var(--text-color-white);
+  color: var(--text-color);
   line-height: 1.5;
 }
 .room-title h1 {
@@ -179,10 +146,10 @@
   position: absolute;
   bottom: 20;
   right: 20;
-  background-color: var(--background);
+  background-color: var(--button);
   padding: 5px 10px;
   border-radius: 5px !important;
-  color: var(--link-color);
+  color: var(--text-color-black);
 }
 
 .btn:hover {
@@ -198,10 +165,11 @@
 }
 
 .student-title h1 {
+  color: var(--text-color);
   font-size: 2rem;
   margin: 0;
   padding: 10px;
-  border-bottom: solid 2px var(--underline-color);
+  border-bottom: solid 2px #fff;
 }
 
 /* Existing student-list container style */
@@ -216,7 +184,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between; /* Separates info and kebab button */
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
@@ -246,7 +214,7 @@
 /* Student name styling */
 .student-name {
   font-size: 1rem;
-  color: var(--text-color, #333);
+  color: var(--text-color);
 }
 
 /* Kebab button styling */
@@ -255,13 +223,13 @@
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
-  color: var(--text-color, #333);
+  color: var(--text-color);
   padding: 5px;
 }
 
 /* Optional: Hover effect for the kebab button */
 .kebab-button:hover {
-  color: var(--link-hover-color, #0056b3);
+  color: #000000;
 }
 
 .dropdown {
@@ -305,7 +273,8 @@
   font-size: 2rem;
   margin: 0;
   padding: 10px;
-  border-bottom: solid 2px var(--underline-color);
+  border-bottom: solid 2px var(--text-color);
+  color: var(--text-color);
 }
 
 .quiz-list {
@@ -319,7 +288,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between; /* Separates info and kebab button */
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
@@ -333,9 +302,7 @@
 
 /* Profile picture styling */
 .quiz-icon {
-  border-radius: 50%;
-  background-color: #3795fa;
-  color: var(--background);
+  color: var(--text-color);
   font-size: 1.5rem;
   margin-right: 10px;
   padding: 10px;
@@ -346,12 +313,24 @@
   font-size: 1rem;
   color: var(--text-color, #333);
 }
-
+.play-button {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 /* hover effects */
+.play-button:hover {
+  background-color: #ffffff;
+  border-radius: 50%;
+}
 
 .student-item:hover,
 .quiz-item:hover {
-  background-color: #fbfbfb;
+  background-color: #949494;
 }
 
 @media (max-width: 480px) {
