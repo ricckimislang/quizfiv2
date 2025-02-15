@@ -10,7 +10,7 @@
 # General
 --------------------------------------------------------------*/
 :root {
-  --background: #ffffff; /* Pure white */
+  --background: linear-gradient(135deg, #1a1a1d 0%, #4e4e50 100%);
 
   --color-background-body: #f0f4f8;
   --color-background-sidebar: #2c3e50;
@@ -38,9 +38,7 @@
 }
 
 body {
-  background-image: url("../../assets/img/bgquiz.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background: var(--background);
   font-family: "Open Sans", sans-serif;
   color: #444444;
 }

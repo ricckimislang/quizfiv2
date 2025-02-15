@@ -17,10 +17,6 @@
   margin: 20px auto;
 }
 
-.profile-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
 
 /* Card Header with Gradient */
 .card-header {

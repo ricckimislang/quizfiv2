@@ -33,7 +33,7 @@ include('includes/session.php');
 
                     <?php
                     // Pagination logic
-                    $limit = 6; // Limit to 3 quizzes per page
+                    $limit = 5; // Limit to 3 quizzes per page
                     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // Get current page or default to 1
                     $offset = ($page - 1) * $limit; // Calculate offset for SQL query
                     
@@ -84,18 +84,18 @@ include('includes/session.php');
                         }
                         // Display classroom card
                         ?>
-                        <div class="classroom-card"
-                            onclick="confirmRoom('<?php echo htmlspecialchars($class['classroom_name']); ?>', <?php echo htmlspecialchars($class['classroom_id']); ?>)">
+                        <div class="classroom-card" data-room-id="<?php echo $class['classroom_id']; ?>">
                             <div class="classroom-card-header">
                                 <div class="menu">
-                                    <div class="dots1" onclick="toggleDropdown(event)">
+                                    <div class="dots1"
+                                        onclick="toggleDropdown(event, <?php echo $class['classroom_id']; ?>)">
                                         <div class="dot1"></div>
                                         <div class="dot1"></div>
                                         <div class="dot1"></div>
                                     </div>
-                                    <div class="dropdown" id="dropdown">
+                                    <div class="dropdown" id="dropdown-<?php echo $class['classroom_id']; ?>">
                                         <ul>
-                                            <li onclick="deleteItem()">Delete</li>
+                                            <li onclick="deleteItem(<?php echo $class['classroom_id']; ?>)">Delete</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -111,7 +111,8 @@ include('includes/session.php');
                                     <img src="assets/3d-profiles/female-teacher-1.jpg" alt="Creator-Profile">
                                 </div>
                             </div>
-                            <div class="classroom-card-body">
+                            <div class="classroom-card-body"
+                                onclick="confirmRoom('<?php echo htmlspecialchars($class['classroom_name']); ?>', <?php echo htmlspecialchars($class['classroom_id']); ?>)">
                                 <div class="text-body">
                                     <p><?= $class['classroom_desc']; ?></p>
                                 </div>
@@ -228,6 +229,20 @@ include('includes/session.php');
                     }
                 });
             }
+
+            function deleteItem(roomId) {
+                // Confirm before deleting
+                if (!confirm("Are you sure you want to delete this classroom?")) {
+                    return;
+                }
+
+                // Find the classroom card element by roomId and remove it
+                const classroomCard = document.querySelector(`.classroom-card[data-room-id="${roomId}"`);
+                if (classroomCard) {
+                    classroomCard.remove();
+                }
+            }
+
         </script>
         <?php include('js/scripts.php'); ?>
 </body>

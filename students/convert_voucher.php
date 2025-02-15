@@ -38,7 +38,7 @@ include('includes/session.php');
                 </div>
                 <div class="card-grid">
                     <?php
-                    $limit = 10;
+                    $limit =10;
                     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
                     $offset = ($page - 1) * $limit;
 

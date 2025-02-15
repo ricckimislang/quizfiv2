@@ -262,17 +262,26 @@
   }
 })();
 
-function toggleDropdown(event) {
-  const dropdown = document.getElementById("dropdown");
-  dropdown.style.display =
-    dropdown.style.display === "block" ? "none" : "block";
+function toggleDropdown(event, classroomId) {
   event.stopPropagation(); // Prevent event from bubbling up
+  
+  // Select the specific dropdown using the provided classroomId
+  const dropdown = document.getElementById(`dropdown-${classroomId}`);
+
+  // Hide all dropdowns before opening the clicked one
+  document.querySelectorAll(".dropdown").forEach((el) => {
+    if (el !== dropdown) el.style.display = "none";
+  });
+
+  // Toggle the dropdown visibility
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
-// Close the dropdown if clicked outside
+// Close dropdown if clicked outside
 window.onclick = function (event) {
-  const dropdown = document.getElementById("dropdown");
-  if (event.target !== dropdown && event.target.closest(".menu") === null) {
-    dropdown.style.display = "none";
+  if (!event.target.closest(".menu")) {
+    document.querySelectorAll(".dropdown").forEach((el) => {
+      el.style.display = "none";
+    });
   }
 };
