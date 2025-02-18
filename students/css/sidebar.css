@@ -19,6 +19,8 @@
   overflow-y: auto;
   background-color: var(--sidebar-bg);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -31,6 +33,9 @@
 }
 
 .sidebar-nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -41,7 +46,7 @@
 }
 
 .nav-item.logout {
-  margin-top: 2rem;
+  margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -68,7 +73,8 @@
   transition: color var(--transition-speed) ease;
 }
 
-.nav-link:hover i, .nav-link:hover span {
+.nav-link:hover i,
+.nav-link:hover span {
   color: var(--accent-color);
 }
 
@@ -76,7 +82,6 @@
   font-size: 0.95rem;
   font-weight: 500;
 }
-
 
 @media (max-width: 1199px) {
   .sidebar {

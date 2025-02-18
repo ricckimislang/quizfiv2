@@ -155,17 +155,7 @@ $totalDuration = $time_duration;
 
         <?php include("js/scripts.php"); ?>
         <script>
-            // Loading screen script
-            document.addEventListener('DOMContentLoaded', () => {
-                const loadingScreen = document.getElementById('loading-screen');
-
-                window.addEventListener('load', () => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                });
-            });
+            
 
             // Timer and UI Controller
             class TimerController {

@@ -90,7 +90,8 @@ $classroom_id = $_GET['roomId'];
                                 <div class="student-item">
                                     <div class="student-info">
                                         <input type="checkbox" class="student-checkbox">
-                                        <img src="<?php echo $listrow ? ($listrow['profile_path'] ?? 'assets/avatars/no-profile.jpg') : 'assets/avatars/no-profile.jpg'; ?>" alt="Student Profile" class="student-profile">
+                                        <img src="<?php echo $listrow ? ($listrow['profile_path'] ?? 'assets/avatars/no-profile.jpg') : 'assets/avatars/no-profile.jpg'; ?>"
+                                            alt="Student Profile" class="student-profile">
                                         <span
                                             class="student-name"><?= htmlspecialchars($listrow['firstname'] . ' ' . $listrow['lastname']); ?></span>
                                     </div>
@@ -161,18 +162,6 @@ $classroom_id = $_GET['roomId'];
 
 
         <!-- Scripts -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const loadingScreen = document.getElementById('loading-screen');
-
-                window.addEventListener('load', () => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                });
-            });
-        </script>
 
         <!-- Nav Link Active -->
         <script>
@@ -208,8 +197,34 @@ $classroom_id = $_GET['roomId'];
                         }
                     });
                 });
-            });
 
+
+            });
+            function confirmQuiz(quizTitle, quizId, classroomId) {
+                Swal.fire({
+                    title: quizTitle,
+                    text: "Are you sure you want to take this quiz ?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, start quiz!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonColor: '#2ecc71',
+                    cancelButtonColor: '#d33',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect or perform action to take the quiz
+                        window.location.href = "quiz_time.php?quiz_id=" + quizId + "&roomId=" + classroomId;
+                        // Optionally, add the redirection or quiz start logic here
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire(
+                            'Cancelled',
+                            'Action Cancelled',
+                            'error'
+                        );
+                    }
+                });
+            }
         </script>
         <?php include('js/scripts.php'); ?>
 </body>

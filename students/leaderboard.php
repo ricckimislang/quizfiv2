@@ -159,15 +159,6 @@ include('includes/session.php');
 
             // Animate all score elements when page loads
             document.addEventListener('DOMContentLoaded', () => {
-                const loadingScreen = document.getElementById('loading-screen');
-
-                window.addEventListener('load', () => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                });
-
                 document.querySelectorAll('.score').forEach(scoreElement => {
                     const finalScore = parseInt(scoreElement.dataset.score);
                     animateValue(scoreElement, 0, finalScore, 10000); // You can adjust the duration here

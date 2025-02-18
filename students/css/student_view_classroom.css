@@ -19,6 +19,7 @@
 
 /* top bar navigation */
 .top-bar {
+  border-bottom: solid 1px rgb(255, 255, 255, 0.1);
   position: relative;
   background-color: var(--background);
   width: 100%;
@@ -71,7 +72,7 @@
 }
 
 .menu-nav a.active {
-  color: var(--text-color);
+  color: #00f9e9;
   font-weight: bold;
 }
 
@@ -82,8 +83,6 @@
   flex-direction: column;
   position: relative;
   padding: 20px 40px;
-  height: 100%;
-  gap: 20px;
 }
 
 /* Base style for content sections */
@@ -124,6 +123,7 @@
   border-radius: 10px;
   padding: 20px;
   overflow: hidden;
+  border: solid 1px rgb(255, 255, 255, 0.1);
 }
 
 .room-title {
@@ -189,6 +189,7 @@
   padding: 10px;
   margin-bottom: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border:solid 1px rgb(255, 255, 255, 0.1);
 }
 
 /* Group for checkbox, profile and name */
@@ -293,6 +294,7 @@
   padding: 10px;
   margin-bottom: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: solid 1px rgb(255, 255, 255, 0.1);
 }
 
 .quiz-info {

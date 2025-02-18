@@ -20,7 +20,7 @@ include('includes/session.php');
                 <h2>Join a Classroom</h2>
                 <form id="joinClassroom">
                     <div class="classroom-code-group">
-                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $studentId; ?>">
+                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
                         <input type="text" id="classroom-code" class="classroom-code" placeholder="Enter classroom code"
                             required />
                         <button type="submit" class="join-button">Join Classroom</button>
@@ -37,7 +37,7 @@ include('includes/session.php');
                     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // Get current page or default to 1
                     $offset = ($page - 1) * $limit; // Calculate offset for SQL query
                     
-                    // Fetch total number of quizzes to calculate total pages
+                    // Fetch total number of classroom to calculate total pages
                     $totalClassrooms = "SELECT COUNT(*) as total FROM student_classroom WHERE student_id = ?";
                     $totalStmt = $conn->prepare($totalClassrooms);
                     if ($totalStmt === false) {
@@ -69,6 +69,13 @@ include('includes/session.php');
 
                     while ($class = $Cresult->fetch_assoc()) {
 
+                        $mainRoomId = $conn->prepare("SELECT profile_path FROM classroom WHERE classroom_id = ?");
+                        $mainRoomId->bind_param("i", $class['classroom_id']);
+                        $mainRoomId->execute();
+                        $mainRoomIdResult = $mainRoomId->get_result();
+                        $mainRoom = $mainRoomIdResult->fetch_assoc();
+                        $imagePath = $mainRoom['profile_path'];
+
                         $educator_user_id = $class['user_id'];
                         $RoomCreator = "SELECT firstname, lastname FROM educators WHERE user_id = ?";
                         $RoomCreator = $conn->prepare($RoomCreator);
@@ -85,7 +92,8 @@ include('includes/session.php');
                         // Display classroom card
                         ?>
                         <div class="classroom-card" data-room-id="<?php echo $class['classroom_id']; ?>">
-                            <div class="classroom-card-header">
+                            <div class="classroom-card-header"
+                                style="<?php echo !empty($imagePath) ? "background-image: url('$imagePath');" : 'background: var(--card-header-color)' ?>">
                                 <div class="menu">
                                     <div class="dots1"
                                         onclick="toggleDropdown(event, <?php echo $class['classroom_id']; ?>)">
@@ -161,17 +169,6 @@ include('includes/session.php');
         </main>
 
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const loadingScreen = document.getElementById('loading-screen');
-
-                window.addEventListener('load', () => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                });
-            });
-
             //join submit button
             $(document).ready(function () {
                 $('#joinClassroom').on('submit', function (e) {
@@ -188,7 +185,10 @@ include('includes/session.php');
                         success: function (response) {
                             // Handle response from the server
                             if (response.status === 'success') {
-                                alert("Classroom joined successfully!");
+                                toastr["success"]("Joined", "Success" + response.studentId)
+                                setTimeout(() => {
+                                    window.location.href = "student_view_classroom.php?roomId=" + response.classroomId;
+                                }, 2000);
                             } else {
                                 alert("Failed to join Class!");
                             }
@@ -207,11 +207,13 @@ include('includes/session.php');
             function confirmRoom(classroomName, classroomId) {
                 Swal.fire({
                     title: 'Enter Classroom?',
-                    text: "Are you sure you want to enter: " + classroomName + "?",
+                    text: classroomName,
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, Enter!',
                     cancelButtonText: 'No, cancel!',
+                    confirmButtonColor: '#2ecc71',
+                    cancelButtonColor: '#d33',
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {

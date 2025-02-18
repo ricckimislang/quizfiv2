@@ -8,6 +8,13 @@ include('includes/session.php');
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="css/convert_voucher.css">
 <link rel="stylesheet" href="css/style.css">
+<!-- Add these lines after your existing CSS links -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+<!-- Add these lines before your closing </body> tag -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
 <body>
     <!-- Loading Screen -->
@@ -117,19 +124,58 @@ include('includes/session.php');
             </div>
 
             <!-- history content -->
-            <div class="history-content">
+            <div class="history-content container-fluid m-0">
+                <div class="history-container">
+                    <div class="history-title">
+                        <h1>History</h1>
+                    </div>
+                    <div class="history-table-container">
+                        <?php
+                        // Fetch history data from the database
+                        $history = $conn->prepare("SELECT ps.user_id, ps.voucher_id, ps.wifi_code, ps.duration, ps.status FROM purchased_vouchers ps WHERE user_id = ?");
+                        $history->bind_param("i", $user_id);
+                        $history->execute();
+                        $historyResult = $history->get_result();
+                        ?>
+                        <table class="history-table" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Duration</th>
+                                    <th>Code</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($historyRow = $historyResult->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($historyRow['duration']); ?></td>
+                                        <td>
+                                            <div class="copy-code-container">
+                                                <span
+                                                    class="voucher-code"><?= htmlspecialchars($historyRow['wifi_code']); ?></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="wifi-code-copy"
+                                                value="<?= htmlspecialchars($historyRow['wifi_code']); ?>">
+                                            <button class="copy-button">
+                                                <i class="fas fa-copy"></i>
+                                                <span>Copy</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+
+
+        </div>
         </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                loadingScreen.style.display = 'none';
-            }
-        });
-    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const menuLinks = document.querySelectorAll('.menu-nav a');
@@ -162,13 +208,15 @@ include('includes/session.php');
                     var userId = $(this).data('user-id');
 
                     Swal.fire({
-                        title: 'Are you sure?',
+                        title: '⚠️ Confirm Purchase?',
+                        html: `<p style="font-size: 18px; color: #333;">You are about to buy this Voucher:<strong> ${voucherName}</strong></p>`,
                         text: "You want to buy " + voucherName + "?",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#2ecc71',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, buy it!'
+                        confirmButtonText: 'Yes, buy it!',
+                        reverseButtons: true
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
@@ -182,30 +230,44 @@ include('includes/session.php');
                                 success: function (response) {
                                     if (response.status === 'success') {
                                         Swal.fire({
-                                            title: 'Purchased!',
-                                            html: '<p>Voucher: ' + voucherName + '</p>' +
-                                                '<p style="margin-top: 20px;">Please copy the generated code for the voucher: <strong>' + response.voucher_code + '</strong></p>',
+                                            title: '🎉 Purchased Successfully!',
+                                            html: `
+        <p style="font-size: 18px; color: #333;">Voucher: <strong>${voucherName}</strong></p>
+        <p style="margin-top: 20px; font-weight: bold;">🔑 Your voucher code:</p>
+        <div style="display: flex; align-items: center; justify-content: space-between; 
+                    background: #f8f9fa; padding: 10px; font-size: 20px; 
+                    font-weight: bold; border-radius: 5px; color: #28a745;">
+            <span id="voucherCode">${response.voucher_code}</span>
+            <button id="copyButton" style="background: none; border: none; cursor: pointer; padding: 5px;">
+                <i class="fas fa-copy" style="color: #28a745; font-size: 18px;"></i>
+            </button>
+        </div>
+        <p style="margin-top: 10px; font-size: 14px; color: #666;">(Click the copy icon to copy)</p>`,
                                             icon: 'success',
-                                            timer: 10000,
-                                            timerProgressBar: true,
-                                            showConfirmButton: false,
+                                            background: '#fff',
+                                            width: '500px',
+                                            showConfirmButton: true,
+                                            confirmButtonText: 'Done',
+                                            confirmButtonColor: '#28a745',
                                             didOpen: () => {
-                                                Swal.showLoading();
-                                            },
-                                            willClose: () => {
-                                                Swal.fire({
-                                                    title: 'Purchased!',
-                                                    html: '<p>Voucher: ' + voucherName + '</p>' +
-                                                        '<p style="margin-top: 20px;">Please copy the generated code for the voucher: <strong>' + response.voucher_code + '</strong></p>',
-                                                    icon: 'success',
-                                                    confirmButtonText: 'OK'
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        location.reload();
-                                                    }
+                                                document.getElementById('copyButton').addEventListener('click', () => {
+                                                    let codeText = document.getElementById('voucherCode').innerText;
+                                                    navigator.clipboard.writeText(codeText);
+
+                                                    // Change icon to checkmark after copying
+                                                    document.getElementById('copyButton').innerHTML = '<i class="fas fa-check" style="color: #28a745; font-size: 18px;"></i>';
+
+                                                    Swal.fire({
+                                                        title: 'Copied!',
+                                                        text: 'Voucher code copied to clipboard.',
+                                                        icon: 'success',
+                                                        timer: 1500,
+                                                        showConfirmButton: false
+                                                    });
                                                 });
                                             }
                                         });
+
                                     } else {
                                         Swal.fire(
                                             'Error!',
@@ -227,6 +289,65 @@ include('includes/session.php');
                 });
             });
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const copyButtons = document.querySelectorAll('.copy-button');
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Find the closest row and get the hidden input inside it
+                    const row = this.closest('tr');
+                    const codeInput = row.querySelector('input[type="hidden"]');
+
+                    if (codeInput) {
+                        const codeText = codeInput.value;
+
+                        navigator.clipboard.writeText(codeText).then(() => {
+                            const icon = this.querySelector('i');
+                            icon.classList.remove('fa-copy');
+                            icon.classList.add('fa-check');
+                            toastr.success('Voucher code copied to clipboard.');
+
+                            setTimeout(() => {
+                                icon.classList.remove('fa-check');
+                                icon.classList.add('fa-copy');
+                            }, 1500);
+                        }).catch(err => {
+                            toastr.error('Voucher code failed to copied to clipboard.');
+                            console.error('Failed to copy:', err);
+                        });
+                    }
+                });
+            });
+        });
+
+
+        // Add this after your existing scripts
+        $(function () {
+            $('#historyTable').DataTable({
+                responsive: true,  // Keeps the table mobile-friendly
+                pageLength: 5,     // Increased initial display length for better UX
+                lengthMenu: [5, 10, 15, 25],
+                autoWidth: false,  // Prevents column misalignment
+                deferRender: true, // Improves performance for large datasets
+                dom: '<"top"l>rt<"bottom"ip>', // Custom layout
+
+                language: {
+                    searchPlaceholder: "Search records...",
+                    search: "", // Removes default label
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                }
+            });
+        });
+
     </script>
     <?php include('js/scripts.php'); ?>
 </body>

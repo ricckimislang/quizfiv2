@@ -19,6 +19,7 @@
 }
 
 .join-classroom-container {
+  border: 1px solid rgba(255, 255, 255, 0.1);
   max-width: 800px;
   margin: 20px auto;
   padding: 25px;
@@ -90,6 +91,7 @@
 }
 
 .classroom-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--card-background);
   border-radius: 15px;
   overflow: hidden;
@@ -103,9 +105,11 @@
 }
 
 .classroom-card-header {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   position: relative;
   padding: 20px;
-  background: var(--card-header-color);
   min-height: 110px;
 }
 

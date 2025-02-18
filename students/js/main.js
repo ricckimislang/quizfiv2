@@ -292,3 +292,15 @@ function changeProfile(event) {
     dropdown.style.display === "block" ? "none" : "block";
   event.stopPropagation(); // Prevent event from bubbling up
 }
+
+
+
+window.onload = function() {
+  const loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+      loadingScreen.style.opacity = '0'; // Fade out the loading screen
+      setTimeout(() => {
+          loadingScreen.style.visibility = 'hidden'; // Hide the loading screen after fade out
+      }, 500); // Match the duration of the CSS transition
+  }
+};

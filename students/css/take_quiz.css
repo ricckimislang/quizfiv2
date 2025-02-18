@@ -7,6 +7,16 @@
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
   overflow: hidden;
 }
+.gradient-button {
+  background: linear-gradient(135deg, #2980b9 0%, #34495e 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  border-radius: 5px !important;
+  transition: all 0.3s ease-in-out !important;
+}
 
 /* Decorative Background Elements */
 .quiz-selection::before {

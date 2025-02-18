@@ -44,7 +44,7 @@ if (isset($_POST['user_id'], $_POST['classroomCode'])) {
                 $insertStmt->bind_param("ii", $classroom_id, $student_id);
 
                 if ($insertStmt->execute()) {
-                    echo json_encode(["status" => "success", "message" => "Student added to classroom successfully"]);
+                    echo json_encode(["status" => "success", "message" => "Student added to classroom successfully", "classroomId" => $classroom_id, "studentId" => $student_id]);
                 } else {
                     echo json_encode(["status" => "error", "message" => "Failed to add student to classroom"]);
                 }

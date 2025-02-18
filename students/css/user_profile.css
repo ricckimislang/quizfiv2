@@ -1,8 +1,7 @@
-:root{
+:root {
   --modal-header: #6b48ff;
   --modal-footer: #273345;
   --modal-body: #f9f9f9;
-
 }
 
 /* Profile Card Container */
@@ -16,7 +15,6 @@
   transition: all 0.4s ease;
   margin: 20px auto;
 }
-
 
 /* Card Header with Gradient */
 .card-header {
@@ -316,6 +314,14 @@
   position: absolute;
   top: 20;
   right: 20;
+  width: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu:hover{
+  background-color: rgb(255, 255, 255, 0.3);
 }
 
 .dots1 {
@@ -365,9 +371,6 @@
 .dots1:hover .dropdown {
   display: block;
 }
-
-
-
 
 /* Animations */
 @keyframes shine {

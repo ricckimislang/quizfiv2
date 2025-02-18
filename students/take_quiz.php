@@ -184,11 +184,6 @@ include('includes/session.php');
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Remove loading screen immediately
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                loadingScreen.style.display = 'none';
-            }
 
             // Difficulty filter functionality with smooth transitions
             const difficultyBtns = document.querySelectorAll('.difficulty-btn');
@@ -222,12 +217,17 @@ include('includes/session.php');
                     if (response.success) {
                         Swal.fire({
                             title: 'Take Quiz?',
-                            text: "Are you sure you want to take the quiz: " + quizTitle + "?",
+                            text: "Are you sure you want to take this quiz: " + quizTitle + "?",
+                            html: `<p style="font-size: 18px; color: #333;">Are you sure you want to take this quiz: <strong>${quizTitle}</strong></p>`,
+
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Yes, start quiz!',
                             cancelButtonText: 'No, cancel!',
-                            reverseButtons: true
+                            reverseButtons: true,
+                            customClass: {
+                                confirmButton: 'gradient-button'
+                            }
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Log the attempt and redirect to the quiz
@@ -242,10 +242,13 @@ include('includes/session.php');
                         });
                     } else {
                         Swal.fire({
-                            title: 'Not Allowed',
+                            title: '🚫 Not Allowed',
                             text: response.message, // Use the message from the PHP response
                             icon: 'warning',
-                            confirmButtonText: 'Okay'
+                            confirmButtonText: 'Okay',
+                            customClass: {
+                                confirmButton: 'gradient-button' // Apply custom CSS class
+                            }
                         });
                     }
                 },
