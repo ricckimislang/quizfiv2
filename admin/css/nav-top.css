@@ -97,6 +97,7 @@
     left: 10;
     display: block;
     transition: var(---transition-speed);
+    z-index: 99;
   }
   .toggle-sidebar .bottom-nav {
     transition: all 0.3s ease;

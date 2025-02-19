@@ -76,11 +76,11 @@
 }
 
 .difficulty-btn {
-  padding: 1rem 2.5rem;
+  padding: 1rem;
   border: none;
   border-radius: 50px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: clamp(0.8rem, 0.5rem + 1vw, 1rem);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
