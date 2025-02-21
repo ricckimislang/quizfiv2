@@ -8,13 +8,19 @@
   --focus-color: rgba(65, 84, 241, 0.3);
 }
 
+@media (max-width: 480px) {
+  .main {
+    padding: 20px 0 0 0 !important;
+  }
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;
 }
 
 .card {
-  padding: 20px;
+  padding: 10px;
   background: #1e1e1e;
   border-radius: 12px;
   border: 1px solid var(--border-color);
