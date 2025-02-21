@@ -1,0 +1,292 @@
+:root {
+  --primary-color: #1e1e1e;
+  --secondary-color: #4154f1;
+  --success-color: #2eca6a;
+  --danger-color: #ff5555;
+  --light-gray: #f5f5f5;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --focus-color: rgba(65, 84, 241, 0.3);
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 20px 0 0 0 !important;
+  }
+}
+
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.card {
+  padding: 10px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.08);
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.12);
+}
+
+.card-header {
+  background: var(--primary-color);
+  color: white;
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  font-weight: 400;
+  border-color: transparent;
+}
+
+.card-header h2 {
+  font-size: clamp(1rem, 3vw, 2.5rem);
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.studentTable,
+.dataTables_wrapper .studentTable {
+  width: 100% !important;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+/* Cell Styles */
+.studentTable th,
+.studentTable td {
+  font-size: clamp(0.3rem, 2vw, 1rem) !important;
+  padding: 12px 15px;
+  text-align: left;
+  word-break: break-word;
+  color: #fff !important;
+}
+
+.studentTable th {
+  font-weight: 600;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.studentTable td {
+  color: var(--text-color);
+}
+
+.dataTables_wrapper .dataTables_length {
+  margin-bottom: 10px !important;
+}
+.dataTables_wrapper .dataTables_length option {
+  background-color: #1e1e1e;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  color: var(--light-gray) !important;
+}
+
+.dataTable thead,
+.dataTable th {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.dataTable.no-footer {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.action-btn-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-view,
+.btn-edit,
+.btn-delete {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.btn-view:hover,
+.btn-edit:hover,
+.btn-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-view:active,
+.btn-edit:active,
+.btn-delete:active {
+  transform: translateY(0);
+}
+
+.btn-view {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Hover effects */
+.btn-view:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+/* Focus styles for accessibility */
+.btn-view:focus,
+.btn-edit:focus,
+.btn-delete:focus {
+  outline: none;
+  ring: 2px;
+  ring-offset: 2px;
+}
+
+/* Mobile-first approach */
+@media screen and (max-width: 768px) {
+  .card-body {
+    padding: 0 !important;
+  }
+
+  /* Hide table header on mobile */
+  .studentTable thead {
+    display: none;
+  }
+
+  /* Convert rows to cards on mobile */
+  .studentTable tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .studentTable tbody td {
+    display: flex;
+    padding: 8px 12px !important;
+    text-align: left;
+    border: none !important;
+    align-items: center;
+    font-size: 0.7rem !important;
+  }
+
+  /* Add labels for each cell */
+  .studentTable tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    width: 120px;
+    min-width: 120px;
+    color: #adb5bd;
+  }
+
+  /* Action buttons container */
+  .action-btn-group {
+    margin-top: 8px;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  /* Adjust button sizes for mobile */
+  .btn-edit,
+  .btn-delete {
+    flex: 1;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .dataTables_length,
+  .dataTables_filter,
+  .dataTables_info,
+  .dataTables_paginate {
+    width: 100%;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .dataTables_filter input {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 0.5rem;
+  }
+
+  .dataTables_length select {
+    width: auto !important;
+  }
+
+  /* Improve pagination on mobile */
+  .dataTables_paginate {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1rem !important;
+  }
+
+  .paginate_button {
+    padding: 6px 12px !important;
+    border-radius: 4px;
+  }
+}
+
+/* Search and length menu styling */
+.dataTables_filter input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #fff;
+}
+
+.dataTables_length select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #fff;
+}
+
+/* Improve table loading state */
+.dataTables_processing {
+  background: rgba(30, 30, 30, 0.9) !important;
+  color: #fff !important;
+  border-radius: 6px;
+  padding: 1rem !important;
+}

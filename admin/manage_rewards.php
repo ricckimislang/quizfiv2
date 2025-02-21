@@ -30,7 +30,7 @@ include_once 'includes/session.php';
                     <h2>✨Configure Rewards</h2>
                     <p class="subtitle">Configure the Correct Amount of Rewards from Quizzes</p>
                 </div>
-                <table class="rewardTable stripe " id="rewardTable">
+                <table class="rewardTable stripe" id="rewardTable">
                     <thead>
                         <tr>
                             <th>Difficulty</th>
@@ -45,7 +45,7 @@ include_once 'includes/session.php';
                         $categories = $categories->get_result();
                         while ($row = $categories->fetch_assoc()) {
                             ?>
-                            <tr >
+                            <tr>
                                 <td data-label="Difficulty"><?= $row['difficulty']; ?></td>
                                 <td data-label="Perfect"><input class="form-control" type="text" id="perfect" name="perfect"
                                         value="<?= $row['perfect'] ?>"></td>
