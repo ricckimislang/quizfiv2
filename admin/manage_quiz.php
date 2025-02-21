@@ -14,15 +14,21 @@ include_once 'includes/session.php';
     <header id="header" class="header fixed-top d-flex align-items-center">
         <?php include_once 'includes/nav-top.php'; ?>
     </header>
+    <!-- Add this right after your <body> tag but before the main content -->
+    <?php include_once 'includes/bubble.php'; ?>
     <main id="main" class="main">
         <?php include_once 'includes/mobile-nav.php'; ?>
         <div class="container">
             <!-- Create Quiz Section -->
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                Please Complete All The Forms To Avoid Errors!😊
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <form id="create-quiz-form" class="quiz-form">
                 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Create New Quiz</h2>
+                        <h2>📖Create New Quiz</h2>
                         <p class="subtitle">Build your quiz by adding questions and selecting the question type!</p>
                     </div>
                     <div class="card-body">
@@ -81,6 +87,11 @@ include_once 'includes/session.php';
 
             //changing difficulty
             document.addEventListener("DOMContentLoaded", function () {
+                const alertForm = document.querySelector(".alert-primary");
+                setTimeout(function () {
+                    alertForm.style.display = "none";
+                }, 10000);
+
                 const difficultySelect = document.getElementById("difficulty");
                 const questionContainer = document.createElement("div");
                 questionContainer.id = "question-container";

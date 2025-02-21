@@ -30,6 +30,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/nav-top.css" rel="stylesheet">
     <link rel="stylesheet" href="css/toastr.css">
+    <link rel="stylesheet" href="css/bubble.css">
 
 
 </head>

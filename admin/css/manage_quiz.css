@@ -9,23 +9,21 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   font-family: "Inter", sans-serif;
 }
 
 body {
-  background: #121212;
-  color: #f0f0f0;
   min-height: 100dvh;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 600px;
   margin: 0 auto;
 }
-
+.alert {
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  background-color: #93beffaa;
+}
 .card {
   background: #1e1e1e;
   border-radius: 12px;
@@ -45,7 +43,7 @@ body {
   background: var(--primary-color);
   color: white;
   padding: 20px 24px;
-  font-size: clamp(0.7rem, 1.5vw, 1.5rem);
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
   font-weight: 400;
   border-bottom: 1px solid var(--border-color);
 }
@@ -129,6 +127,7 @@ select option {
 }
 
 .button-group button {
+  z-index: 2;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -173,6 +172,15 @@ select option {
 
 .card {
   animation: fadeIn 0.3s ease-out;
+}
+
+/* Make sure container contents remain visible above the bubbles */
+.container,
+.card,
+.form-group,
+.quiz-form {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 480px) {
