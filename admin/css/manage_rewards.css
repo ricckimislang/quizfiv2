@@ -34,7 +34,11 @@
   color: white;
   font-size: clamp(0.7rem, 1.5vw, 1rem);
   font-weight: 400;
-  border-bottom: 1px solid var(--border-color);
+  border-color: transparent;
+}
+
+.card-header h2 {
+  font-size: clamp(1rem, 3vw, 2.5rem);
 }
 
 .card-body {
@@ -44,47 +48,39 @@
   color: #fff;
 }
 
+.form-control {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+}
+.form-control:focus {
+  color: #fff;
+  background-color: var(--focus-color);
+}
+
+input[type="text"] {
+  font-size: clamp(0.6rem, 1.5vw, 1rem);
+}
+
+.table-action {
+  width: 100% !important;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Base Table Styles */
 .rewardTable,
 .dataTables_wrapper .rewardTable {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
   width: 100% !important;
   border-collapse: collapse;
   table-layout: auto;
 }
 
-/* Column Widths */
-.rewardTable th:nth-child(1),
-.rewardTable td:nth-child(1),
-.dataTables_wrapper .rewardTable th:nth-child(1),
-.dataTables_wrapper .rewardTable td:nth-child(1) {
-  width: 20%;
-}
-
-.rewardTable th:nth-child(2),
-.rewardTable td:nth-child(2),
-.dataTables_wrapper .rewardTable th:nth-child(2),
-.dataTables_wrapper .rewardTable td:nth-child(2) {
-  width: 20%;
-}
-
-.rewardTable th:nth-child(3),
-.rewardTable td:nth-child(3),
-.dataTables_wrapper .rewardTable th:nth-child(3),
-.dataTables_wrapper .rewardTable td:nth-child(3) {
-  width: 20%;
-}
-
-.rewardTable th:nth-child(4),
-.rewardTable td:nth-child(4),
-.dataTables_wrapper .rewardTable th:nth-child(4),
-.dataTables_wrapper .rewardTable td:nth-child(4) {
-  width: 10%;
-}
-.rewardTable th{
-  border-radius: 10px;
-
+.rewardTable thead {
+  border-bottom: solid rgba(255, 255, 255) !important;
+  border-bottom-width: 1px !important;
 }
 /* Cell Styles */
 .rewardTable th,
@@ -93,33 +89,37 @@
   padding: 12px 15px;
   text-align: left;
   word-break: break-word;
+  color: #fff !important;
 }
 
 .rewardTable th {
   font-weight: 600;
   color: #fff;
+  border-radius: 10px;
 }
 
 .rewardTable td {
   color: var(--text-color);
 }
-
-.copy-button {
+.action-btn {
   color: #29c14c;
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
   transition: all var(--transition-duration) var(--transition-timing-function);
-  transform: scale(1);
 }
 
-.copy-button:hover {
+.action-btn:hover {
   color: #00ff3c;
   transform: scale(1.1);
 }
 
-.copy-button.copied {
-  color: #00ff3c;
-  animation: bounce 0.3s ease;
+@media (max-width: 480px) {
+  .card-header {
+    padding: 0;
+  }
+  .rewardTable tbody td {
+    padding: 5 !important;
+  }
 }
