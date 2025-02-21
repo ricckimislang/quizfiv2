@@ -30,7 +30,7 @@ include_once 'includes/session.php';
                     <h2>✨Configure Rewards</h2>
                     <p class="subtitle">Configure the Correct Amount of Rewards from Quizzes</p>
                 </div>
-                <table class="rewardTable stripe" id="rewardTable">
+                <table class="rewardTable stripe " id="rewardTable">
                     <thead>
                         <tr>
                             <th>Difficulty</th>
@@ -45,13 +45,14 @@ include_once 'includes/session.php';
                         $categories = $categories->get_result();
                         while ($row = $categories->fetch_assoc()) {
                             ?>
-                            <tr>
-                                <td><?= $row['difficulty']; ?></td>
-                                <td><input class="form-control" type="text" id="perfect" name="perfect"
+                            <tr >
+                                <td data-label="Difficulty"><?= $row['difficulty']; ?></td>
+                                <td data-label="Perfect"><input class="form-control" type="text" id="perfect" name="perfect"
                                         value="<?= $row['perfect'] ?>"></td>
-                                <td><input class="form-control" type="text" id="consolation" name="consolation"
-                                        value="<?= $row['consolation'] ?>"></td>
-                                <td class="table-action"><button type="button" class="action-btn">Save</button></td>
+                                <td data-label="Consolation"><input class="form-control" type="text" id="consolation"
+                                        name="consolation" value="<?= $row['consolation'] ?>"></td>
+                                <td data-label="Action" class="table-action"><button type="button"
+                                        class="action-btn">Save</button></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -111,11 +112,12 @@ include_once 'includes/session.php';
                             alert('Error: ' + response.message);
                             button.text(originalText);
                             button.prop('disabled', false);
+                            toastr.error('Error.');
                         }
                     },
                     error: function () {
                         // Handle network/server errors
-                        alert('Failed to update rewards. Please try again.');
+                        toastr.error('Failed, Please Try Again.');
                         button.text(originalText);
                         button.prop('disabled', false);
                     }
