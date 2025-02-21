@@ -178,6 +178,20 @@
   ring-offset: 2px;
 }
 
+.form-control {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+}
+.form-control:focus {
+  color: #fff;
+  background-color: var(--focus-color);
+}
+.modal-content {
+  background-color: #495057; /* Darker modal background */
+  color: white; /* White text */
+}
+
 /* Mobile-first approach */
 @media screen and (max-width: 768px) {
   .card-body {

@@ -24,7 +24,7 @@
     <script src="js/jquery.jgrowl.min.js"></script>
     <script src="js/sweetalert2@11.js"></script>
     <script src="js/toastr.min.js"></script>
-    
+
 
 
     <link href="css/style.css" rel="stylesheet">

@@ -49,11 +49,13 @@ include_once 'includes/session.php';
                                     <td data-label="Department"><?php echo $row['department']; ?></td>
                                     <td data-label="Action">
                                         <div class="action-btn-group">
-                                            <button class="btn-edit">
+                                            <button data-toggle="tooltip" data-placement="top" title="Edit Student"
+                                                onclick="editStudent('<?php echo $row['student_id'] ?>')" class="btn-edit">
                                                 <i class="bx bx-edit"></i>
                                                 Edit
                                             </button>
-                                            <button class="btn-delete">
+                                            <button data-toggle="tooltip" data-placement="top" title="Delete Student"
+                                                class="btn-delete">
                                                 <i class="bx bx-trash"></i>
                                                 Delete
                                             </button>
@@ -67,6 +69,10 @@ include_once 'includes/session.php';
             </div>
         </div>
     </main>
+    <!-- Modals -->
+    <?php include_once 'modal/student-form.php'; ?>
+
+
 
     <script src="js/main.js"></script>
     <script>
@@ -96,5 +102,35 @@ include_once 'includes/session.php';
                 }
             });
         });
+    </script>
+    <script>
+        function editStudent(student_id) {
+            $.ajax({
+                type: 'POST',
+                url: 'process/get_student.php',
+                data: {
+                    student_id: student_id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        $.jGrowl(data.error, {
+                            theme: "alert alert-danger",
+                            life: 3000
+                        });
+                    } else {
+                        $('#student-form').modal('show');
+                        $('#modalfirst_name').val(data.firstname);
+                        $('#modallast_name').val(data.lastname);
+                        $('#modalyear_level').val(data.year);
+                        $('#modalstudent_department').val(data.department);
+                        $('#student_id').val(data.student_id);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
     </script>
 </body>
