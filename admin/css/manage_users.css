@@ -50,7 +50,11 @@
 .card-body {
   padding: 24px;
 }
+
 /* Global Table Styles */
+.table {
+  --bs-table-bg: transparent;
+}
 table,
 .studentTable,
 .dataTables_wrapper .studentTable {
@@ -100,6 +104,31 @@ table th {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+/* Search and length menu styling */
+.dataTables_filter input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #fff;
+}
+
+.dataTables_length select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #fff;
+}
+
+/* Improve table loading state */
+.dataTables_processing {
+  background: rgba(30, 30, 30, 0.9) !important;
+  color: #fff !important;
+  border-radius: 6px;
+  padding: 1rem !important;
 }
 
 .btn-view,
@@ -194,6 +223,7 @@ table th {
 .modal-footer {
   margin-top: 10px;
 }
+
 .nav button {
   width: 50%;
   border-radius: 0 !important;
@@ -219,6 +249,39 @@ table th {
   border-bottom: 2px solid #4154f1;
 }
 
+.button-group {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.btn-add {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.btn-add {
+  background: var(--secondary-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(65, 84, 241, 0.3);
+}
+
+.btn-add:hover {
+  background: #586ced;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(65, 84, 241, 0.4);
+}
+
 /* Mobile-first approach */
 @media screen and (max-width: 768px) {
   .card-body {
@@ -226,12 +289,12 @@ table th {
   }
 
   /* Hide table header on mobile */
-  .studentTable thead {
+  table thead {
     display: none;
   }
 
   /* Convert rows to cards on mobile */
-  .studentTable tbody tr {
+  table tbody tr {
     display: block;
     margin-bottom: 1rem;
     background: rgba(255, 255, 255, 0.05);
@@ -239,7 +302,7 @@ table th {
     padding: 10px;
   }
 
-  .studentTable tbody td {
+  table tbody td {
     display: flex;
     padding: 8px 12px !important;
     text-align: left;
@@ -249,7 +312,7 @@ table th {
   }
 
   /* Add labels for each cell */
-  .studentTable tbody td::before {
+  table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
     width: 120px;
@@ -305,29 +368,4 @@ table th {
     padding: 6px 12px !important;
     border-radius: 4px;
   }
-}
-
-/* Search and length menu styling */
-.dataTables_filter input {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  padding: 6px 12px;
-  color: #fff;
-}
-
-.dataTables_length select {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  padding: 4px 8px;
-  color: #fff;
-}
-
-/* Improve table loading state */
-.dataTables_processing {
-  background: rgba(30, 30, 30, 0.9) !important;
-  color: #fff !important;
-  border-radius: 6px;
-  padding: 1rem !important;
 }

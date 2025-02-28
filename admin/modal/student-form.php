@@ -55,17 +55,11 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade show active" id="nav-account" role="tabpanel"
-                        aria-labelledby="nav-home-tab">
+                    <div class="tab-pane fade" id="nav-account" role="tabpanel" aria-labelledby="nav-home-tab">
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    // When the user clicks the button, open the modal 
-    $('#myBtn').on('click', function () {
-        $('#student-form').modal('show');
-    });
-</script>

@@ -49,13 +49,13 @@ include_once 'includes/session.php';
                                     <td data-label="Department"><?php echo $row['department']; ?></td>
                                     <td data-label="Action">
                                         <div class="action-btn-group">
-                                            <button data-toggle="tooltip" data-placement="top" title="Edit Student"
+                                            <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Student"
                                                 onclick="editStudent('<?php echo $row['student_id'] ?>')" class="btn-edit">
                                                 <i class="bx bx-edit"></i>
                                                 Edit
                                             </button>
-                                            <button data-toggle="tooltip" data-placement="top" title="Delete Student"
-                                                class="btn-delete">
+                                            <button data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Delete Student" class="btn-delete">
                                                 <i class="bx bx-trash"></i>
                                                 Delete
                                             </button>
@@ -92,14 +92,15 @@ include_once 'includes/session.php';
                                     <td data-label="Department"><?php echo $row['department']; ?></td>
                                     <td data-label="Action">
                                         <div class="action-btn-group">
-                                            <button data-toggle="tooltip" data-placement="top" title="Edit Educator"
+                                            <button data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Edit Educator"
                                                 onclick="editEducator('<?php echo $row['educator_id'] ?>')"
                                                 class="btn-edit">
                                                 <i class="bx bx-edit"></i>
                                                 Edit
                                             </button>
-                                            <button data-toggle="tooltip" data-placement="top" title="Delete Educator"
-                                                class="btn-delete">
+                                            <button data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Delete Educator" class="btn-delete">
                                                 <i class="bx bx-trash"></i>
                                                 Delete
                                             </button>
@@ -112,9 +113,15 @@ include_once 'includes/session.php';
                 </div>
             </div>
         </div>
+        <div class="button-group">
+            <button type="button" id="verify-modal-btn" class="btn-add"><i class="bx bx-user-check"></i></button>
+            <button type="button" id="register-modal-btn" class="btn-add"><i class="bx bx-plus"></i></button>
+        </div>
     </main>
     <!-- Modals -->
     <?php include_once 'modal/student-form.php'; ?>
+    <?php include_once 'modal/register-user-form.php'; ?>
+    <?php include_once 'modal/verify-user-form.php'; ?>
 
     <script src="js/main.js"></script>
     <script>
@@ -138,10 +145,7 @@ include_once 'includes/session.php';
                 lengthMenu: [5, 10, 15, 25],
                 ordering: true,
                 dom: '<"top"lf>rt<"bottom"ip><"clear">',
-                drawCallback: function () {
-                    // Reinitialize tooltips after table redraw
-                    $('[data-toggle="tooltip"]').tooltip();
-                }
+
             });
 
             $('#educatorTable').DataTable({
@@ -163,13 +167,33 @@ include_once 'includes/session.php';
                 lengthMenu: [5, 10, 15, 25],
                 ordering: true,
                 dom: '<"top"lf>rt<"bottom"ip><"clear">',
-                drawCallback: function () {
-                    // Reinitialize tooltips after table redraw
-                    $('[data-toggle="tooltip"]').tooltip();
-                }
+
+            });
+
+            $('#verifyTable').DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search students...",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Prev"
+                    }
+                },
+                pageLength: 5,
+                lengthMenu: [5, 10, 15, 25],
+                ordering: true,
+                dom: '<"top"lf>rt<"bottom"ip><"clear">',
+
             });
         });
     </script>
+
     <script>
         function editStudent(student_id) {
             $.ajax({
@@ -227,5 +251,47 @@ include_once 'includes/session.php';
                 }
             });
         }
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            const registrationBtn = document.getElementById('register-modal-btn');
+            const verificationBtn = document.getElementById('verify-modal-btn')
+
+            $(registrationBtn).click(function () {
+                $('#registration-form').modal('show');
+            });
+
+            $(verificationBtn).click(function () {
+                $('#verification-form').modal('show');
+            });
+
+            $('#student-reg-form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/add_user.php',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                            $.jGrowl(data.error, {
+                                theme: "alert alert-danger",
+                                life: 3000
+                            });
+                        } else {
+                            $('#registration-form').modal('hide');
+                            $.jGrowl(data.success, {
+                                theme: "alert alert-success",
+                                life: 3000
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            })
+        });
     </script>
 </body>
