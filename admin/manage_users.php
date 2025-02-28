@@ -191,6 +191,28 @@ include_once 'includes/session.php';
                 dom: '<"top"lf>rt<"bottom"ip><"clear">',
 
             });
+
+            $('#historyTable').DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search students...",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Prev"
+                    }
+                },
+                pageLength: 5,
+                lengthMenu: [5, 10, 15, 25],
+                ordering: true,
+                dom: '<"top"lf>rt<"bottom"ip><"clear">',
+
+            });
         });
     </script>
 

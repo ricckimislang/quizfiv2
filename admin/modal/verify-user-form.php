@@ -24,7 +24,6 @@
             <div class="modal-body">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="verification-table" role="tabpanel">
-
                         <table id="verifyTable" class="verifyTable table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -36,7 +35,7 @@
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="verification-table-body">
+                            <tbody>
                                 <tr>
                                     <td data-label='Student ID'>789012</td>
                                     <td data-label='Name'>Jane Doe</td>
@@ -89,13 +88,46 @@
                                         </div>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="nav tab-pane fade" id="history-logs" role="tabpanel">
-                        <h1>wala</h1>
+                    <div class="tab-pane fade" id="history-logs" role="tabpanel">
+                        <table id="historyTable" class="historyTable table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Student ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Registration Date</th>
+                                    <th scope="col">Verification Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label='Student ID'>189012</td>
+                                    <td data-label='Name'>Jane Doe</td>
+                                    <td data-label='Email'>janedoe@example.com</td>
+                                    <td data-label='Registration Date'>2022-02-01</td>
+                                    <td data-label='Status'>
+                                        <div class="text-container bg-success">
+                                            Verified
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label='Student ID'>567890</td>
+                                    <td data-label='Name'>Mike Brown</td>
+                                    <td data-label='Email'>mikebrown@example.com</td>
+                                    <td data-label='Registration Date'>2022-05-01</td>
+                                    <td data-label='Status'>
+                                        <div class="text-container bg-danger">
+                                            Rejected
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

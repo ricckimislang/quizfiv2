@@ -76,6 +76,18 @@ table td {
 table th {
   font-weight: 600;
 }
+td[data-label="Status"] {
+  text-align: center;
+}
+.text-container {
+  text-align: center;
+  display: inline-block;
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 20px; /* Rounded corners */
+  text-align: center;
+  min-width: 100px;
+}
 
 /* DataTables-Specific Styles */
 .dataTables_wrapper .dataTables_length {
@@ -287,7 +299,10 @@ table th {
   .card-body {
     padding: 0 !important;
   }
-
+  /* table cell style */
+  td[data-label="Status"] {
+    text-align: left;
+  }
   /* Hide table header on mobile */
   table thead {
     display: none;
