@@ -41,7 +41,11 @@
                                     <td data-label='Name'>Jane Doe</td>
                                     <td data-label='Email'>janedoe@example.com</td>
                                     <td data-label='Registration Date'>2022-02-01</td>
-                                    <td data-label='Status'>Pending</td>
+                                    <td data-label='Status'>
+                                        <div class="text-container bg-info">
+                                            Verified
+                                        </div>
+                                    </td>
                                     <td data-label='Actions'>
                                         <div class="action-btn-group">
                                             <button class="btn btn-sm btn-primary">Verify</button>
@@ -54,7 +58,11 @@
                                     <td data-label='Name'>Bob Smith</td>
                                     <td data-label='Email'>bobsmith@example.com</td>
                                     <td data-label='Registration Date'>2022-03-01</td>
-                                    <td data-label='Status'>Pending</td>
+                                    <td data-label='Status'>
+                                        <div class="text-container bg-info">
+                                            Verified
+                                        </div>
+                                    </td>
                                     <td data-label='Actions'>
                                         <div class="action-btn-group">
                                             <button class="btn btn-sm btn-primary">Verify</button>
@@ -67,7 +75,11 @@
                                     <td data-label='Name'>Alice Johnson</td>
                                     <td data-label='Email'>alicejohnson@example.com</td>
                                     <td data-label='Registration Date'>2022-04-01</td>
-                                    <td data-label='Status'>Pending</td>
+                                    <td data-label='Status'>
+                                        <div class="text-container bg-info">
+                                            Verified
+                                        </div>
+                                    </td>
                                     <td data-label='Actions'>
                                         <div class="action-btn-group">
                                             <button class="btn btn-sm btn-primary">Verify</button>
@@ -80,7 +92,11 @@
                                     <td data-label='Name'>Mike Brown</td>
                                     <td data-label='Email'>mikebrown@example.com</td>
                                     <td data-label='Registration Date'>2022-05-01</td>
-                                    <td data-label='Status'>Pending</td>
+                                    <td data-label='Status'>
+                                        <div class="text-container bg-info">
+                                            Verified
+                                        </div>
+                                    </td>
                                     <td data-label='Actions'>
                                         <div class="action-btn-group">
                                             <button class="btn btn-sm btn-primary">Verify</button>

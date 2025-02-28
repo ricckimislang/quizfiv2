@@ -13,7 +13,7 @@ include_once 'includes/session.php';
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
 <body>
-    <header id="header" class="header fixed-top d-flex align-items-center">
+    <header id="header" class="header">
         <?php include_once 'includes/nav-top.php'; ?>
     </header>
 
@@ -114,8 +114,10 @@ include_once 'includes/session.php';
             </div>
         </div>
         <div class="button-group">
-            <button type="button" id="verify-modal-btn" class="btn-add"><i class="bx bx-user-check"></i></button>
-            <button type="button" id="register-modal-btn" class="btn-add"><i class="bx bx-plus"></i></button>
+            <button data-bs-tooltip="tooltip" data-bs-placement="left" title="Verify User" type="button"
+                id="verify-modal-btn" class="btn-add"><i class="bx bx-user-check"></i></button>
+            <button data-bs-tooltip="tooltip" data-bs-placement="left" title="Add User" type="button"
+                id="register-modal-btn" class="btn-add"><i class="bx bx-plus"></i></button>
         </div>
     </main>
     <!-- Modals -->
