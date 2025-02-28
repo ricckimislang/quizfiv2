@@ -69,28 +69,24 @@ input[type="text"] {
 }
 
 .table-action {
-  width: 100% !important;
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 10px;
 }
 
-/* Base Table Styles */
-.rewardTable,
-.dataTables_wrapper .rewardTable {
+/* Global Table Styles */
+table,
+.studentTable,
+.dataTables_wrapper .studentTable {
   width: 100% !important;
   border-collapse: collapse;
   table-layout: auto;
 }
 
-.rewardTable thead {
-  border-bottom: solid rgba(255, 255, 255) !important;
-  border-bottom-width: 1px !important;
-}
-/* Cell Styles */
-.rewardTable th,
-.rewardTable td {
+/* Table Cell Styles */
+table th,
+table td {
   font-size: clamp(0.3rem, 2vw, 1rem) !important;
   padding: 12px 15px;
   text-align: left;
@@ -98,14 +94,31 @@ input[type="text"] {
   color: #fff !important;
 }
 
-.rewardTable th {
+table th {
   font-weight: 600;
-  color: #fff;
-  border-radius: 10px;
 }
 
-.rewardTable td {
-  color: var(--text-color);
+/* DataTables-Specific Styles */
+.dataTables_wrapper .dataTables_length {
+  margin-bottom: 10px !important;
+}
+
+.dataTables_wrapper .dataTables_length option {
+  background-color: #1e1e1e;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  color: var(--light-gray) !important;
+}
+
+/* Borders */
+.dataTable thead,
+.dataTable th,
+.dataTable.no-footer {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .action-btn {
@@ -149,11 +162,43 @@ input[type="text"] {
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .card-header {
     padding: 0;
   }
+  /* Hide table header on mobile */
+  .rewardTable thead {
+    display: none;
+  }
+
+  /* Convert rows to cards on mobile */
+  .rewardTable tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+  }
+
   .rewardTable tbody td {
-    padding: 5 !important;
+    display: flex;
+    padding: 8px 12px !important;
+    text-align: left;
+    border: none !important;
+    align-items: center;
+    font-size: 0.7rem !important;
+  }
+
+  /* Add labels for each cell */
+  .rewardTable tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    width: 120px;
+    min-width: 120px;
+    color: #adb5bd;
+  }
+  .action-btn{
+    width: auto;
+    margin: 0 auto;
   }
 }

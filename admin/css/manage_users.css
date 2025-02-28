@@ -50,7 +50,8 @@
 .card-body {
   padding: 24px;
 }
-
+/* Global Table Styles */
+table,
 .studentTable,
 .dataTables_wrapper .studentTable {
   width: 100% !important;
@@ -58,9 +59,9 @@
   table-layout: auto;
 }
 
-/* Cell Styles */
-.studentTable th,
-.studentTable td {
+/* Table Cell Styles */
+table th,
+table td {
   font-size: clamp(0.3rem, 2vw, 1rem) !important;
   padding: 12px 15px;
   text-align: left;
@@ -68,19 +69,15 @@
   color: #fff !important;
 }
 
-.studentTable th {
+table th {
   font-weight: 600;
-  color: #fff;
-  border-radius: 10px;
 }
 
-.studentTable td {
-  color: var(--text-color);
-}
-
+/* DataTables-Specific Styles */
 .dataTables_wrapper .dataTables_length {
   margin-bottom: 10px !important;
 }
+
 .dataTables_wrapper .dataTables_length option {
   background-color: #1e1e1e;
 }
@@ -92,10 +89,9 @@
   color: var(--light-gray) !important;
 }
 
+/* Borders */
 .dataTable thead,
-.dataTable th {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
+.dataTable th,
 .dataTable.no-footer {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
@@ -187,9 +183,40 @@
   color: #fff;
   background-color: var(--focus-color);
 }
+
+.modal-header {
+  border-bottom: 0;
+}
 .modal-content {
   background-color: #495057; /* Darker modal background */
   color: white; /* White text */
+}
+.modal-footer {
+  margin-top: 10px;
+}
+.nav button {
+  width: 50%;
+  border-radius: 0 !important;
+  font-size: 0.85em !important;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: #1e1e1e;
+  transition: all 0.3s ease-in-out;
+  padding: 10px 15px;
+  text-transform: uppercase;
+}
+
+.nav button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.nav button.active {
+  background-color: #4154f1 !important;
+  color: #fff !important;
+  font-weight: bold;
+  border-bottom: 2px solid #4154f1;
 }
 
 /* Mobile-first approach */
