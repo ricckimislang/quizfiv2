@@ -9,6 +9,8 @@
 
     <div class="nav-menu">
         <ul>
+            <li class="<?= getActivePage('index.php') ?>"><a href="index.php"><img src="assets/font-icons/home.png"
+                        alt=""></i>&nbsp;Home</a></li>
             <li class="<?= getActivePage('manage_quiz.php') ?>"><a href="manage_quiz.php"><img
                         src="assets/font-icons/quiz.png" alt="">&nbsp;&nbsp;Quiz</a></li>
             <li class="<?= getActivePage('manage_rewards.php') ?>"><a href="manage_rewards.php"><img
@@ -17,8 +19,6 @@
                         src="assets/font-icons/users.png" alt=""></i>&nbsp;Users</a></li>
             <li class="<?= getActivePage('manage_voucher.php') ?>"><a href="manage_voucher.php"><img
                         src="assets/font-icons/voucher.png" alt=""></i>&nbsp;Voucher</a></li>
-            <li class="<?= getActivePage('manage_report.php') ?>"><a href=""><img
-                        src="assets/font-icons/report.p ng" alt=""></i>&nbsp;Reports</a></li>
         </ul>
     </div>
 </div><!-- End Logo -->
