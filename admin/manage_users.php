@@ -128,92 +128,31 @@ include_once 'includes/session.php';
     <script src="js/main.js"></script>
     <script>
         $(document).ready(function () {
-            $('#studentTable').DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search students...",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Prev"
-                    }
-                },
-                pageLength: 5,
-                lengthMenu: [5, 10, 15, 25],
-                ordering: true,
-                dom: '<"top"lf>rt<"bottom"ip><"clear">',
+            // Define an array of table IDs
+            let tableIDs = ['#studentTable', '#educatorTable', '#verifyTable', '#historyTable'];
 
-            });
-
-            $('#educatorTable').DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search educators...",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Prev"
-                    }
-                },
-                pageLength: 5,
-                lengthMenu: [5, 10, 15, 25],
-                ordering: true,
-                dom: '<"top"lf>rt<"bottom"ip><"clear">',
-
-            });
-
-            $('#verifyTable').DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search students...",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Prev"
-                    }
-                },
-                pageLength: 5,
-                lengthMenu: [5, 10, 15, 25],
-                ordering: true,
-                dom: '<"top"lf>rt<"bottom"ip><"clear">',
-
-            });
-
-            $('#historyTable').DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search students...",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Prev"
-                    }
-                },
-                pageLength: 5,
-                lengthMenu: [5, 10, 15, 25],
-                ordering: true,
-                dom: '<"top"lf>rt<"bottom"ip><"clear">',
-
+            // Loop through each ID and initialize DataTables
+            tableIDs.forEach(function (tableID) {
+                $(tableID).DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search...",
+                        lengthMenu: "Show _MENU_ entries",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "Next",
+                            previous: "Prev"
+                        }
+                    },
+                    pageLength: 5,
+                    lengthMenu: [5, 10, 15, 25],
+                    ordering: true,
+                    dom: '<"top"lf>rt<"bottom"ip><"clear">',
+                });
             });
         });
     </script>
@@ -240,6 +179,10 @@ include_once 'includes/session.php';
                         $('#modalyear_level').val(data.year);
                         $('#modalstudent_department').val(data.department);
                         $('#student_id').val(data.student_id);
+                        $('#student_id2').val(data.student_id);
+
+                        $('#account_email').val(data.user_email);
+                        $('#account_user').val(data.username);
                     }
                 },
                 error: function (xhr, status, error) {
@@ -277,7 +220,7 @@ include_once 'includes/session.php';
         }
     </script>
     <script>
-
+        // user registration form and verification
         $(document).ready(function () {
             const registrationBtn = document.getElementById('register-modal-btn');
             const verificationBtn = document.getElementById('verify-modal-btn')
@@ -316,6 +259,56 @@ include_once 'includes/session.php';
                     }
                 });
             })
+        });
+
+
+        // submitting edited form student
+        $(document).ready(function () {
+            // profile
+            $('#student-edit-form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/edit_student_details.php',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                            toastr.error(data.message);
+                        } else {
+                            $('#student-form').modal('hide');
+                            toastr.success(data.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+            // account
+            $('#account-edit-form').submit(function (e) {
+                e.preventDefault();
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/edit_student_account.php',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                            toastr.error(data.message);
+                        }
+                        else {
+                            $('#student-form').modal('hide');
+                            toastr.success(data.message);
+                        }
+                    },
+                    error: function (xhr, status, errror) {
+                        console.log(error);
+                    }
+                });
+            });
         });
     </script>
 </body>

@@ -23,6 +23,7 @@
                     <div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
                         aria-labelledby="nav-home-tab">
                         <form id="student-edit-form">
+                            <input type="hidden" id="student_id" name="student_id">
                             <div class="form-group">
                                 <label for="modalfirst_name">First Name:</label>
                                 <input type="text" class="form-control" id="modalfirst_name" name="modalfirst_name"
@@ -56,7 +57,22 @@
                     </div>
 
                     <div class="tab-pane fade" id="nav-account" role="tabpanel" aria-labelledby="nav-home-tab">
-                        
+                        <form id="account-edit-form">
+                            <input type="hidden" id="student_id2" name="student_id2">
+                            <div class="form-group">
+                                <label for="account_email">Email:</label>
+                                <input type="text" class="form-control" id="account_email" name="account_email"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="account_user">Username:</label>
+                                <input type="text" class="form-control" id="account_user" name="account_user" required>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" form="account-edit-form">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
