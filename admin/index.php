@@ -48,6 +48,9 @@ $availVoucherCount = $availVoucherRow['quantity'];
     var usedPercentage = totalVouchers > 0 ? (usedVouchers / totalVouchers) * 100 : 0;
 </script>
 
+
+<link rel="stylesheet" href="css/index.css">
+
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <?php include_once 'includes/nav-top.php'; ?>
@@ -65,7 +68,7 @@ $availVoucherCount = $availVoucherRow['quantity'];
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h2 class="mb-1">Welcome back, Admin!</h2>
-                                    <p class="text-muted mb-0">
+                                    <p class=" mb-0">
                                         <?php echo date('l, F d, Y'); ?> | Last login: Today at 9:30 AM
                                     </p>
                                 </div>
@@ -88,7 +91,7 @@ $availVoucherCount = $availVoucherRow['quantity'];
                                 <div class="ps-3">
                                     <h6><?= $totalUsersCount; ?></h6>
                                     <span class="text-success small pt-1 fw-bold">8%</span>
-                                    <span class="text-muted small pt-2 ps-1">increase</span>
+                                    <span class=" small pt-2 ps-1">increase</span>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +109,7 @@ $availVoucherCount = $availVoucherRow['quantity'];
                                 <div class="ps-3">
                                     <h6><?= $totalEducatorCount; ?></h6>
                                     <span class="text-success small pt-1 fw-bold">12%</span>
-                                    <span class="text-muted small pt-2 ps-1">increase</span>
+                                    <span class=" small pt-2 ps-1">increase</span>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +127,7 @@ $availVoucherCount = $availVoucherRow['quantity'];
                                 <div class="ps-3">
                                     <h6><?= $totalStudentCount; ?></h6>
                                     <span class="text-success small pt-1 fw-bold">18%</span>
-                                    <span class="text-muted small pt-2 ps-1">Increase</span>
+                                    <span class=" small pt-2 ps-1">Increase</span>
                                 </div>
                             </div>
                         </div>
