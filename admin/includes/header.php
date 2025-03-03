@@ -34,3 +34,9 @@
 
 
 </head>
+<?php
+function getActivePage($pageName)
+{
+    return (basename($_SERVER['PHP_SELF']) == $pageName) ? 'active' : '';
+}
+?>

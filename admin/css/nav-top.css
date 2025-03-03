@@ -59,13 +59,11 @@
 
 .nav-menu li:hover {
   transform: translateX(2px);
-  border-bottom: 1px solid #ffffff;
-  border-radius: 5px 5px 0 0;
+  border-radius: 20px;
   background: var(--nav-hover);
 }
 .nav-menu li.active {
-  border-bottom: 1px solid #ffffff;
-  border-radius: 5px 5px 0 0;
+  border-radius: 20px;
   background: var(--nav-hover);
 }
 .nav-menu i {
@@ -127,6 +125,7 @@
     margin: auto;
   }
   .bottom-nav li.active {
+    background-color: rgba(0, 0, 0, 0.5);
     border: rgb(0, 249, 233, 0.4) 1px solid;
   }
   .bottom-nav li:hover {
