@@ -114,8 +114,8 @@ include_once 'includes/session.php';
             </div>
         </div>
         <div class="button-group">
-            <button data-bs-tooltip="tooltip" data-bs-placement="left" title="Verify User" type="button"
-                id="verify-modal-btn" class="btn-add"><i class="bx bx-user-check"></i></button>
+            <!-- SOON FUNCTION!! <button data-bs-tooltip="tooltip" data-bs-placement="left" title="Verify User" type="button"
+                id="verify-modal-btn" class="btn-add"><i class="bx bx-user-check"></i></button> -->
             <button data-bs-tooltip="tooltip" data-bs-placement="left" title="Add User" type="button"
                 id="register-modal-btn" class="btn-add"><i class="bx bx-plus"></i></button>
         </div>
@@ -169,10 +169,7 @@ include_once 'includes/session.php';
                 dataType: 'json',
                 success: function(data) {
                     if (data.error) {
-                        $.jGrowl(data.error, {
-                            theme: "alert alert-danger",
-                            life: 3000
-                        });
+                        toastr.error(data.error)
                     } else {
                         $('#student-form').modal('show');
                         $('#modalfirst_name').val(data.firstname);
@@ -202,10 +199,7 @@ include_once 'includes/session.php';
                 dataType: 'json',
                 success: function(data) {
                     if (data.error) {
-                        $.jGrowl(data.error, {
-                            theme: "alert alert-danger",
-                            life: 3000
-                        });
+                        toastr.error(data.error)
                     } else {
                         $('#educator-form').modal('show');
                         $('#educator_firstname').val(data.firstname);
@@ -243,28 +237,49 @@ include_once 'includes/session.php';
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: 'process/add_user.php',
+                    url: 'process/add_student_user.php',
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function(data) {
                         if (data.error) {
-                            $.jGrowl(data.error, {
-                                theme: "alert alert-danger",
-                                life: 3000
-                            });
+                            toastr.error(data.error)
                         } else {
                             $('#registration-form').modal('hide');
-                            $.jGrowl(data.success, {
-                                theme: "alert alert-success",
-                                life: 3000
-                            });
+                            toastr.success(data.success)
+                            setTimeout(function() {
+                                location.reload()
+                            }, 0);
                         }
                     },
                     error: function(xhr, status, error) {
                         console.log(error);
                     }
                 });
-            })
+            });
+
+            $('#educator-reg-form').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/add_educator_user.php',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.error) {
+                            toastr.error(data.error)
+                        } else {
+                            $('#registration-form').modal('hide');
+                            toastr.success(data.success)
+                            setTimeout(function() {
+                                location.reload()
+                            }, 0);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
         });
 
         // submitting edited form student
@@ -386,11 +401,6 @@ include_once 'includes/session.php';
                     }
                 });
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('[data-bs-tooltip="tooltip"]').tooltip();
         });
     </script>
 </body>
