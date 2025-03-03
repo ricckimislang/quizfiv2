@@ -38,6 +38,29 @@ $availVoucherResult = $availVoucher->get_result();
 $availVoucherRow = $availVoucherResult->fetch_assoc();
 $availVoucherCount = $availVoucherRow['quantity'];
 
+// for active users table
+$usersActiveData = [];
+$usersActive = $conn->prepare("SELECT * FROM students GROUP BY lastname, firstname, status ORDER BY status");
+$usersActive->execute();
+$usersActiveResult = $usersActive->get_result();
+
+while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
+
+    // query para sa quiz attempts
+    $quizAttempts = $conn->prepare("SELECT COUNT(*) as quizAttempt FROM quiz_attempt WHERE user_id = ?");
+    $quizAttempts->bind_param("i", $usersActiveRow['user_id']);
+    $quizAttempts->execute();
+    $quizAttemptsResult = $quizAttempts->get_result();
+    $quizAttemptsRow = $quizAttemptsResult->fetch_assoc();
+
+    $usersActiveData[] = [
+        'fullname' => $usersActiveRow['firstname'] . ' ' . $usersActiveRow['lastname'],
+        'status' => $usersActiveRow['status'],
+        'quizAttempt' => $quizAttemptsRow['quizAttempt'],
+    ];
+
+}
+
 ?>
 <script>
     var activeVouchers = <?php echo $unused; ?>;
@@ -160,82 +183,42 @@ $availVoucherCount = $availVoucherRow['quantity'];
                 <div class="col-md-8 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Top Users <span>| This Month</span></h5>
+                            <h5 class="card-title">Top Users <span>| Active</span></h5>
                             <table class="table table-borderless datatable">
                                 <thead>
                                     <tr>
                                         <th scope="col">User</th>
-                                        <th scope="col">Data Used</th>
-                                        <th scope="col">Login Count</th>
+                                        <th scope="col">Quiz Attempts</th>
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-primary rounded-circle me-2"
-                                                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-                                                    JS</div>
-                                                <span>John Smith</span>
-                                            </div>
-                                        </td>
-                                        <td>16.4 GB</td>
-                                        <td>42</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-info rounded-circle me-2"
-                                                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-                                                    MJ</div>
-                                                <span>Maria Johnson</span>
-                                            </div>
-                                        </td>
-                                        <td>12.8 GB</td>
-                                        <td>38</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-warning rounded-circle me-2"
-                                                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-                                                    RD</div>
-                                                <span>Robert Davis</span>
-                                            </div>
-                                        </td>
-                                        <td>11.2 GB</td>
-                                        <td>35</td>
-                                        <td><span class="badge bg-warning">Suspended</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-danger rounded-circle me-2"
-                                                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-                                                    AT</div>
-                                                <span>Amy Thompson</span>
-                                            </div>
-                                        </td>
-                                        <td>10.7 GB</td>
-                                        <td>31</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-secondary rounded-circle me-2"
-                                                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-                                                    MW</div>
-                                                <span>Michael Wilson</span>
-                                            </div>
-                                        </td>
-                                        <td>9.3 GB</td>
-                                        <td>29</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                    </tr>
+                                    <?php foreach ($usersActiveData as $dataStudent) { ?>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="bg-primary rounded-circle me-2"
+                                                        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                                        <?php
+                                                        $fullname = $dataStudent['fullname'];
+                                                        $names = explode(' ', $fullname); // Split the full name into an array of words
+                                                    
+                                                        $firstInitial = strtoupper(substr($names[0], 0, 1)); // First letter of the first word
+                                                        $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; // First letter of the second word (if it exists)
+                                                    
+                                                        $initials = $firstInitial . $secondInitial; // Concatenate the initials
+                                                        ?>
+                                                        <?= $initials ?>
+                                                    </div>
+                                                    <span><?= htmlspecialchars($dataStudent['fullname']); ?></span>
+                                                </div>
+                                            </td>
+                                            <td><?= $dataStudent['quizAttempt']; ?></td>
+                                            <td><span
+                                                    class="badge <?php echo ($dataStudent['status'] == 'active') ? 'bg-success' : 'bg-danger' ?>"><?= htmlspecialchars($dataStudent['status']); ?></span>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
