@@ -42,7 +42,7 @@ include_once 'includes/session.php';
                             $students->execute();
                             $students = $students->get_result();
                             while ($row = $students->fetch_assoc()):
-                                ?>
+                            ?>
                                 <tr>
                                     <td data-label="Name"><?php echo $row['firstname'] . ' ' . $row['lastname']; ?></td>
                                     <td data-label="Year Level"><?php echo $row['year']; ?></td>
@@ -86,7 +86,7 @@ include_once 'includes/session.php';
                             $educators->execute();
                             $educators = $educators->get_result();
                             while ($row = $educators->fetch_assoc()):
-                                ?>
+                            ?>
                                 <tr>
                                     <td data-label="Name"><?php echo $row['firstname'] . ' ' . $row['lastname']; ?></td>
                                     <td data-label="Department"><?php echo $row['department']; ?></td>
@@ -122,17 +122,18 @@ include_once 'includes/session.php';
     </main>
     <!-- Modals -->
     <?php include_once 'modal/student-form.php'; ?>
+    <?php include_once 'modal/educator-form.php'; ?>
     <?php include_once 'modal/register-user-form.php'; ?>
     <?php include_once 'modal/verify-user-form.php'; ?>
 
     <script src="js/main.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Define an array of table IDs
             let tableIDs = ['#studentTable', '#educatorTable', '#verifyTable', '#historyTable'];
 
             // Loop through each ID and initialize DataTables
-            tableIDs.forEach(function (tableID) {
+            tableIDs.forEach(function(tableID) {
                 $(tableID).DataTable({
                     responsive: true,
                     autoWidth: false,
@@ -166,7 +167,7 @@ include_once 'includes/session.php';
                     student_id: student_id
                 },
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     if (data.error) {
                         $.jGrowl(data.error, {
                             theme: "alert alert-danger",
@@ -185,7 +186,7 @@ include_once 'includes/session.php';
                         $('#account_user').val(data.username);
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.log(error);
                 }
             });
@@ -199,7 +200,7 @@ include_once 'includes/session.php';
                     educator_id: educator_id
                 },
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     if (data.error) {
                         $.jGrowl(data.error, {
                             theme: "alert alert-danger",
@@ -207,13 +208,18 @@ include_once 'includes/session.php';
                         });
                     } else {
                         $('#educator-form').modal('show');
-                        $('#modalfirst_name').val(data.firstname);
-                        $('#modallast_name').val(data.lastname);
-                        $('#modaldepartment').val(data.department);
+                        $('#educator_firstname').val(data.firstname);
+                        $('#educator_lastname').val(data.lastname);
+                        $('#educator_department').val(data.department);
+                        $('#educator_email').val(data.educator_id);
+                        $('#educator_account_user').val(data.username);
+                        $('#educator_account_email').val(data.user_email);
+
                         $('#educator_id').val(data.educator_id);
+                        $('#educator_id2').val(data.educator_id);
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.log(error);
                 }
             });
@@ -221,26 +227,26 @@ include_once 'includes/session.php';
     </script>
     <script>
         // user registration form and verification
-        $(document).ready(function () {
+        $(document).ready(function() {
             const registrationBtn = document.getElementById('register-modal-btn');
             const verificationBtn = document.getElementById('verify-modal-btn')
 
-            $(registrationBtn).click(function () {
+            $(registrationBtn).click(function() {
                 $('#registration-form').modal('show');
             });
 
-            $(verificationBtn).click(function () {
+            $(verificationBtn).click(function() {
                 $('#verification-form').modal('show');
             });
 
-            $('#student-reg-form').submit(function (e) {
+            $('#student-reg-form').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
                     url: 'process/add_user.php',
                     data: $(this).serialize(),
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         if (data.error) {
                             $.jGrowl(data.error, {
                                 theme: "alert alert-danger",
@@ -254,43 +260,45 @@ include_once 'includes/session.php';
                             });
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.log(error);
                     }
                 });
             })
         });
 
-
         // submitting edited form student
-        $(document).ready(function () {
+        $(document).ready(function() {
             // profile
-            $('#student-edit-form').submit(function (e) {
+            $('#student-edit-form').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
                     url: 'process/edit_student_details.php',
                     data: $(this).serialize(),
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         if (data.error) {
                             toastr.error(data.message);
                         } else {
-                            $('#student-form').modal('hide');
+                            try {
+                                $('#student-form').modal('hide');
+                            } catch (error) {
+                                console.error('Error hiding modal:', error);
+                            }
                             toastr.success(data.message);
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 location.reload();
-                            })
-
+                            }, 0);
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.log(error);
                     }
                 });
             });
             // account
-            $('#account-edit-form').submit(function (e) {
+            $('#account-edit-form').submit(function(e) {
                 e.preventDefault();
                 const formData = $(this).serialize();
 
@@ -299,23 +307,90 @@ include_once 'includes/session.php';
                     url: 'process/edit_student_account.php',
                     data: formData,
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         if (data.error) {
                             toastr.error(data.message);
-                        }
-                        else {
-                            $('#student-form').modal('hide');
+                        } else {
+                            try {
+                                $('#student-form').modal('hide');
+                            } catch (error) {
+                                console.error('Error hiding modal:', error);
+                            }
                             toastr.success(data.message);
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 location.reload();
-                            })
+                            }, 0);
                         }
                     },
-                    error: function (xhr, status, errror) {
+                    error: function(xhr, status, error) {
                         console.log(error);
                     }
                 });
             });
+
+            // educator
+            // Educator form
+            $('#educator-profile-edit-form').submit(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/edit_educator_profile.php',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.error) {
+                            toastr.error(data.message);
+                        } else {
+                            try {
+                                $('#educator-form').modal('hide');
+                            } catch (error) {
+                                console.error('Error hiding modal:', error);
+                            }
+                            toastr.success(data.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 0);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+            $('#educator-account-edit-form').submit(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/edit_educator_account.php',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.error) {
+                            toastr.error(data.message);
+                        } else {
+                            try {
+                                $('#educator-form').modal('hide');
+                            } catch (error) {
+                                console.error('Error hiding modal:', error);
+                            }
+                            toastr.success(data.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 0);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('[data-bs-tooltip="tooltip"]').tooltip();
         });
     </script>
 </body>

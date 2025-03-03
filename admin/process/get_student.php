@@ -15,7 +15,7 @@ if (isset($_POST['student_id'])) {
     $stmt = $conn->prepare("SELECT * FROM students WHERE student_id = ?");
 
     if ($stmt) {
-        $stmt->bind_param("s", $student_id);
+        $stmt->bind_param("i", $student_id);
         $stmt->execute();
         $result = $stmt->get_result();
 
