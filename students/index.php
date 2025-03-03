@@ -146,7 +146,7 @@
                     const redirects = {
                         'student': "user_profile.php",
                         'educator': "../educator/manage_quiz.php",
-                        'admin': "../admin/manage_quiz.php"
+                        'admin': "../admin/index.php"
                     };
 
                     if (data.userType && redirects[data.userType]) {

@@ -3,7 +3,7 @@ include 'db/dbconn.php';
 
 // Ensure user_id is set in the session
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php"); // Redirect to login if user is not logged in
+    header("Location: ../students/index.php"); // Redirect to login if user is not logged in
     exit();
 }
 

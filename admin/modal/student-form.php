@@ -61,7 +61,7 @@
                             <input type="hidden" id="student_id2" name="student_id2">
                             <div class="form-group">
                                 <label for="account_email">Email:</label>
-                                <input type="text" class="form-control" id="account_email" name="account_email"
+                                <input type="email" class="form-control" id="account_email" name="account_email"
                                     required>
                             </div>
                             <div class="form-group">

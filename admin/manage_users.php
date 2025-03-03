@@ -278,6 +278,10 @@ include_once 'includes/session.php';
                         } else {
                             $('#student-form').modal('hide');
                             toastr.success(data.message);
+                            setTimeout(function () {
+                                location.reload();
+                            })
+
                         }
                     },
                     error: function (xhr, status, error) {
@@ -302,6 +306,9 @@ include_once 'includes/session.php';
                         else {
                             $('#student-form').modal('hide');
                             toastr.success(data.message);
+                            setTimeout(function () {
+                                location.reload();
+                            })
                         }
                     },
                     error: function (xhr, status, errror) {
