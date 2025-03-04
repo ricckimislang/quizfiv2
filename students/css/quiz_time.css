@@ -63,7 +63,7 @@
 .timer-container.warning {
   border-color: #ffc107;
   background-color: rgba(255, 193, 7, 0.1);
-  .timer-text{
+  .timer-text {
     color: #ffc107;
   }
 }
@@ -71,7 +71,7 @@
 .timer-container.danger {
   border-color: #f44336;
   background-color: rgba(244, 67, 54, 0.1);
-  .timer-text{
+  .timer-text {
     color: #f44336;
   }
 }
@@ -215,6 +215,8 @@ body {
 }
 
 .short-answer {
+  position: relative;
+  width: 93vw;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   backdrop-filter: blur(10px);
@@ -248,5 +250,9 @@ body {
 
   .option-btn {
     font-size: 1.2rem;
+  }
+
+  .short-answer{
+    width: 100%;
   }
 }

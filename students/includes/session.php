@@ -32,7 +32,7 @@ $studentId = $row1['student_id'] ?? null;
 $user_id = $row1['user_id'] ?? null;
 $time_duration = $row1['duration'] ?? 0;
 $currentStatus = $row1['status'] ?? 'unknown';
-$profile_pic = $row1['profile_path'] ?? 'none';
+$profile_pic = $row1['profile_path'] ?? null;
 
 // Function to get user IP address
 function getUserIP()

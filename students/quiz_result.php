@@ -14,7 +14,7 @@ include 'db/dbconn.php'; // Include your database connection file
             <div class="results-header">
                 <div class="profile-section">
                     <h2 class="student-name"><?php echo $studentName; ?></h2>
-                    <div class="profile-img"></div>
+                    <div class="profile-img" style="background-image: url('<?php echo ($profile_pic) ? $profile_pic : 'assets/avatars/no-profile.jpg'; ?>')"></div>
                 </div>
             </div>
 
