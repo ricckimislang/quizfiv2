@@ -16,6 +16,9 @@ include 'includes/session.php';
     <header class="header" id="header">
         <?php include_once 'includes/nav-top.php' ?>
     </header>
+
+    <?php include_once 'includes/bubble.php'; ?>
+
     <main class="main" id="main">
         <?php include_once 'includes/mobile-nav.php'; ?>
         <div class="container">
@@ -96,7 +99,7 @@ include 'includes/session.php';
                                                     class='bx bx-trash'></i></a>
                                         </td>
                                     </tr>
-                                <?php endwhile;
+                            <?php endwhile;
                             } else {
                                 echo "<tr><td colspan='5' class='text-center'>No Vouchers </td></tr>";
                             }
@@ -104,7 +107,7 @@ include 'includes/session.php';
                         </tbody>
                     </table>
                     <script>
-                        $(document).ready(function () {
+                        $(document).ready(function() {
                             $('#voucherTable').DataTable({
                                 responsive: true,
                                 autoWidth: false,
@@ -137,7 +140,7 @@ include 'includes/session.php';
             $('#modalquantity').val(quantity);
             $('#edit-voucher-form').modal('show');
 
-            $('#voucher-edit-form').submit(function (event) {
+            $('#voucher-edit-form').submit(function(event) {
                 event.preventDefault();
                 var formData = $(this).serialize();
                 $.ajax({
@@ -145,12 +148,12 @@ include 'includes/session.php';
                     url: 'process/update_voucher.php',
                     data: formData,
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         if (data.status === 'success') {
                             toastr.success('Voucher quantity updated successfully!', '', {
                                 timeOut: 1000
                             });
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 location.reload();
                             }, 1000);
                         } else {
@@ -159,7 +162,7 @@ include 'includes/session.php';
                             });
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         toastr.error('An error occurred: ' + status, '', {
                             timeOut: 3000
                         });

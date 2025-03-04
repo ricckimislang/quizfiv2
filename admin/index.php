@@ -58,7 +58,6 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
         'status' => $usersActiveRow['status'],
         'quizAttempt' => $quizAttemptsRow['quizAttempt'],
     ];
-
 }
 
 ?>
@@ -78,6 +77,8 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
     <header id="header" class="header fixed-top d-flex align-items-center">
         <?php include_once 'includes/nav-top.php'; ?>
     </header><!-- End Header -->
+
+    <?php include_once 'includes/bubble.php'; ?>
 
     <main id="main" class="main">
         <?php include_once 'includes/mobile-nav.php'; ?>
@@ -202,10 +203,10 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                                         <?php
                                                         $fullname = $dataStudent['fullname'];
                                                         $names = explode(' ', $fullname); // Split the full name into an array of words
-                                                    
+
                                                         $firstInitial = strtoupper(substr($names[0], 0, 1)); // First letter of the first word
                                                         $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; // First letter of the second word (if it exists)
-                                                    
+
                                                         $initials = $firstInitial . $secondInitial; // Concatenate the initials
                                                         ?>
                                                         <?= $initials ?>
@@ -261,7 +262,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const voucherStatusChart = document.getElementById('voucherStatusChart');
             new Chart(voucherStatusChart, {
                 type: 'pie',
@@ -290,7 +291,6 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
             document.getElementById('usedPercentage').setAttribute("aria-valuenow", usedPercentage);
             document.getElementById('activePercentage').setAttribute("aria-valuenow", activePercentage);
         });
-
     </script>
 
     <script src="js/main.js"></script>

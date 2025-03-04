@@ -1,5 +1,6 @@
 /* Add this to your existing CSS file */
 .bubbles-container {
+  filter: blur(8px);
   position: fixed;
   top: 0;
   left: 0;
