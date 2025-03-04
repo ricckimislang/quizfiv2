@@ -103,7 +103,7 @@ include('includes/session.php');
                                     </div>
                                     <div class="dropdown" id="dropdown-<?php echo $class['classroom_id']; ?>">
                                         <ul>
-                                            <li onclick="deleteItem(<?php echo $class['classroom_id']; ?>)">Delete</li>
+                                            <li onclick="deleteItem(<?php echo $class['classroom_id']; ?>, <?= $studentId; ?>)">Leave</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@ include('includes/session.php');
                                 toastr["success"]("Joined", "Success")
                                 setTimeout(() => {
                                     window.location.href = "student_view_classroom.php?roomId=" + response.classroomId;
-                                }, 2000);
+                                }, 1000);
                             } else {
                                 alert("Failed to join Class!");
                             }
@@ -232,17 +232,45 @@ include('includes/session.php');
                 });
             }
 
-            function deleteItem(roomId) {
-                // Confirm before deleting
-                if (!confirm("Are you sure you want to delete this classroom?")) {
-                    return;
-                }
-
-                // Find the classroom card element by roomId and remove it
-                const classroomCard = document.querySelector(`.classroom-card[data-room-id="${roomId}"`);
-                if (classroomCard) {
-                    classroomCard.remove();
-                }
+            function deleteItem(roomId, studentId) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'Do you want to leave this classroom?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirm!',
+                    cancelButtonText: 'No, cancel',
+                    cancelButtonColor: '#3085d6',
+                    reverseButtons: true,
+                    customClass: {
+                        confirmButton: 'gradient-button',
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Perform the delete operation via AJAX
+                        $.ajax({
+                            type: 'POST',
+                            url: 'process/leave_class.php',
+                            data: {
+                                roomId: roomId,
+                                studentId: studentId
+                            },
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    Swal.fire('Left!', 'The classroom has been successfully leaved.', 'success');
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 500)
+                                } else {
+                                    Swal.fire('Failed!', 'Failed to leave the classroom.', 'error');
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire('Error!', 'An error occurred while attempting to leave the classroom: ' + error, 'error');
+                            }
+                        });
+                    }
+                });
             }
         </script>
         <?php include('js/scripts.php'); ?>
