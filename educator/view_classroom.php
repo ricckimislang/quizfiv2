@@ -27,25 +27,26 @@ include_once 'includes/session.php';
             <?php
             $classroom_id = isset($_GET['roomId']) ? (int) $_GET['roomId'] : 0;
             //get room name
-            $rQuery = $conn->prepare("SELECT classroom_name, classroom_code FROM classroom WHERE classroom_id = ?");
+            $rQuery = $conn->prepare("SELECT profile_path, classroom_name, classroom_code FROM classroom WHERE classroom_id = ?");
             $rQuery->bind_param("i", $classroom_id);
             $rQuery->execute();
             $rResult = $rQuery->get_result();
             $rRow = $rResult->fetch_assoc();
             $roomName = $rRow['classroom_name'];
             $roomCode = $rRow['classroom_code'];
+            $roomBg = $rRow['profile_path'];
             ?>
 
             <!-- classroom content -->
             <div class="classroom-content">
-                <div class="info-container">
+                <div class="info-container" style="background-image: url('<?php echo ($roomBg) ? $roomBg : 'assets/classroom-bg/general-bg.png'; ?>');">
                     <div class="room-title">
                         <h1><?= htmlspecialchars($roomName) ?></h1>
                         <div class="subtitle">
                             <span><?= htmlspecialchars($roomCode) ?></span>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary change-background">
+                    <button type="button" id="change_background_wallpaper" class="btn btn-primary change-background">
                         <i class="bx bx-edit"></i>
                         Customize
                     </button>
@@ -126,6 +127,9 @@ include_once 'includes/session.php';
             </div>
 
         </div>
+
+        <!-- modals -->
+        <?php include_once 'modal/change_wallpaper.php' ?>
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -277,6 +281,51 @@ include_once 'includes/session.php';
                 const anyChecked = Array.from(studentCheckboxes).some(checkbox => checkbox.checked);
                 removeButton.style.display = anyChecked ? 'inline-block' : 'none';
             }
+
+            // change change_background_wallpaper
+            const changeBackgroundWallpaper = document.getElementById('change_background_wallpaper');
+
+            $(changeBackgroundWallpaper).click(function() {
+                // Show background image selection dialog
+                $('#changeWallpaperModal').modal('show');
+            });
+
+            $('#ChangeWallpaperForm').submit(async function(event) {
+                event.preventDefault();
+                const selectedAvatar = document.querySelector('input[name="selected_avatar"]:checked');
+
+                if (!selectedAvatar) {
+                    toastr["warning"]("Please select a wallpaper");
+                    return;
+                }
+
+                const formData = new FormData(this);
+                formData.append('selected_avatar', selectedAvatar.value);
+                formData.append('classroom_id', document.querySelector('input[name="classroom_id"]').value);
+
+                try {
+
+
+                    const response = await fetch('process/update_room_bg.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (data.status === 'success') {
+                        toastr["success"]("Wallpaper updated successfully!");
+                        setTimeout(() => location.reload(), 1500);
+                        bootstrap.Modal.getInstance(document.getElementById('changeWallpaperModal')).hide();
+                    } else {
+                        toastr["error"](data.message || "Error updating Wallpaper");
+                    }
+                } catch (error) {
+                    console.error('Error updating Wallpaper:', error);
+                    toastr["error"]("Error updating Wallpaper");
+                }
+
+            });
         });
     </script>
     <script src="js/main.js"></script>
