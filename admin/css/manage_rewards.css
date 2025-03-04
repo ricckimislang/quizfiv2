@@ -125,7 +125,7 @@ table th {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
-  background-color: #4caf50;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -136,8 +136,8 @@ table th {
   cursor: not-allowed;
 }
 
-.action-btn.btn-success {
-  background-color: #45a049;
+.action-btn .btn-success {
+  background: #45a049;
 }
 
 /* Add loading spinner */
@@ -197,7 +197,7 @@ table th {
     min-width: 120px;
     color: #adb5bd;
   }
-  .action-btn{
+  .action-btn {
     width: auto;
     margin: 0 auto;
   }

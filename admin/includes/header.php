@@ -3,8 +3,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>QuizFi</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta content="QuizFi - Your ultimate quiz platform" name="description">
+    <meta content="QuizFi, quiz, platform, online quiz, quiz questions" name="keywords">
 
     <!-- Favicons -->
     <link href="../assets/img/logo-quizfi.png" rel="icon" type="image/jpg">

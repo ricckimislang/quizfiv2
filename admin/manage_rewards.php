@@ -44,7 +44,7 @@ include_once 'includes/session.php';
                         $categories->execute();
                         $categories = $categories->get_result();
                         while ($row = $categories->fetch_assoc()) {
-                            ?>
+                        ?>
                             <tr>
                                 <td data-label="Difficulty"><?= $row['difficulty']; ?></td>
                                 <td data-label="Perfect"><input class="form-control" type="text" id="perfect" name="perfect"
@@ -63,18 +63,18 @@ include_once 'includes/session.php';
     </main>
 
     <script>
-        $(function () {
+        $(function() {
             $('#rewardTable').DataTable({
-                responsive: true,  // Keeps the table mobile-friendly
-                autoWidth: true,  // Prevents column misalignment
+                responsive: true, // Keeps the table mobile-friendly
+                autoWidth: true, // Prevents column misalignment
                 deferRender: true, // Improves performance for large datasets
                 dom: 'rt', // Custom layout
             });
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('.action-btn').click(function () {
+        $(document).ready(function() {
+            $('.action-btn').click(function() {
                 const row = $(this).closest('tr');
                 const difficulty = row.find('td:first').text();
                 const perfect = row.find('input[name="perfect"]').val();
@@ -94,15 +94,19 @@ include_once 'includes/session.php';
                         consolation: consolation
                     },
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status === 'success') {
                             // Show success feedback
                             button.removeClass('btn-primary').addClass('btn-success');
                             button.text('Saved!');
                             toastr.success('Rewards updated successfully.');
+                            button.css({
+                                background: 'none',
+                                backgroundColor: '#45a049'
+                            });
 
                             // Reset button after 2 seconds
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 button.removeClass('btn-success').addClass('btn-primary');
                                 button.text(originalText);
                                 button.prop('disabled', false);
@@ -115,7 +119,7 @@ include_once 'includes/session.php';
                             toastr.error('Error.');
                         }
                     },
-                    error: function () {
+                    error: function() {
                         // Handle network/server errors
                         toastr.error('Failed, Please Try Again.');
                         button.text(originalText);
