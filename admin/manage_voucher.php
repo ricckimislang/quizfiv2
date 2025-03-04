@@ -27,7 +27,7 @@ include 'includes/session.php';
                     <form id="addVoucher">
                         <div class="form-group">
                             <label for="voucher_name">Voucher Name:</label>
-                            <input type="text" placeholder="Voucher Name" class="form-control">
+                            <input type="text" placeholder="Voucher Name" name="voucher_name" id="voucher_name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="voucher_duration">Duration (e.g., 1hr)</label>
@@ -64,7 +64,7 @@ include 'includes/session.php';
                         </div>
                     </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary" form="addVoucher">Add</button>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -82,7 +82,7 @@ include 'includes/session.php';
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM vouchers";
+                            $sql = "SELECT * FROM vouchers ORDER BY quantity desc";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()): ?>
@@ -111,6 +111,13 @@ include 'includes/session.php';
                             $('#voucherTable').DataTable({
                                 responsive: true,
                                 autoWidth: false,
+                                columnDefs: [{
+                                        targets: 2
+                                    } // Column index 1 (Quantity) should be sorted numerically
+                                ],
+                                order: [
+                                    [2, 'asc']
+                                ],
                                 language: {
                                     search: "_INPUT_",
                                     searchPlaceholder: "Search students...",
@@ -131,10 +138,42 @@ include 'includes/session.php';
                 </div>
             </div>
         </div>
+        <?php include_once 'modal/delete_voucher_modal.php' ?>
     </main>
     <?php include_once 'modal/edit-voucher-form.php' ?>
     <script src="js/main.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#addVoucher').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/add_voucher.php',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success('Voucher added successfully!', '', {
+                                timeOut: 1000
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            toastr.error('An error occurred: ' + data.message, '', {
+                                timeOut: 3000
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error:", xhr.responseText);
+                        toastr.error("Error: " + xhr.responseText);
+                    }
+                });
+            });
+        });
+
         function editQuantity(id, quantity) {
             $('#voucherid').val(id);
             $('#modalquantity').val(quantity);
@@ -166,6 +205,36 @@ include 'includes/session.php';
                         toastr.error('An error occurred: ' + status, '', {
                             timeOut: 3000
                         });
+                    }
+                });
+            });
+        }
+
+        function delVoucher(voucher_id) {
+            $('#deleteConfirmationModal').modal('show');
+            const deleteBtn = document.getElementById('delete-user-btn');
+
+            $(deleteBtn).click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/delete_voucher.php',
+                    data: {
+                        voucher_id: voucher_id
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success('Voucher deleted successfully!');
+                            $('#deleteConfirmationModal').modal('hide');
+                            location.reload();
+
+                        } else {
+                            toastr.error('An error occurred: ' + data.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error:", xhr.responseText);
+                        toastr.error("Error: " + xhr.responseText);
                     }
                 });
             });

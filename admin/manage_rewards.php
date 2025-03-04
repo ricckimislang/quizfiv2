@@ -40,7 +40,13 @@ include_once 'includes/session.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $categories = $conn->prepare("SELECT * FROM categories");
+                        <?php $categories = $conn->prepare("SELECT * FROM categories ORDER BY 
+    CASE 
+        WHEN difficulty = 'Easy' THEN 1
+        WHEN difficulty = 'Moderate' THEN 2
+        WHEN difficulty = 'Hard' THEN 3
+        ELSE 4 
+    END");
                         $categories->execute();
                         $categories = $categories->get_result();
                         while ($row = $categories->fetch_assoc()) {
@@ -69,6 +75,7 @@ include_once 'includes/session.php';
                 autoWidth: true, // Prevents column misalignment
                 deferRender: true, // Improves performance for large datasets
                 dom: 'rt', // Custom layout
+                order: [],
             });
         });
     </script>
