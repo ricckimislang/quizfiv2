@@ -152,15 +152,6 @@ $classroom_id = $_GET['roomId'];
         </main>
 
 
-
-
-
-
-
-
-
-
-
         <!-- Scripts -->
 
         <!-- Nav Link Active -->

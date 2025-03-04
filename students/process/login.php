@@ -16,6 +16,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $row['user_id'];
             $user_type = $row['usertype'];
+            $_SESSION['usertype'] = $user_type;
             echo json_encode(['status' => 'success', 'message' => 'Logged In successfully', 'userType' => $user_type,]);
         } else {
             echo json_encode(['status' => 'wrong password', 'message' => 'username or password is wrong!']);

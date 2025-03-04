@@ -11,7 +11,7 @@
         <ul>
             <li class="<?= getActivePage('manage_quiz.php') ?>"><a href="manage_quiz.php"><img
                         src="assets/font-icons/quiz.png" alt="">&nbsp;&nbsp;Quiz</a></li>
-            <li class="<?= getActivePage('manage_rewards.php') ?>"><a href="manage_rewards.php"><i class="bx bx-chalkboard" style="color:rgb(34, 255, 0)"></i>&nbsp;Classroom</a></li>
+            <li class="<?= getActivePage('classroom.php') ?>"><a href="classroom.php"><i class="bx bx-chalkboard" style="color:rgb(34, 255, 0)"></i>&nbsp;Classroom</a></li>
 
             <li><a href="logout.php"><i class='bx bx-log-out-circle' style="color: #4154f1"></i></a></li>
         </ul>

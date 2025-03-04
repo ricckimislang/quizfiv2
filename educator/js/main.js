@@ -261,12 +261,11 @@
     }, 200);
   }
 })();
-
-function toggleDropdown(event, classroomId) {
+function toggleDropdown(event, id) {
   event.stopPropagation(); // Prevent event from bubbling up
-  
-  // Select the specific dropdown using the provided classroomId
-  const dropdown = document.getElementById(`dropdown-${classroomId}`);
+
+  // Select the specific dropdown using the provided studentId
+  const dropdown = document.getElementById(`dropdown-${id}`);
 
   // Hide all dropdowns before opening the clicked one
   document.querySelectorAll(".dropdown").forEach((el) => {
@@ -274,18 +273,18 @@ function toggleDropdown(event, classroomId) {
   });
 
   // Toggle the dropdown visibility
-  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
 }
 
 // Close dropdown if clicked outside
 window.onclick = function (event) {
-  if (!event.target.closest(".menu")) {
+  if (!event.target.closest(".kebab-button")) {
     document.querySelectorAll(".dropdown").forEach((el) => {
       el.style.display = "none";
     });
   }
 };
-
 function changeProfile(event) {
   const dropdown = document.getElementById("dropdown");
   dropdown.style.display =
@@ -293,14 +292,12 @@ function changeProfile(event) {
   event.stopPropagation(); // Prevent event from bubbling up
 }
 
-
-
-window.onload = function() {
-  const loadingScreen = document.getElementById('loading-screen');
+window.onload = function () {
+  const loadingScreen = document.getElementById("loading-screen");
   if (loadingScreen) {
-      loadingScreen.style.opacity = '0'; // Fade out the loading screen
-      setTimeout(() => {
-          loadingScreen.style.visibility = 'hidden'; // Hide the loading screen after fade out
-      }, 500); // Match the duration of the CSS transition
+    loadingScreen.style.opacity = "0"; // Fade out the loading screen
+    setTimeout(() => {
+      loadingScreen.style.visibility = "hidden"; // Hide the loading screen after fade out
+    }, 500); // Match the duration of the CSS transition
   }
 };

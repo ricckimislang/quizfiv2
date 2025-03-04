@@ -36,7 +36,7 @@ include('includes/session.php');
                     $limit = 5; // Limit to 3 quizzes per page
                     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // Get current page or default to 1
                     $offset = ($page - 1) * $limit; // Calculate offset for SQL query
-                    
+
                     // Fetch total number of classroom to calculate total pages
                     $totalClassrooms = "SELECT COUNT(*) as total FROM student_classroom WHERE student_id = ?";
                     $totalStmt = $conn->prepare($totalClassrooms);
@@ -49,7 +49,7 @@ include('includes/session.php');
                     $totalRow = $totalResult->fetch_assoc();
                     $totalrooms = $totalRow['total'];
                     $totalPages = ceil($totalrooms / $limit); // Calculate total pages
-                    
+
                     // Fetch quizzes for the current page based on the selected difficulty with LIMIT and OFFSET
                     $ClassroomQuery = "SELECT * FROM student_classroom LEFT JOIN classroom ON classroom.classroom_id = student_classroom.classroom_id WHERE student_id = ? LIMIT ? OFFSET ?";
                     $Cstmt = $conn->prepare($ClassroomQuery);
@@ -64,7 +64,7 @@ include('includes/session.php');
 
 
                     $counter = 0; // Counter to track classroom per row
-                    
+
 
 
                     while ($class = $Cresult->fetch_assoc()) {
@@ -90,7 +90,7 @@ include('includes/session.php');
                             echo '</div><div class="classroom-card-grid">'; // Close current row and start a new one
                         }
                         // Display classroom card
-                        ?>
+                    ?>
                         <div class="classroom-card" data-room-id="<?php echo $class['classroom_id']; ?>">
                             <div class="classroom-card-header"
                                 style="<?php echo !empty($imagePath) ? "background-image: url('$imagePath');" : 'background: var(--card-header-color)' ?>">
@@ -128,7 +128,7 @@ include('includes/session.php');
                         </div>
 
 
-                        <?php
+                    <?php
                         $counter++; // Increment counter after displaying a quiz
                     }
 
@@ -170,8 +170,8 @@ include('includes/session.php');
 
         <script>
             //join submit button
-            $(document).ready(function () {
-                $('#joinClassroom').on('submit', function (e) {
+            $(document).ready(function() {
+                $('#joinClassroom').on('submit', function(e) {
                     e.preventDefault();
                     var user_id = $('#user_id').val();
                     var classroomCode = $('#classroom-code').val();
@@ -182,10 +182,10 @@ include('includes/session.php');
                             user_id: user_id,
                             classroomCode: classroomCode
                         },
-                        success: function (response) {
+                        success: function(response) {
                             // Handle response from the server
                             if (response.status === 'success') {
-                                toastr["success"]("Joined", "Success" + response.studentId)
+                                toastr["success"]("Joined", "Success")
                                 setTimeout(() => {
                                     window.location.href = "student_view_classroom.php?roomId=" + response.classroomId;
                                 }, 2000);
@@ -193,7 +193,7 @@ include('includes/session.php');
                                 alert("Failed to join Class!");
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             alert("An error Occured" + error);
                         }
                     })
@@ -222,7 +222,7 @@ include('includes/session.php');
                             sticky: false,
                             life: 1500
                         });
-                        setTimeout(function () {
+                        setTimeout(function() {
                             window.location.href = "student_view_classroom.php?roomId=" + classroomId;
                         }, 1500);
                         // Optionally, add the redirection or quiz start logic here
@@ -244,7 +244,6 @@ include('includes/session.php');
                     classroomCard.remove();
                 }
             }
-
         </script>
         <?php include('js/scripts.php'); ?>
 </body>

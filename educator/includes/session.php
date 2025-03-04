@@ -2,12 +2,13 @@
 include 'db/dbconn.php';
 
 // Ensure user_id is set in the session
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) && $_SESSION['usertype'] !== 'educator') {
     header("Location: ../students/index.php"); // Redirect to login if user is not logged in
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
+$usertype = $_SESSION['usertype'];
 // Function to get user IP address
 function getUserIP()
 {
@@ -24,4 +25,5 @@ $user_ip = getUserIP();
 ?>
 <script>
     console.log("User ID: " + "<?php echo $user_id ?>");
+    console.log("User ID: " + "<?php echo $usertype ?>");
 </script>
