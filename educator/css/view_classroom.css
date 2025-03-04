@@ -124,7 +124,6 @@
   border-radius: 10px;
   padding: 20px;
   overflow: hidden;
-  border: solid 1px rgb(255, 255, 255, 0.1);
 }
 
 .room-title {
@@ -147,9 +146,9 @@
   position: absolute;
   bottom: 20;
   right: 20;
-  background-color: var(--button);
   padding: 5px 10px;
   border-radius: 5px !important;
+  border: 1px solid white;
 }
 
 .student-container {

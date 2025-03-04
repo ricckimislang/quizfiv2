@@ -40,28 +40,25 @@ $classroom_id = $_GET['roomId'];
                 <?php
                 $classroom_id = isset($_GET['roomId']) ? (int) $_GET['roomId'] : 0;
                 //get room name
-                $rQuery = $conn->prepare("SELECT classroom_name, classroom_code FROM classroom WHERE classroom_id = ?");
+                $rQuery = $conn->prepare("SELECT profile_path, classroom_name, classroom_code FROM classroom WHERE classroom_id = ?");
                 $rQuery->bind_param("i", $classroom_id);
                 $rQuery->execute();
                 $rResult = $rQuery->get_result();
                 $rRow = $rResult->fetch_assoc();
                 $roomName = $rRow['classroom_name'];
                 $roomCode = $rRow['classroom_code'];
+                $roomBg = $rRow['profile_path'];
                 ?>
 
                 <!-- classroom content -->
                 <div class="classroom-content">
-                    <div class="info-container">
+                    <div class="info-container" style="background-image: url('<?php echo ($roomBg) ? $roomBg : 'assets/classroom-bg/general-bg.png'; ?>')">
                         <div class="room-title">
                             <h1><?= htmlspecialchars($roomName) ?></h1>
                             <div class="subtitle">
                                 <span><?= htmlspecialchars($roomCode) ?></span>
                             </div>
                         </div>
-                        <button type="button" class="btn change-background">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            Customize
-                        </button>
                     </div>
 
                     <div class="student-container">
@@ -89,22 +86,11 @@ $classroom_id = $_GET['roomId'];
 
                                 <div class="student-item">
                                     <div class="student-info">
-                                        <input type="checkbox" class="student-checkbox">
                                         <img src="<?php echo $listrow ? ($listrow['profile_path'] ?? 'assets/avatars/no-profile.jpg') : 'assets/avatars/no-profile.jpg'; ?>"
                                             alt="Student Profile" class="student-profile">
                                         <span
                                             class="student-name"><?= htmlspecialchars($listrow['firstname'] . ' ' . $listrow['lastname']); ?></span>
                                     </div>
-
-                                    <!-- menu option -->
-                                    <button class="kebab-button">
-                                        <i class="fa fa-ellipsis-v" onclick="toggleDropdown(event)"></i>
-                                        <div class="dropdown" id="dropdown">
-                                            <ul>
-                                                <li onclick="deleteItem()">Delete</li>
-                                            </ul>
-                                        </div>
-                                    </button>
                                 </div>
 
                             <?php endwhile; ?>
@@ -156,7 +142,7 @@ $classroom_id = $_GET['roomId'];
 
         <!-- Nav Link Active -->
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 // Select the navigation links
                 const menuLinks = document.querySelectorAll('.menu-nav a');
 
@@ -170,7 +156,7 @@ $classroom_id = $_GET['roomId'];
 
                 // Add click event listeners for each menu link
                 menuLinks.forEach(link => {
-                    link.addEventListener('click', function (event) {
+                    link.addEventListener('click', function(event) {
                         event.preventDefault();
 
                         // Remove 'active' class from all menu links
@@ -191,6 +177,7 @@ $classroom_id = $_GET['roomId'];
 
 
             });
+
             function confirmQuiz(quizTitle, quizId, classroomId) {
                 Swal.fire({
                     title: quizTitle,
