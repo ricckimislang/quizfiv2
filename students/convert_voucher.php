@@ -36,7 +36,7 @@ include('includes/session.php');
             </div>
         </div>
 
-        <div class="content container-fluid m-0">
+        <div class="content">
             <!-- voucher content -->
             <div class="voucher-content">
                 <div class="points-container">
@@ -71,7 +71,7 @@ include('includes/session.php');
                     $vresult = $vstmt->get_result();
 
                     while ($vouch = $vresult->fetch_assoc()) {
-                        ?>
+                    ?>
                         <div class="voucher-container" data-user-id="<?php echo $user_id; ?>"
                             data-voucher-id="<?php echo $vouch['voucher_id']; ?>"
                             data-voucher-name="<?php echo $vouch['voucher_name']; ?>">
@@ -95,7 +95,7 @@ include('includes/session.php');
                                 </div>
                             </div>
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
                 </div>
@@ -124,7 +124,7 @@ include('includes/session.php');
             </div>
 
             <!-- history content -->
-            <div class="history-content container-fluid m-0">
+            <div class="history-content">
                 <div class="history-container">
                     <div class="history-title">
                         <h1>History</h1>
@@ -159,7 +159,7 @@ include('includes/session.php');
                                             <input type="hidden" id="wifi-code-copy"
                                                 value="<?= htmlspecialchars($historyRow['wifi_code']); ?>">
                                             <button class="copy-button">
-                                                <i class="fas fa-copy"></i>
+                                                <i class="bx bxs-copy-alt"></i>
                                                 <span>Copy</span>
                                             </button>
                                         </td>
@@ -177,7 +177,7 @@ include('includes/session.php');
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const menuLinks = document.querySelectorAll('.menu-nav a');
             const voucherContent = document.querySelector('.voucher-content');
             const historyContent = document.querySelector('.history-content');
@@ -186,7 +186,7 @@ include('includes/session.php');
             historyContent.classList.remove('active');
 
             menuLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
+                link.addEventListener('click', function(event) {
                     event.preventDefault();
                     menuLinks.forEach(link => link.classList.remove('active'));
                     this.classList.add('active');
@@ -201,8 +201,8 @@ include('includes/session.php');
             });
 
             //buy voucher
-            $(document).ready(function () {
-                $('.voucher-container').on('click', function () {
+            $(document).ready(function() {
+                $('.voucher-container').on('click', function() {
                     var voucherId = $(this).data('voucher-id');
                     var voucherName = $(this).data('voucher-name');
                     var userId = $(this).data('user-id');
@@ -227,7 +227,7 @@ include('includes/session.php');
                                     voucher_id: voucherId,
                                     user_id: userId
                                 },
-                                success: function (response) {
+                                success: function(response) {
                                     if (response.status === 'success') {
                                         Swal.fire({
                                             title: '🎉 Purchased Successfully!',
@@ -276,7 +276,7 @@ include('includes/session.php');
                                         );
                                     }
                                 },
-                                error: function () {
+                                error: function() {
                                     Swal.fire(
                                         'Error!',
                                         'Error connecting to the server.',
@@ -291,11 +291,11 @@ include('includes/session.php');
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const copyButtons = document.querySelectorAll('.copy-button');
 
             copyButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     // Find the closest row and get the hidden input inside it
                     const row = this.closest('tr');
                     const codeInput = row.querySelector('input[type="hidden"]');
@@ -324,12 +324,12 @@ include('includes/session.php');
 
 
         // Add this after your existing scripts
-        $(function () {
+        $(function() {
             $('#historyTable').DataTable({
-                responsive: true,  // Keeps the table mobile-friendly
-                pageLength: 5,     // Increased initial display length for better UX
+                responsive: true, // Keeps the table mobile-friendly
+                pageLength: 5, // Increased initial display length for better UX
                 lengthMenu: [5, 10, 15, 25],
-                autoWidth: false,  // Prevents column misalignment
+                autoWidth: false, // Prevents column misalignment
                 deferRender: true, // Improves performance for large datasets
                 dom: '<"top"l>rt<"bottom"ip>', // Custom layout
 
@@ -347,7 +347,6 @@ include('includes/session.php');
                 }
             });
         });
-
     </script>
     <?php include('js/scripts.php'); ?>
 </body>
