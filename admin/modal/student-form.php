@@ -52,7 +52,7 @@
                         </form>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" form="student-edit-form">Submit</button>
+                            <button type="submit" class="btn btn-primary" form="student-edit-form">Update Profile</button>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                         </form>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" form="account-edit-form">Submit</button>
+                            <button type="submit" class="btn btn-primary" form="account-edit-form">Update Account</button>
                         </div>
                     </div>
                 </div>

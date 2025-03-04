@@ -27,7 +27,7 @@
                         <form id="student-reg-form">
                             <div class="form-group">
                                 <label for="studentEmail-reg">Email:</label>
-                                <input type="text" class="form-control" id="studentEmail-reg" name="studentEmail-reg"
+                                <input type="email" class="form-control" id="studentEmail-reg" name="studentEmail-reg"
                                     required>
                             </div>
                             <div class="form-group">
@@ -66,7 +66,7 @@
                         <form id="educator-reg-form">
                             <div class="form-group">
                                 <label for="educatorEmail-reg">Email:</label>
-                                <input type="text" class="form-control" id="educatorEmail-reg" name="educatorEmail-reg"
+                                <input type="email" class="form-control" id="educatorEmail-reg" name="educatorEmail-reg"
                                     required>
                             </div>
                             <div class="form-group">

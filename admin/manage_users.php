@@ -55,7 +55,7 @@ include_once 'includes/session.php';
                                                 Edit
                                             </button>
                                             <button data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="Delete Student" class="btn-delete">
+                                                title="Delete Student" onclick="deleteStudent('<?php echo $row['student_id'] ?>')" class="btn-delete">
                                                 <i class="bx bx-trash"></i>
                                                 Delete
                                             </button>
@@ -100,7 +100,7 @@ include_once 'includes/session.php';
                                                 Edit
                                             </button>
                                             <button data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="Delete Educator" class="btn-delete">
+                                                title="Delete Educator" onclick="deleteEducator('<?php echo $row['educator_id'] ?>')" class="btn-delete">
                                                 <i class="bx bx-trash"></i>
                                                 Delete
                                             </button>
@@ -125,6 +125,7 @@ include_once 'includes/session.php';
     <?php include_once 'modal/educator-form.php'; ?>
     <?php include_once 'modal/register-user-form.php'; ?>
     <?php include_once 'modal/verify-user-form.php'; ?>
+    <?php include_once 'modal/delete_user_modal.php'; ?>
 
     <script src="js/main.js"></script>
     <script>
@@ -216,6 +217,66 @@ include_once 'includes/session.php';
                 error: function(xhr, status, error) {
                     console.log(error);
                 }
+            });
+        }
+
+        function deleteStudent(student_id) {
+            $('#deleteConfirmationModal').modal('show');
+            const deleteUserBtn = document.getElementById('delete-user-btn');
+
+            $(deleteUserBtn).click(function() {
+                $('#deleteConfirmationModal').modal('hide');
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/delete_student_educator.php',
+                    data: {
+                        student_id: student_id
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.error) {
+                            toastr.error(data.error)
+                        } else {
+                            toastr.success(data.success)
+                            setTimeout(function() {
+                                location.reload()
+                            }, 0);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        }
+
+        function deleteEducator(educator_id) {
+            $('#deleteConfirmationModal').modal('show');
+            const deleteUserBtn = document.getElementById('delete-user-btn');
+
+            $(deleteUserBtn).click(function() {
+                $('#deleteConfirmationModal').modal('hide');
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/delete_student_educator.php',
+                    data: {
+                        educator_id: educator_id
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.error) {
+                            toastr.error(data.error)
+                        } else {
+                            toastr.success(data.success)
+                            setTimeout(function() {
+                                location.reload()
+                            }, 0);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
             });
         }
     </script>
@@ -373,6 +434,7 @@ include_once 'includes/session.php';
                     }
                 });
             });
+
             $('#educator-account-edit-form').submit(function(e) {
                 e.preventDefault();
 

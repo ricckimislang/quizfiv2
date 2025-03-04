@@ -43,7 +43,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary"
-                                form="educator-profile-edit-form">Submit</button>
+                                form="educator-profile-edit-form">Update Profile</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="educator-account" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -63,7 +63,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary"
-                                form="educator-account-edit-form">Submit</button>
+                                form="educator-account-edit-form">Update Account</button>
                         </div>
                     </div>
                 </div>

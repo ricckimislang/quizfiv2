@@ -11,6 +11,7 @@
 --------------------------------------------------------------*/
 :root {
   --background: linear-gradient(135deg, #1a1a1d 0%, #4e4e50 100%);
+  --primary-button-color: #4154f1;
 
   --color-background-body: #f0f4f8;
   --color-background-sidebar: #2c3e50;

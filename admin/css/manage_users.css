@@ -1,6 +1,7 @@
 :root {
   --primary-color: #1e1e1e;
   --secondary-color: #4154f1;
+  --primary-button-color: #4154f1;
   --success-color: #2eca6a;
   --danger-color: #ff5555;
   --light-gray: #f5f5f5;
@@ -183,25 +184,9 @@ td[data-label="Status"] {
   backdrop-filter: blur(4px);
 }
 
-.btn-view:hover,
-.btn-edit:hover,
-.btn-delete:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.btn-view:active,
-.btn-edit:active,
-.btn-delete:active {
-  transform: translateY(0);
-}
-
-.btn-view {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-}
-
+.btn-view,
 .btn-edit {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
 }
 
 .btn-delete {
@@ -216,12 +201,9 @@ td[data-label="Status"] {
 }
 
 /* Hover effects */
-.btn-view:hover {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-}
-
+.btn-view:hover,
 .btn-edit:hover {
-  background: linear-gradient(135deg, #059669, #047857);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
 }
 
 .btn-delete:hover {
