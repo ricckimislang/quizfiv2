@@ -52,7 +52,7 @@ include('includes/session.php');
                 $limit = 4; // Limit to 3 quizzes per page
                 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // Get current page or default to 1
                 $offset = ($page - 1) * $limit; // Calculate offset for SQL query
-                
+
                 // Fetch total number of quizzes to calculate total pages
                 $totalQuizzesQuery = "SELECT COUNT(*) as total FROM quiz WHERE difficulty = ? AND classroom_id = 0";
                 $totalStmt = $conn->prepare($totalQuizzesQuery);
@@ -65,7 +65,7 @@ include('includes/session.php');
                 $totalRow = $totalResult->fetch_assoc();
                 $totalQuizzes = $totalRow['total'];
                 $totalPages = ceil($totalQuizzes / $limit); // Calculate total pages
-                
+
                 // Fetch quizzes for the current page based on the selected difficulty with LIMIT and OFFSET
                 $quizzesQuery = "SELECT * FROM quiz WHERE difficulty = ? AND classroom_id = 0 LIMIT ? OFFSET ?";
                 $qstmt = $conn->prepare($quizzesQuery);
@@ -78,13 +78,13 @@ include('includes/session.php');
                 $qresult = $qstmt->get_result();
 
                 $counter = 0; // Counter to track quizzes per row
-                
+
                 while ($quiz = $qresult->fetch_assoc()) {
                     // Start a new row after every 4 quizzes
                     if ($counter % 4 == 0 && $counter > 0) {
                         echo '</div><div class="row card-grid">'; // Close current row and start a new one
                     }
-                    ?>
+                ?>
 
                     <!-- Easy Quiz Cards -->
                     <div class="quiz-card" data-difficulty="<?php echo htmlspecialchars($quiz['difficulty']); ?>">
@@ -142,7 +142,7 @@ include('includes/session.php');
                         </div>
                     </div>
 
-                    <?php
+                <?php
                     $counter++; // Increment counter after displaying a quiz
                 }
 
@@ -183,7 +183,7 @@ include('includes/session.php');
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             // Difficulty filter functionality with smooth transitions
             const difficultyBtns = document.querySelectorAll('.difficulty-btn');
@@ -213,12 +213,12 @@ include('includes/session.php');
                     quizId: quizId, // Match the parameter name
                 },
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
                     if (response.success) {
                         Swal.fire({
                             title: 'Take Quiz?',
-                            text: "Are you sure you want to take this quiz: " + quizTitle + "?",
-                            html: `<p style="font-size: 18px; color: #333;">Are you sure you want to take this quiz: <strong>${quizTitle}</strong></p>`,
+                            text: "You are about to take this quiz. " + quizTitle + "?",
+                            html: `<p style="font-size: 18px; color: #333;">You are about to take this quiz <br><strong>${quizTitle}</strong></p>`,
 
                             icon: 'question',
                             showCancelButton: true,
@@ -235,7 +235,7 @@ include('includes/session.php');
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
                                 Swal.fire(
                                     'Cancelled',
-                                    'You chose not to take the quiz.',
+                                    'Quiz cancelled.',
                                     'error'
                                 );
                             }
@@ -252,7 +252,7 @@ include('includes/session.php');
                         });
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     console.error("AJAX Error: " + textStatus + ": " + errorThrown);
                     Swal.fire({
                         title: 'Error',

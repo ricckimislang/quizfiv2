@@ -61,8 +61,3 @@ if (!$addIp->execute()) {
 // Optionally, you can close the statement and connection
 $stmt->close();
 $addIp->close();
-?>
-<script>
-    console.log("User ID: " + "<?php echo $user_id ?>");
-    console.log("Student ID: " + "<?php echo $studentId ?>");
-</script>

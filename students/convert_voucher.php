@@ -132,7 +132,7 @@ include('includes/session.php');
                     <div class="history-table-container">
                         <?php
                         // Fetch history data from the database
-                        $history = $conn->prepare("SELECT ps.user_id, ps.voucher_id, ps.wifi_code, ps.duration, ps.status FROM purchased_vouchers ps WHERE user_id = ?");
+                        $history = $conn->prepare("SELECT ps.user_id, ps.voucher_id, ps.wifi_code, ps.duration, ps.status FROM purchased_vouchers ps WHERE user_id = ? AND status = 'unused'");
                         $history->bind_param("i", $user_id);
                         $history->execute();
                         $historyResult = $history->get_result();

@@ -264,7 +264,7 @@
 
 function toggleDropdown(event, classroomId) {
   event.stopPropagation(); // Prevent event from bubbling up
-  
+
   // Select the specific dropdown using the provided classroomId
   const dropdown = document.getElementById(`dropdown-${classroomId}`);
 
@@ -274,7 +274,8 @@ function toggleDropdown(event, classroomId) {
   });
 
   // Toggle the dropdown visibility
-  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
 }
 
 // Close dropdown if clicked outside
@@ -293,14 +294,41 @@ function changeProfile(event) {
   event.stopPropagation(); // Prevent event from bubbling up
 }
 
-
-
-window.onload = function() {
-  const loadingScreen = document.getElementById('loading-screen');
+window.onload = function () {
+  const loadingScreen = document.getElementById("loading-screen");
   if (loadingScreen) {
-      loadingScreen.style.opacity = '0'; // Fade out the loading screen
-      setTimeout(() => {
-          loadingScreen.style.visibility = 'hidden'; // Hide the loading screen after fade out
-      }, 500); // Match the duration of the CSS transition
+    loadingScreen.style.opacity = "0"; // Fade out the loading screen
+    setTimeout(() => {
+      loadingScreen.style.visibility = "hidden"; // Hide the loading screen after fade out
+    }, 500); // Match the duration of the CSS transition
   }
 };
+
+document.addEventListener("contextmenu", function (event) {
+  event.preventDefault();
+  alert("Right-click is disabled on this website.");
+});
+
+// block right click and dev tools
+document.addEventListener("keydown", function (event) {
+  if (event.ctrlKey && event.shiftKey && event.key === "I") {
+    // Ctrl + Shift + I
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.shiftKey && event.key === "J") {
+    // Ctrl + Shift + J
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.key === "U") {
+    // Ctrl + U (View Source)
+    event.preventDefault();
+  }
+  // if (event.key === "F12") {
+  //   // F12 (DevTools)
+  //   event.preventDefault();
+  // }
+  if (event.ctrlKey && event.shiftKey && event.key === "C") {
+    // Ctrl + shift + C (Copy)
+    event.preventDefault();
+  }
+});

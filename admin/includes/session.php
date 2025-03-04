@@ -22,6 +22,3 @@ function getUserIP()
 $user_ip = getUserIP();
 
 ?>
-<script>
-    console.log("User ID: " + "<?php echo $user_id ?>");
-</script>
