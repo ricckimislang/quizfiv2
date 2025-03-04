@@ -19,6 +19,7 @@
                         src="assets/font-icons/users.png" alt=""></i>&nbsp;Users</a></li>
             <li class="<?= getActivePage('manage_voucher.php') ?>"><a href="manage_voucher.php"><img
                         src="assets/font-icons/voucher.png" alt=""></i>&nbsp;Voucher</a></li>
+            <li><a href="logout.php"><i class='bx bx-log-out-circle' style="color: #4154f1"></i></a></li>
         </ul>
     </div>
 </div><!-- End Logo -->
