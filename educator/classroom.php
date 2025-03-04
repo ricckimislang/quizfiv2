@@ -78,8 +78,47 @@ $studentId = 2;
         <div class="action-btn-group">
             <button type="button" id="add-classroom" class="btn btn-primary"><i class="bx bx-plus"></i></button>
         </div>
+
+        <!-- modals -->
+        <?php include_once 'modal/create_classroom.php' ?>
     </main>
     <script src="js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            // open create classroom modal
+            const addRoomBtn = document.getElementById("add-classroom");
+
+            $(addRoomBtn).click(function() {
+                $('#create-classroom').modal('show');
+            });
+
+            // process for ajax creation of classroom
+            $('#create-classroom-form').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: 'process/create_classroom.php',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'error') {
+                            toastr.error(data.message);
+                        } else {
+                            $('#create-classroom').modal('hide');
+                            toastr.success(data.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            })
+        });
+    </script>
     <script>
         function confirmRoom(classroomName, classroomId) {
             Swal.fire({
