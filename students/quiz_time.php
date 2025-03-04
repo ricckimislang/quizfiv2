@@ -27,7 +27,6 @@ if ($quizId > 0) {
               </script>";
         exit();
     }
-
     // Close the statement
     $stmt->close();
 } else {
@@ -129,6 +128,56 @@ $quizDiff->close();
     </main>
 
     <?php include 'js/scripts.php'; ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let quizInProgress = true;
+            let hasStartedQuiz = true;
+
+            // Function to handle quiz interruption
+            function handleQuizInterruption() {
+                if (quizInProgress && hasStartedQuiz) {
+                    // Immediately calculate score and redirect to results
+                    calculateScore();
+                    return "Quiz in progress. Your attempt will be submitted.";
+                }
+            }
+
+            // Prevent accidental page reload or navigation
+            window.addEventListener('beforeunload', function(e) {
+                const warningMessage = handleQuizInterruption();
+                if (warningMessage) {
+                    e.preventDefault(); // Cancel the event
+                    e.returnValue = warningMessage; // Display a generic message in most browsers
+                }
+            });
+
+            // Handle browser back/forward navigation
+            window.addEventListener('popstate', function(e) {
+                if (quizInProgress && hasStartedQuiz) {
+                    // Prevent default navigation
+                    history.pushState(null, null, location.href);
+
+                    // Show confirmation dialog
+                    const confirmLeave = confirm("You are currently taking a quiz. If you leave, your current attempt will be submitted. Do you want to continue?");
+
+                    if (confirmLeave) {
+                        // Submit the quiz and redirect to results
+                        calculateScore();
+                    }
+                }
+            });
+
+            // Modify existing calculateScore function to set quizInProgress to false
+            const originalCalculateScore = calculateScore;
+            calculateScore = function() {
+                quizInProgress = false;
+                originalCalculateScore();
+            };
+
+            // Set initial history state
+            history.replaceState(null, null, location.href);
+        });
+    </script>
 
     <script>
         const audio = document.getElementById('background-audio');
@@ -138,7 +187,7 @@ $quizDiff->close();
         function playAudio() {
             audio.volume = 0.5;
             audio.muted = false; // Unmute the audio
-            audio.play().catch(function (error) {
+            audio.play().catch(function(error) {
                 console.log("Audio playback failed: ", error);
             });
         }
@@ -147,7 +196,7 @@ $quizDiff->close();
         function playAnswerSound() {
             answerSound.volume = 1.0; // Set volume to 50% (adjust as needed)
             answerSound.currentTime = 0; // Reset sound to start
-            answerSound.play().catch(function (error) {
+            answerSound.play().catch(function(error) {
                 console.log("Answer sound playback failed: ", error);
             });
         }
@@ -158,12 +207,12 @@ $quizDiff->close();
         }
 
         // Event listener for user interaction
-        window.addEventListener('click', function () {
+        window.addEventListener('click', function() {
             localStorage.setItem('audioPlayed', 'true'); // Set flag in local storage
             playAudio(); // Play audio on first click
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Remove loading screen immediately
             const loadingScreen = document.getElementById('loading-screen');
             if (loadingScreen) {
@@ -174,7 +223,7 @@ $quizDiff->close();
             // Attach keypress event for Enter key to submit the short answer if it's the first question
             const initialShortAnswerInput = document.getElementById('shortAnswer');
             if (initialShortAnswerInput) {
-                initialShortAnswerInput.addEventListener('keypress', function (event) {
+                initialShortAnswerInput.addEventListener('keypress', function(event) {
                     if (event.key === 'Enter') {
                         const selectedAnswer = event.target.value;
                         playAnswerSound(); // Play sound when an answer is submitted
@@ -190,14 +239,14 @@ $quizDiff->close();
         let currentQuestionNumber = 1;
 
         document.querySelectorAll('.option-btn').forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 const selectedAnswer = this.getAttribute('data-choice');
                 playAnswerSound();
                 storeAnswerAndLoadNext(selectedAnswer);
             });
         });
 
-        document.getElementById('submitAnswer')?.addEventListener('click', function () {
+        document.getElementById('submitAnswer')?.addEventListener('click', function() {
             const selectedAnswer = document.getElementById('shortAnswer').value;
             storeAnswerAndLoadNext(selectedAnswer);
         });
@@ -327,7 +376,7 @@ $quizDiff->close();
             }
 
             document.querySelectorAll('.option-btn').forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const selectedAnswer = this.getAttribute('data-choice');
                     playAnswerSound(); // Play sound when an answer is selected
                     storeAnswerAndLoadNext(selectedAnswer);
@@ -337,7 +386,7 @@ $quizDiff->close();
             setTimeout(() => {
                 const shortAnswerInput = document.getElementById('shortAnswer');
                 if (shortAnswerInput) {
-                    shortAnswerInput.addEventListener('keypress', function (event) {
+                    shortAnswerInput.addEventListener('keypress', function(event) {
                         if (event.key === 'Enter') {
                             const selectedAnswer = event.target.value;
                             playAnswerSound(); // Play sound when an answer is submitted
@@ -372,17 +421,17 @@ $quizDiff->close();
 
                     // Send score to PHP for recording
                     fetch('process/record_attempt.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            quiz_id: <?php echo $quiz_id; ?>,
-                            user_id: <?php echo $user_id; ?>, // Replace with actual student_id variable if different
-                            score: score,
-                            classroom_id: <?php echo $classroom_id; ?>
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                quiz_id: <?php echo $quiz_id; ?>,
+                                user_id: <?php echo $user_id; ?>, // Replace with actual student_id variable if different
+                                score: score,
+                                classroom_id: <?php echo $classroom_id; ?>
+                            })
                         })
-                    })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {

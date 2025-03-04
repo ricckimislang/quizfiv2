@@ -218,8 +218,9 @@ include('includes/session.php');
                         Swal.fire({
                             title: 'Take Quiz?',
                             text: "You are about to take this quiz. " + quizTitle + "?",
-                            html: `<p style="font-size: 18px; color: #333;">You are about to take this quiz <br><strong>${quizTitle}</strong></p>`,
-
+                            html: `<p style="font-size: 18px; color: #333;">You are about to take this quiz <br><strong>${quizTitle}</strong></p>
+                            <br>
+                            <span style="color: red; font-weight: bold;">Avoid reloading the page or navigating back during the quiz. Doing so will result in an automatic 0 score.</span>`,
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Yes, start quiz!',
