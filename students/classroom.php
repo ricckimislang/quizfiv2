@@ -33,7 +33,7 @@ include('includes/session.php');
 
                     <?php
                     // Pagination logic
-                    $limit = 5; // Limit to 3 quizzes per page
+                    $limit = 6; // Limit to 3 quizzes per page
                     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // Get current page or default to 1
                     $offset = ($page - 1) * $limit; // Calculate offset for SQL query
 

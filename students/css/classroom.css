@@ -209,7 +209,6 @@
 .subtitle {
   display: flex;
   flex-direction: column;
-  color: var(--text-color-secondary);
   font-size: 0.7rem;
 }
 
