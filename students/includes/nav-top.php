@@ -11,11 +11,6 @@
 
         <li class="nav-item dropdown pe-3">
 
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <img src="assets/students/profile.png" alt="Profile" class="rounded-circle" width="30" height="30">
-                <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['username']; ?></span>
-            </a><!-- End Profile Iamge Icon -->
-
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
                     <h6><?php echo $studentName; ?></h6>

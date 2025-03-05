@@ -70,34 +70,41 @@ include('includes/session.php');
                     $vstmt->execute();
                     $vresult = $vstmt->get_result();
 
-                    while ($vouch = $vresult->fetch_assoc()) {
+                    if ($vresult->num_rows > 0):
+                        while ($vouch = $vresult->fetch_assoc()) {
                     ?>
-                        <div class="voucher-container" data-user-id="<?php echo $user_id; ?>"
-                            data-voucher-id="<?php echo $vouch['voucher_id']; ?>"
-                            data-voucher-name="<?php echo $vouch['voucher_name']; ?>">
-                            <div class="voucher-header">
-                                <img src="assets/img/logo-quizfi.png" alt="logo.png">
-                            </div>
-                            <div class="voucher-body">
-                                <div class="voucher-title">
-                                    <h5><?php echo htmlspecialchars($vouch['points']); ?> points</h5>
-                                    <span class="voucher-hour">
-                                        <i class="fa fa-clock"></i>
-                                        <?php echo htmlspecialchars($vouch['voucher_name']); ?>
-                                        <p>Qty: <?php echo htmlspecialchars($vouch['quantity']); ?></p>
-                                    </span>
+                            <div class="voucher-container" data-user-id="<?php echo $user_id; ?>"
+                                data-voucher-id="<?php echo $vouch['voucher_id']; ?>"
+                                data-voucher-name="<?php echo $vouch['voucher_name']; ?>">
+                                <div class="voucher-header">
+                                    <img src="assets/img/logo-quizfi.png" alt="logo.png">
                                 </div>
-                                <div class="voucher-instruction">
-                                    <span class="subtitle">HOW TO USE THE VOUCHER</span>
-                                    <p>1. Copy the code and go to profile page</p>
-                                    <p>2. Click the redeem voucher button</p>
-                                    <p>3. Enter the voucher code and submit</p>
+                                <div class="voucher-body">
+                                    <div class="voucher-title">
+                                        <h5><?php echo htmlspecialchars($vouch['points']); ?> points</h5>
+                                        <span class="voucher-hour">
+                                            <i class="fa fa-clock"></i>
+                                            <?php echo htmlspecialchars($vouch['voucher_name']); ?>
+                                            <p>Qty: <?php echo htmlspecialchars($vouch['quantity']); ?></p>
+                                        </span>
+                                    </div>
+                                    <div class="voucher-instruction">
+                                        <span class="subtitle">HOW TO USE THE VOUCHER</span>
+                                        <p>1. Copy the code and go to profile page</p>
+                                        <p>2. Click the redeem voucher button</p>
+                                        <p>3. Enter the voucher code and submit</p>
+                                    </div>
                                 </div>
                             </div>
+                        <?php
+                        }
+                    else: ?>
+                        <!-- Display "No Vouchers Available" Image inside the Grid -->
+                        <div class="voucher-container no-vouchers">
+                            <img src="assets/img/empty_voucher.svg" alt="No vouchers available">
+                            <p>No vouchers available at the moment.</p>
                         </div>
-                    <?php
-                    }
-                    ?>
+                    <?php endif; ?>
                 </div>
 
                 <?php if ($totalPages > 1): ?>

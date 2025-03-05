@@ -259,6 +259,34 @@
   color: var(--color-background-header);
 }
 
+/* Style for Empty quiz Message */
+.quiz-container.no-quiz {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Adjusted for alignment */
+  grid-column: span 4; /* Ensures it takes up two columns in the grid */
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Styling for Empty quiz Image */
+.quiz-container.no-quiz img {
+  width: 180px; /* Adjusted to match other images */
+  height: auto;
+  opacity: 1;
+  margin-bottom: 10px;
+}
+
+/* Text Styling for No quiz Message */
+.quiz-container.no-vouchers p {
+  color: var(--text-color-secondary);
+  font-size: 1em;
+}
+
 .start-quiz-btn {
   width: 100%;
   padding: 1rem;

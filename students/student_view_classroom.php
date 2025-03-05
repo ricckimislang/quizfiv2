@@ -180,15 +180,19 @@ $classroom_id = $_GET['roomId'];
 
             function confirmQuiz(quizTitle, quizId, classroomId) {
                 Swal.fire({
-                    title: quizTitle,
-                    text: "Are you sure you want to take this quiz ?",
-                    icon: 'question',
+                    title: 'Take Quiz?',
+                    text: "You are about to take this quiz. " + quizTitle + "?",
+                    html: `<p style="font-size: 18px; color: #333;">You are about to take this quiz <br><strong>${quizTitle}</strong></p>
+                            <br>
+                            <span style="color: red; font-weight: bold;">Avoid reloading the page or navigating back during the quiz. Doing so will result in an automatic 0 score.</span>`,
+                    icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, start quiz!',
                     cancelButtonText: 'No, cancel!',
-                    confirmButtonColor: '#2ecc71',
-                    cancelButtonColor: '#d33',
-                    reverseButtons: true
+                    reverseButtons: true,
+                    customClass: {
+                        confirmButton: 'gradient-button'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect or perform action to take the quiz

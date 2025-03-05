@@ -56,13 +56,9 @@ $difficulty = $difficultyRow['difficulty']; // Get the difficulty value
 $quizDiff->close();
 ?>
 
-
-
-
 <link rel="stylesheet" href="css/quiz_time.css">
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 
 <audio id="background-audio" loop muted>
     <source src="assets/img/quiz-music.mp3" type="audio/mpeg">
@@ -97,20 +93,20 @@ $quizDiff->close();
         <div class="row" id="answer-options">
             <?php if ($question['quiz_type'] === 'Multiple Choice'): ?>
                 <div class="col choice-A" data-label="A">
-                    <button id="optionA" class="btn option-btn"
-                        data-choice="A"><?php echo $question['option_a']; ?></button>
+                    <label for="optionA">A.</label>
+                    <button id="optionA" class="btn option-btn" data-choice="A"><?php echo $question['option_a']; ?></button>
                 </div>
                 <div class="col choice-B" data-label="B">
-                    <button id="optionB" class="btn option-btn"
-                        data-choice="B"><?php echo $question['option_b']; ?></button>
+                    <label for="optionB">B.</label>
+                    <button id="optionB" class="btn option-btn" data-choice="B"><?php echo $question['option_b']; ?></button>
                 </div>
                 <div class="col choice-C" data-label="C">
-                    <button id="optionC" class="btn option-btn"
-                        data-choice="C"><?php echo $question['option_c']; ?></button>
+                    <label for="optionC">C.</label>
+                    <button id="optionC" class="btn option-btn" data-choice="C"><?php echo $question['option_c']; ?></button>
                 </div>
                 <div class="col choice-D" data-label="D">
-                    <button id="optionD" class="btn option-btn"
-                        data-choice="D"><?php echo $question['option_d']; ?></button>
+                    <label for="optionD">D.</label>
+                    <button id="optionD" class="btn option-btn" data-choice="D"><?php echo $question['option_d']; ?></button>
                 </div>
             <?php elseif ($question['quiz_type'] === 'True/False'): ?>
                 <div class="col choice-True" data-label="True">
@@ -308,12 +304,10 @@ $quizDiff->close();
         // Start the timer when the page loads
         const timerInterval = setInterval(updateTimer, 1000);
 
-
-
         function storeAnswerAndLoadNext(selectedAnswer) {
             selectedAnswers[currentQuestionId] = selectedAnswer;
             sessionStorage.setItem('selectedAnswers', JSON.stringify(selectedAnswers));
-            console.log('Stored Selected Answers:', selectedAnswers);
+            // console.log('Stored Selected Answers:', selectedAnswers);
 
             // Show the loading screen
             document.getElementById('loading-screen').style.display = 'flex';
@@ -360,14 +354,30 @@ $quizDiff->close();
 
             if (question.quiz_type === 'Multiple Choice') {
                 answerOptionsDiv.innerHTML = `
-                    <div class="col choice-A" data-label="A"><button class="btn option-btn" data-choice="A">${question.option_a}</button></div>
-                    <div class="col choice-B" data-label="B"><button class="btn option-btn" data-choice="B">${question.option_b}</button></div>
-                    <div class="col choice-C" data-label="C"><button class="btn option-btn" data-choice="C">${question.option_c}</button></div>
-                    <div class="col choice-D" data-label="D"><button class="btn option-btn" data-choice="D">${question.option_d}</button></div>`;
+                    <div class="col choice-A" data-label="A">
+                        <label for="optionA">A.</label>
+                        <button class="btn option-btn" data-choice="A">${question.option_a}</button>
+                    </div>
+                    <div class="col choice-B" data-label="B">
+                        <label for="optionB">B.</label>
+                        <button class="btn option-btn" data-choice="B">${question.option_b}</button>
+                    </div>
+                    <div class="col choice-C" data-label="C">
+                        <label for="optionC">C.</label>
+                        <button class="btn option-btn" data-choice="C">${question.option_c}</button>
+                    </div>
+                    <div class="col choice-D" data-label="D">
+                        <label for="optionD">D.</label>
+                        <button class="btn option-btn" data-choice="D">${question.option_d}</button>
+                    </div>`;
             } else if (question.quiz_type === 'True/False') {
                 answerOptionsDiv.innerHTML = `
-                    <div class="col choice-True" data-label="True"><button class="btn option-btn" data-choice="True">True</button></div>
-                    <div class="col choice-False" data-label="False"><button class="btn option-btn" data-choice="False">False</button></div>`;
+                    <div class="col choice-True" data-label="True">
+                        <button class="btn option-btn" data-choice="True">True</button>
+                    </div>
+                    <div class="col choice-False" data-label="False">
+                        <button class="btn option-btn" data-choice="False">False</button>
+                    </div>`;
             } else if (question.quiz_type === 'Short Answer') {
                 answerOptionsDiv.innerHTML = `
                     <div class="col short-answer">
@@ -448,6 +458,13 @@ $quizDiff->close();
                     sessionStorage.clear();
                 });
         }
+    </script>
+    <script>
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1000); // Hide after 2 seconds
+        };
     </script>
 
 </body>

@@ -66,71 +66,78 @@ include('includes/session.php');
                     $counter = 0; // Counter to track classroom per row
 
 
+                    if ($Cresult->num_rows > 0):
+                        while ($class = $Cresult->fetch_assoc()) {
 
-                    while ($class = $Cresult->fetch_assoc()) {
+                            $mainRoomId = $conn->prepare("SELECT profile_path FROM classroom WHERE classroom_id = ?");
+                            $mainRoomId->bind_param("i", $class['classroom_id']);
+                            $mainRoomId->execute();
+                            $mainRoomIdResult = $mainRoomId->get_result();
+                            $mainRoom = $mainRoomIdResult->fetch_assoc();
+                            $imagePath = $mainRoom['profile_path'];
 
-                        $mainRoomId = $conn->prepare("SELECT profile_path FROM classroom WHERE classroom_id = ?");
-                        $mainRoomId->bind_param("i", $class['classroom_id']);
-                        $mainRoomId->execute();
-                        $mainRoomIdResult = $mainRoomId->get_result();
-                        $mainRoom = $mainRoomIdResult->fetch_assoc();
-                        $imagePath = $mainRoom['profile_path'];
+                            $educator_user_id = $class['user_id'];
+                            $RoomCreator = "SELECT firstname, lastname FROM educators WHERE user_id = ?";
+                            $RoomCreator = $conn->prepare($RoomCreator);
+                            $RoomCreator->bind_param("i", $educator_user_id);
+                            $RoomCreator->execute();
+                            $RoomCreatorResult = $RoomCreator->get_result();
+                            $creator = $RoomCreatorResult->fetch_assoc();
+                            $creator_name = $creator['firstname'] . " " . $creator['lastname'];
 
-                        $educator_user_id = $class['user_id'];
-                        $RoomCreator = "SELECT firstname, lastname FROM educators WHERE user_id = ?";
-                        $RoomCreator = $conn->prepare($RoomCreator);
-                        $RoomCreator->bind_param("i", $educator_user_id);
-                        $RoomCreator->execute();
-                        $RoomCreatorResult = $RoomCreator->get_result();
-                        $creator = $RoomCreatorResult->fetch_assoc();
-                        $creator_name = $creator['firstname'] . " " . $creator['lastname'];
-
-                        // Start a new row after every 3 classroom
-                        if ($counter % 3 == 0 && $counter > 0) {
-                            echo '</div><div class="classroom-card-grid">'; // Close current row and start a new one
-                        }
-                        // Display classroom card
+                            // Start a new row after every 3 classroom
+                            if ($counter % 3 == 0 && $counter > 0) {
+                                echo '</div><div class="classroom-card-grid">'; // Close current row and start a new one
+                            }
+                            // Display classroom card
                     ?>
-                        <div class="classroom-card" data-room-id="<?php echo $class['classroom_id']; ?>">
-                            <div class="classroom-card-header"
-                                style="<?php echo !empty($imagePath) ? "background-image: url('$imagePath');" : 'background: var(--card-header-color)' ?>">
-                                <div class="menu">
-                                    <div class="dots1"
-                                        onclick="toggleDropdown(event, <?php echo $class['classroom_id']; ?>)">
-                                        <div class="dot1"></div>
-                                        <div class="dot1"></div>
-                                        <div class="dot1"></div>
+                            <div class="classroom-card" data-room-id="<?php echo $class['classroom_id']; ?>">
+                                <div class="classroom-card-header"
+                                    style="<?php echo !empty($imagePath) ? "background-image: url('$imagePath');" : 'background: var(--card-header-color)' ?>">
+                                    <div class="menu">
+                                        <div class="dots1"
+                                            onclick="toggleDropdown(event, <?php echo $class['classroom_id']; ?>)">
+                                            <div class="dot1"></div>
+                                            <div class="dot1"></div>
+                                            <div class="dot1"></div>
+                                        </div>
+                                        <div class="dropdown" id="dropdown-<?php echo $class['classroom_id']; ?>">
+                                            <ul>
+                                                <li onclick="deleteItem(<?php echo $class['classroom_id']; ?>, <?= $studentId; ?>)">Leave</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="dropdown" id="dropdown-<?php echo $class['classroom_id']; ?>">
-                                        <ul>
-                                            <li onclick="deleteItem(<?php echo $class['classroom_id']; ?>, <?= $studentId; ?>)">Leave</li>
-                                        </ul>
-                                    </div>
-                                </div>
 
-                                <div class="classroom-card-title">
-                                    <h3><?= $class['classroom_name']; ?></h3>
-                                    <div class="subtitle">
-                                        <span><?= $class['classroom_code']; ?></span>
-                                        <span><?= $creator_name; ?></span>
+                                    <div class="classroom-card-title">
+                                        <h3><?= $class['classroom_name']; ?></h3>
+                                        <div class="subtitle">
+                                            <span><?= $class['classroom_code']; ?></span>
+                                            <span><?= $creator_name; ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="classroom-card-profile">
+                                        <img src="assets/3d-profiles/female-teacher-1.jpg" alt="Creator-Profile">
                                     </div>
                                 </div>
-                                <div class="classroom-card-profile">
-                                    <img src="assets/3d-profiles/female-teacher-1.jpg" alt="Creator-Profile">
+                                <div class="classroom-card-body"
+                                    onclick="confirmRoom('<?php echo htmlspecialchars($class['classroom_name']); ?>', <?php echo htmlspecialchars($class['classroom_id']); ?>)">
+                                    <div class="text-body">
+                                        <p><?= $class['classroom_desc']; ?></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="classroom-card-body"
-                                onclick="confirmRoom('<?php echo htmlspecialchars($class['classroom_name']); ?>', <?php echo htmlspecialchars($class['classroom_id']); ?>)">
-                                <div class="text-body">
-                                    <p><?= $class['classroom_desc']; ?></p>
-                                </div>
-                            </div>
-                        </div>
 
 
                     <?php
-                        $counter++; // Increment counter after displaying a quiz
-                    }
+                            $counter++; // Increment counter after displaying a quiz
+                        }
+                    else:
+                        echo '<div class="room-container no-room">
+                    <img src="assets/img/no-room.svg" alt="No Room Joined">
+                    <p>You have not joined any classroom.</p>
+                    </div>';
+
+                    endif;
 
                     // Close the last row if there are quizzes
                     if ($counter > 0) {

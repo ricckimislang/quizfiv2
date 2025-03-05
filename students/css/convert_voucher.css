@@ -203,6 +203,36 @@
   margin: 5px 0;
 }
 
+/* Style for Empty Voucher Message */
+.voucher-container.no-vouchers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 380px; /* Adjusted for alignment */
+  border: 1px dashed rgba(255, 255, 255, 0.3); /* Dashed border to indicate empty state */
+  background: var(--card-background);
+  grid-column: span 4; /* Ensures it takes up two columns in the grid */
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Styling for Empty Voucher Image */
+.voucher-container.no-vouchers img {
+  width: 180px; /* Adjusted to match other images */
+  height: auto;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+/* Text Styling for No Voucher Message */
+.voucher-container.no-vouchers p {
+  color: var(--text-color-secondary);
+  font-size: 1em;
+}
+
 .pagination-container {
   padding: 20px 0;
 }

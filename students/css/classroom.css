@@ -224,6 +224,29 @@
   line-height: 1.6;
 }
 
+/* Style for Empty quiz Message */
+.room-container.no-room {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Adjusted for alignment */
+  grid-column: span 4; /* Ensures it takes up two columns in the grid */
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  opacity: 0.8;
+  color: white;
+}
+
+/* Styling for Empty room Image */
+.room-container.no-room img {
+  width: 280px; /* Adjusted to match other images */
+  height: auto;
+  opacity: 1;
+  margin-bottom: 10px;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -264,6 +287,12 @@
 
   .classroom-card-body {
     padding: 15px;
+  }
+  .room-container.no-room {
+    grid-column: span 1;
+  }
+  .room-container.no-room img {
+    width: 200px;
   }
 }
 

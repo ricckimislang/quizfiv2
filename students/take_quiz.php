@@ -79,72 +79,79 @@ include('includes/session.php');
 
                 $counter = 0; // Counter to track quizzes per row
 
-                while ($quiz = $qresult->fetch_assoc()) {
-                    // Start a new row after every 4 quizzes
-                    if ($counter % 4 == 0 && $counter > 0) {
-                        echo '</div><div class="row card-grid">'; // Close current row and start a new one
-                    }
+                if ($qresult->num_rows > 0):
+                    while ($quiz = $qresult->fetch_assoc()) {
+                        // Start a new row after every 4 quizzes
+                        if ($counter % 4 == 0 && $counter > 0) {
+                            echo '</div><div class="row card-grid">'; // Close current row and start a new one
+                        }
                 ?>
 
-                    <!-- Easy Quiz Cards -->
-                    <div class="quiz-card" data-difficulty="<?php echo htmlspecialchars($quiz['difficulty']); ?>">
-                        <div class="quiz-card-header">
-                            <span
-                                class="difficulty-badge <?php echo htmlspecialchars($quiz['difficulty']); ?>"><?php echo htmlspecialchars($quiz['difficulty']); ?></span>
-                        </div>
-                        <div class="quiz-card-body">
-                            <h3 class="quiz-title">
-                                <?php echo htmlspecialchars($quiz['quiz_title']); ?>
-                            </h3>
-                            <p class="quiz-description"><?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
-                            <div class="quiz-meta">
-                                <span><i class="fas fa-clock"></i>
-                                    <?php
-                                    // Dynamic time based on difficulty
-                                    switch ($quiz['difficulty']) {
-                                        case 'Easy':
-                                            echo '10 mins';
-                                            break;
-                                        case 'Moderate':
-                                            echo '20 mins';
-                                            break;
-                                        case 'Hard':
-                                            echo '30 mins';
-                                            break;
-                                        default:
-                                            echo '10 mins'; // fallback
-                                    }
-                                    ?>
-                                </span>
-                                <span><i class="fas fa-question-circle"></i>
-                                    <?php
-                                    // Dynamic time based on difficulty
-                                    switch ($quiz['difficulty']) {
-                                        case 'Easy':
-                                            echo '10';
-                                            break;
-                                        case 'Moderate':
-                                            echo '20';
-                                            break;
-                                        case 'Hard':
-                                            echo '30';
-                                            break;
-                                        default:
-                                            echo '10'; // fallback
-                                    }
-                                    ?>
-                                    questions</span>
+                        <!-- Easy Quiz Cards -->
+                        <div class="quiz-card" data-difficulty="<?php echo htmlspecialchars($quiz['difficulty']); ?>">
+                            <div class="quiz-card-header">
+                                <span
+                                    class="difficulty-badge <?php echo htmlspecialchars($quiz['difficulty']); ?>"><?php echo htmlspecialchars($quiz['difficulty']); ?></span>
                             </div>
-                            <button class="start-quiz-btn"
-                                onclick="startQuiz('<?php echo htmlspecialchars($quiz['quiz_title']); ?>',<?php echo $quiz['quiz_id']; ?>)">
-                                <i class="fas fa-play"></i>Start Quiz
-                            </button>
+                            <div class="quiz-card-body">
+                                <h3 class="quiz-title">
+                                    <?php echo htmlspecialchars($quiz['quiz_title']); ?>
+                                </h3>
+                                <p class="quiz-description"><?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
+                                <div class="quiz-meta">
+                                    <span><i class="fas fa-clock"></i>
+                                        <?php
+                                        // Dynamic time based on difficulty
+                                        switch ($quiz['difficulty']) {
+                                            case 'Easy':
+                                                echo '10 mins';
+                                                break;
+                                            case 'Moderate':
+                                                echo '20 mins';
+                                                break;
+                                            case 'Hard':
+                                                echo '30 mins';
+                                                break;
+                                            default:
+                                                echo '10 mins'; // fallback
+                                        }
+                                        ?>
+                                    </span>
+                                    <span><i class="fas fa-question-circle"></i>
+                                        <?php
+                                        // Dynamic time based on difficulty
+                                        switch ($quiz['difficulty']) {
+                                            case 'Easy':
+                                                echo '10';
+                                                break;
+                                            case 'Moderate':
+                                                echo '20';
+                                                break;
+                                            case 'Hard':
+                                                echo '30';
+                                                break;
+                                            default:
+                                                echo '10'; // fallback
+                                        }
+                                        ?>
+                                        questions</span>
+                                </div>
+                                <button class="start-quiz-btn"
+                                    onclick="startQuiz('<?php echo htmlspecialchars($quiz['quiz_title']); ?>',<?php echo $quiz['quiz_id']; ?>)">
+                                    <i class="fas fa-play"></i>Start Quiz
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
                 <?php
-                    $counter++; // Increment counter after displaying a quiz
-                }
+                        $counter++; // Increment counter after displaying a quiz
+                    }
+                else:
+                    echo '<div class="quiz-container no-quiz">
+                <img src="assets/img/empty_voucher.svg" alt="No vouchers available">
+                <p>No Quizzes available at the moment.</p>
+                </div>';
+                endif;
 
                 // Close the last row if there are quizzes
                 if ($counter > 0) {
@@ -177,7 +184,6 @@ include('includes/session.php');
                     echo '</div>';
                 }
                 ?>
-
             </div>
         </div>
     </main>
