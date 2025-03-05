@@ -10,5 +10,6 @@
                     src="assets/font-icons/users.png" alt="users"></a></li>
         <li class="<?= getActivePage('manage_voucher.php') ?>"><a href="manage_voucher.php"><img
                     src="assets/font-icons/voucher.png" alt="vouchers"></a></li>
+        <li class="<?= getActivePage('logout.php') ?>"><a href="logout.php"><i class="bx bx-log-out-circle"></i></a></li>
     </ul>
 </div>

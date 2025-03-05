@@ -302,14 +302,18 @@ include_once 'includes/session.php';
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function(data) {
-                        if (data.error) {
-                            toastr.error(data.error)
-                        } else {
+                        if (data.status == 'duplicate') {
+                            toastr.error(data.message)
+                        } else if (data.status == 'error') {
+                            toastr.error(data.message)
+                        } else if (data.status == 'success') {
+                            toastr.success(data.message)
                             $('#registration-form').modal('hide');
-                            toastr.success(data.success)
                             setTimeout(function() {
                                 location.reload()
-                            }, 0);
+                            }, 1500);
+                        } else {
+                            toastr.error(data.message)
                         }
                     },
                     error: function(xhr, status, error) {
@@ -326,14 +330,18 @@ include_once 'includes/session.php';
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function(data) {
-                        if (data.error) {
-                            toastr.error(data.error)
-                        } else {
+                        if (data.status == 'duplicate') {
+                            toastr.error(data.message)
+                        } else if (data.status == 'error') {
+                            toastr.error(data.message)
+                        } else if (data.status == 'success') {
+                            toastr.success(data.message)
                             $('#registration-form').modal('hide');
-                            toastr.success(data.success)
                             setTimeout(function() {
                                 location.reload()
-                            }, 0);
+                            }, 1500);
+                        } else {
+                            toastr.error(data.message)
                         }
                     },
                     error: function(xhr, status, error) {

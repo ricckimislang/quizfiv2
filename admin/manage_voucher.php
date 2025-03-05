@@ -27,7 +27,7 @@ include 'includes/session.php';
                     <form id="addVoucher">
                         <div class="form-group">
                             <label for="voucher_name">Voucher Name:</label>
-                            <input type="text" placeholder="Voucher Name" name="voucher_name" id="voucher_name" class="form-control">
+                            <input type="text" placeholder="Voucher Name" name="voucher_name" id="voucher_name" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="voucher_duration">Duration (e.g., 1hr)</label>
@@ -55,7 +55,7 @@ include 'includes/session.php';
                         <div class="form-group">
                             <label for="voucher_quantity">Quantity</label>
                             <input type="number" placeholder="Enter Quantity" class="form-control" id="voucher_quantity"
-                                name="voucher_quantity" required oninput="this.value=this.value.toUpperCase()">
+                                name="voucher_quantity" require d oninput="this.value=this.value.toUpperCase()">
                         </div>
                         <div class="form-group">
                             <label for="voucher_price">Price</label>
@@ -84,25 +84,21 @@ include 'includes/session.php';
                             <?php
                             $sql = "SELECT * FROM vouchers ORDER BY quantity desc";
                             $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()): ?>
-                                    <tr>
-                                        <td data-label="Voucher Name"><?php echo htmlspecialchars($row['voucher_name']); ?></td>
-                                        <td data-label="Quantity"><?php echo htmlspecialchars($row['quantity']); ?></td>
-                                        <td data-label="Duration"><?php echo htmlspecialchars($row['duration']); ?></td>
-                                        <td data-label="Actions">
-                                            <a onclick="editQuantity('<?php echo $row['voucher_id'] ?>', '<?php echo $row['quantity'] ?>')"
-                                                class="btn btn-edit" data-toggle="tooltip" data-placement="top"
-                                                title="Edit Quantity"><i class='bx bx-edit'></i></a>
-                                            <a onclick="delVoucher('<?php echo $row['voucher_id'] ?>')" class="btn btn-delete"
-                                                data-toggle="tooltip" data-placement="top" title="Delete Voucher"><i
-                                                    class='bx bx-trash'></i></a>
-                                        </td>
-                                    </tr>
+                            while ($row = $result->fetch_assoc()): ?>
+                                <tr>
+                                    <td data-label="Voucher Name"><?php echo htmlspecialchars($row['voucher_name']); ?></td>
+                                    <td data-label="Quantity"><?php echo htmlspecialchars($row['quantity']); ?></td>
+                                    <td data-label="Duration"><?php echo htmlspecialchars($row['duration']); ?></td>
+                                    <td data-label="Actions">
+                                        <a onclick="editQuantity('<?php echo $row['voucher_id'] ?>', '<?php echo $row['quantity'] ?>')"
+                                            class="btn btn-edit" data-toggle="tooltip" data-placement="top"
+                                            title="Edit Quantity"><i class='bx bx-edit'></i></a>
+                                        <a onclick="delVoucher('<?php echo $row['voucher_id'] ?>')" class="btn btn-delete"
+                                            data-toggle="tooltip" data-placement="top" title="Delete Voucher"><i
+                                                class='bx bx-trash'></i></a>
+                                    </td>
+                                </tr>
                             <?php endwhile;
-                            } else {
-                                echo "<tr><td colspan='5' class='text-center'>No Vouchers </td></tr>";
-                            }
                             ?>
                         </tbody>
                     </table>

@@ -86,4 +86,11 @@ body {
   .card-body {
     overflow-x: auto !important;
   }
+  .welcome{
+    flex-direction: column;
+  }
+  .welcome img{
+    width: 100px;
+    margin-bottom: 10px;
+  }
 }

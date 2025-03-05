@@ -62,12 +62,13 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
 
 ?>
 <script>
-    var activeVouchers = <?php echo $unused; ?>;
-    var usedVouchers = <?php echo $used; ?>;
-    var totalVouchers = activeVouchers + usedVouchers;
+    var unusedVouchers = <?php echo isset($unused) ? $unused : 0; ?>;
+    var usedVouchers = <?php echo isset($used) ? $used : 0; ?>;
+    var totalVouchers = unusedVouchers + usedVouchers;
 
-    var activePercentage = totalVouchers > 0 ? (activeVouchers / totalVouchers) * 100 : 0;
+    var activePercentage = totalVouchers > 0 ? (unusedVouchers / totalVouchers) * 100 : 0;
     var usedPercentage = totalVouchers > 0 ? (usedVouchers / totalVouchers) * 100 : 0;
+    var totalVoucherPercentage = totalVouchers > 0 ? 100 : 0;
 </script>
 
 
@@ -89,7 +90,8 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body p-4">
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="welcome d-flex align-items-center justify-content-start">
+                                <img src="assets/img/welcome.svg" alt="welcome image" width="200">
                                 <div>
                                     <h2 class="mb-1">Welcome back, Admin!</h2>
                                     <p class=" mb-0">
@@ -114,8 +116,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 </div>
                                 <div class="ps-3">
                                     <h6><?= $totalUsersCount; ?></h6>
-                                    <span class="text-success small pt-1 fw-bold">8%</span>
-                                    <span class=" small pt-2 ps-1">increase</span>
+
                                 </div>
                             </div>
                         </div>
@@ -132,8 +133,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 </div>
                                 <div class="ps-3">
                                     <h6><?= $totalEducatorCount; ?></h6>
-                                    <span class="text-success small pt-1 fw-bold">12%</span>
-                                    <span class=" small pt-2 ps-1">increase</span>
+
                                 </div>
                             </div>
                         </div>
@@ -150,8 +150,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 </div>
                                 <div class="ps-3">
                                     <h6><?= $totalStudentCount; ?></h6>
-                                    <span class="text-success small pt-1 fw-bold">18%</span>
-                                    <span class=" small pt-2 ps-1">Increase</span>
+
                                 </div>
                             </div>
                         </div>
@@ -167,7 +166,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                     <i class="bi bi-ticket-perforated"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6><?= $availVoucherCount; ?></h6>
+                                    <h6><?= isset($availVoucherCount) ? $availVoucherCount : 0; ?></h6>
                                 </div>
                             </div>
                         </div>
@@ -176,8 +175,6 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
 
 
             </div>
-
-
 
             <!-- Top Users & Voucher Status -->
             <div class="row">
@@ -234,17 +231,28 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 <canvas id="voucherStatusChart"></canvas>
                             </div>
                             <div class="mt-3">
+                                <div id="noDataMessage" style="display: none; text-align: center; margin-top: 20px;">
+                                    <h5>No data available for the pie chart.</h5>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Total Vouchers</span>
+                                    <span class="badge bg-info"><?php echo isset($availVoucherCount) ? $availVoucherCount : 0; ?></span>
+                                </div>
+                                <div class="progress mb-3" style="height: 8px;">
+                                    <div id="totalVoucherPercentage" class="progress-bar bg-info" role="progressbar"
+                                        style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Used Vouchers</span>
-                                    <span class="badge bg-danger"><?php echo $used; ?></span>
+                                    <span class="badge bg-danger"><?php echo isset($used) ? $used : 0; ?></span>
                                 </div>
                                 <div class="progress mb-3" style="height: 8px;">
                                     <div id="usedPercentage" class="progress-bar bg-danger" role="progressbar"
                                         style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Active Vouchers</span>
-                                    <span class="badge bg-success"><?php echo $unused; ?></span>
+                                    <span>Unused Vouchers</span>
+                                    <span class="badge bg-success"><?php echo isset($unused) ? $unused : 0; ?></span>
                                 </div>
                                 <div class="progress mb-3" style="height: 8px;">
                                     <div id="activePercentage" class="progress-bar bg-success" role="progressbar"
@@ -269,7 +277,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                 data: {
                     labels: ['Unused', 'Used'],
                     datasets: [{
-                        data: [activeVouchers, usedVouchers],
+                        data: [unusedVouchers, usedVouchers],
                         backgroundColor: ['#2eca6a', '#dc3545'],
                         borderWidth: 1
                     }]
@@ -285,11 +293,23 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                 }
             });
 
+            document.getElementById('totalVoucherPercentage').style.width = totalVoucherPercentage + "%";
             document.getElementById('usedPercentage').style.width = usedPercentage + "%";
             document.getElementById('activePercentage').style.width = activePercentage + "%";
 
+            document.getElementById('totalVoucherPercentage').setAttribute("aria-valuenow", totalVouchers);
             document.getElementById('usedPercentage').setAttribute("aria-valuenow", usedPercentage);
             document.getElementById('activePercentage').setAttribute("aria-valuenow", activePercentage);
+
+
+            // Show no data message if both values are zero
+            if (unusedVouchers === 0 && usedVouchers === 0) {
+                console.log("No data available, showing message.");
+                document.getElementById('noDataMessage').style.display = 'block';
+            } else {
+                console.log("Data available, hiding message.");
+                document.getElementById('noDataMessage').style.display = 'none';
+            }
         });
     </script>
 
