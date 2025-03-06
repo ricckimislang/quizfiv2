@@ -234,14 +234,14 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 <div id="noDataMessage" style="display: none; text-align: center; margin-top: 20px;">
                                     <h5>No data available for the pie chart.</h5>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Total Vouchers</span>
+                                <!-- <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Available Vouchers</span>
                                     <span class="badge bg-info"><?php echo isset($availVoucherCount) ? $availVoucherCount : 0; ?></span>
                                 </div>
                                 <div class="progress mb-3" style="height: 8px;">
                                     <div id="totalVoucherPercentage" class="progress-bar bg-info" role="progressbar"
                                         style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                </div> -->
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Used Vouchers</span>
                                     <span class="badge bg-danger"><?php echo isset($used) ? $used : 0; ?></span>

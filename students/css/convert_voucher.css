@@ -204,7 +204,7 @@
 }
 
 /* Style for Empty Voucher Message */
-.voucher-container.no-vouchers {
+.voucher-container1.no-vouchers {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -220,7 +220,7 @@
 }
 
 /* Styling for Empty Voucher Image */
-.voucher-container.no-vouchers img {
+.voucher-container1.no-vouchers img {
   width: 180px; /* Adjusted to match other images */
   height: auto;
   opacity: 0.6;
@@ -228,7 +228,7 @@
 }
 
 /* Text Styling for No Voucher Message */
-.voucher-container.no-vouchers p {
+.voucher-container1.no-vouchers p {
   color: var(--text-color-secondary);
   font-size: 1em;
 }

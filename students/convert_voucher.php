@@ -100,7 +100,7 @@ include('includes/session.php');
                         }
                     else: ?>
                         <!-- Display "No Vouchers Available" Image inside the Grid -->
-                        <div class="voucher-container no-vouchers">
+                        <div class="voucher-container1 no-vouchers">
                             <img src="assets/img/empty_voucher.svg" alt="No vouchers available">
                             <p>No vouchers available at the moment.</p>
                         </div>
