@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$conn = new mysqli('localhost', 'root', 'quizfiroot', 'quizfi');
+$conn = new mysqli('localhost', 'root', '', 'quizfi');
 
 // Check connection
 if ($conn->connect_error) {
@@ -22,7 +22,7 @@ while ($row = $result->fetch_assoc()) {
     // Validate that duration is a positive integer
     if (is_numeric($remainingDuration) && $remainingDuration > 0) {
         // Decrement the duration by one second
-        $newDuration = $remainingDuration - 1;
+        $newDuration = $remainingDuration - 60;
 
         // Ensure duration does not go negative
         if ($newDuration < 0) {
