@@ -21,6 +21,12 @@
                 <span>Quiz</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="play_game.php">
+                <i class="bx bx-game"></i>
+                <span>Play a Game!</span>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" href="classroom.php">

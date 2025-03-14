@@ -67,7 +67,10 @@ button:hover {
   background: linear-gradient(135deg, #1976d2, #0a367a);
   transform: translateY(-2px);
 }
-
+.home-link {
+  text-decoration: none;
+  color: white;
+}
 .alert {
   padding: 10px;
   border-radius: 5px;

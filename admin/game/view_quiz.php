@@ -75,6 +75,15 @@ if (isset($_GET['quiz_id'])) {
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+            <?php if (count($questions) >= 10): ?>
+                <div style="margin-top: 20px; text-align: center;">
+                    <a href="play_quiz.php?quiz_id=<?php echo $quiz_id; ?>" class="btn-primary" style="padding: 10px 20px; text-decoration: none; display: inline-block; color: white; border-radius: 5px;">Play This Quiz</a>
+                </div>
+            <?php else: ?>
+                <div style="margin-top: 20px;">
+                    <p>Must Have 10 questions to play this quiz.</p>
+                </div>
+            <?php endif; ?>
         </div>
         <script src="js/jquery-3.7.1.js"></script>
         <script>

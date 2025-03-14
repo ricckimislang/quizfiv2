@@ -1,3 +1,7 @@
+<?php
+session_start();
+include_once '../includes/session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,15 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
     <?php
-    // Extract quiz_id from URL
-    $quiz_id = isset($_GET['quiz_id']) ? intval($_GET['quiz_id']) : 0;
-
-    // If no quiz_id is provided, redirect to the quiz selection page
-    if ($quiz_id === 0) {
-        header('Location: create_quiz.php');
-        exit;
-    }
-
     // Get quiz title for display
     require_once 'db_connect.php';
     $quiz_title = '';

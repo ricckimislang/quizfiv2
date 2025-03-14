@@ -2,7 +2,7 @@
 // Include database connection
 require_once 'db_connect.php';
 session_start();
-
+include_once '../includes/session.php';
 // Initialize variables
 $success_message = '';
 $error_message = '';
@@ -38,6 +38,7 @@ if ($result->num_rows > 0) {
 
 <body>
     <div class="container">
+        <a href="../index.php" class="home-link">← Back to Admin Dashboard</a>
         <h1>Billionaire Quiz Creator</h1>
 
         <div class="card">
@@ -279,24 +280,24 @@ if ($result->num_rows > 0) {
             formData.append('current_status', currentStatus);
 
             fetch('process/quiz/publish_quiz.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                } else {
-                    alert(data.message || 'An error occurred while updating quiz status');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating quiz status');
-                closePublishModal();
-            });
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        alert(data.message || 'An error occurred while updating quiz status');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating quiz status');
+                    closePublishModal();
+                });
         }
 
         // Add event listeners to all publish buttons

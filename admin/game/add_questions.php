@@ -179,13 +179,13 @@ if ($quiz_id) {
                     </div>
                 <?php endif; ?>
 
-                <?php if (count($questions) >= 5): ?>
+                <?php if (count($questions) >= 10): ?>
                     <div style="margin-top: 20px; text-align: center;">
                         <a href="play_quiz.php?quiz_id=<?php echo $quiz_id; ?>" class="btn-primary" style="padding: 10px 20px; text-decoration: none; display: inline-block;">Play This Quiz</a>
                     </div>
                 <?php else: ?>
                     <div style="margin-top: 20px;">
-                        <p>Add at least 5 questions to play this quiz.</p>
+                        <p>Must Have 10 questions to play this quiz.</p>
                     </div>
                 <?php endif; ?>
             </div>

@@ -1,5 +1,4 @@
 <?php
-include 'db/dbconn.php';
 
 // Ensure user_id is set in the session
 if (!isset($_SESSION['user_id'])) {
@@ -22,3 +21,6 @@ function getUserIP()
 $user_ip = getUserIP();
 
 ?>
+<script>
+    console.log("User ID: <?php echo $user_id; ?>");
+</script>
