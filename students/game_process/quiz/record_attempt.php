@@ -18,7 +18,7 @@ if (!isset($_POST['quiz_id']) || !isset($_POST['score']) || !isset($_SESSION['us
 // Validate data types and ranges
 $quiz_id = filter_var($_POST['quiz_id'], FILTER_VALIDATE_INT);
 $score = filter_var($_POST['score'], FILTER_VALIDATE_INT);
-$user_id = filter_var($_POST['user_id'], FILTER_VALIDATE_INT);
+$user_id = filter_var($_SESSION['user_id'], FILTER_VALIDATE_INT);
 
 if ($quiz_id === false || $score === false || $user_id === false) {
     http_response_code(400);

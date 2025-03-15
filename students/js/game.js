@@ -112,19 +112,19 @@ const closeHintBtn = document.querySelector(".close-hint");
 async function initGame() {
   try {
     // Check attempt first
-    const attemptCheck = await fetch('game_process/quiz/check_attempt.php', {
-      method: 'POST',
+    const attemptCheck = await fetch("game_process/quiz/check_attempt.php", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         quiz_id: quizId,
-        user_id: userId
-      })
+        user_id: userId,
+      }),
     });
-    
+
     const attemptData = await attemptCheck.json();
-    
+
     if (!attemptData.canAttempt) {
       // Show error screen with game-over styling
       const errorScreen = document.createElement("div");
@@ -137,11 +137,11 @@ async function initGame() {
         </div>
       `;
       document.body.appendChild(errorScreen);
-      
+
       addResultScreenStyles("game-over");
-      
+
       document.getElementById("try-again").addEventListener("click", () => {
-        window.location.href = 'play_game.php';
+        window.location.href = "play_game.php";
       });
       return;
     }
@@ -160,11 +160,11 @@ async function initGame() {
       </div>
     `;
     document.body.appendChild(errorScreen);
-    
+
     addResultScreenStyles("game-over");
-    
+
     document.getElementById("try-again").addEventListener("click", () => {
-      window.location.href = 'play_game.php';
+      window.location.href = "play_game.php";
     });
   }
 }
@@ -625,23 +625,45 @@ function showWinScreen() {
 
 // Show game over screen
 function showGameOverScreen() {
-  const gameOverScreen = document.createElement("div");
-  gameOverScreen.className = "result-screen game-over-screen";
-  gameOverScreen.innerHTML = `
+  // Record the attempt first
+  const score = moneyIndex > 0 ? moneyValues[moneyIndex - 1] : 0;
+  fetch("game_process/quiz/record_attempt.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `quiz_id=${quizId}&score=${score}`,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data.success) {
+        console.error("Failed to record attempt:", data.message);
+      } else {
+        console.log("Successfully recorded attempt with score:", score);
+      }
+    })
+    .catch((error) => {
+      console.error("Error recording attempt:", error);
+    })
+    .finally(() => {
+      const gameOverScreen = document.createElement("div");
+      gameOverScreen.className = "result-screen game-over-screen";
+      gameOverScreen.innerHTML = `
       <div class="result-content">
         <h1>Game Over!</h1>
         <p>You won: ${moneyIndex > 0 ? moneyValues[moneyIndex - 1] : "$0"}</p>
         <button id="try-again">Try Again</button>
       </div>
     `;
-  document.body.appendChild(gameOverScreen);
+      document.body.appendChild(gameOverScreen);
 
-  addResultScreenStyles("game-over");
+      addResultScreenStyles("game-over");
 
-  document.getElementById("try-again").addEventListener("click", () => {
-    gameOverScreen.remove();
-    resetGame();
-  });
+      document.getElementById("try-again").addEventListener("click", () => {
+        gameOverScreen.remove();
+        resetGame();
+      });
+    });
 }
 
 // Add result screen styles

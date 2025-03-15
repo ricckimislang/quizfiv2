@@ -57,7 +57,7 @@ include_once 'db/gameDb.php';
             <div class="game-logo">
                 <div class="logo-circle">
                     <div class="logo-inner">
-                        <h1>BILLIONAIRE</h1>
+                        <h1>Quizionnaire?</h1>
                     </div>
                 </div>
             </div>
