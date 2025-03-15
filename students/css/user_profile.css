@@ -358,6 +358,7 @@
 }
 
 .dropdown li {
+  margin: 5px 0 5px 0;
   font-size: 0.8em;
   padding: 0 20px;
   cursor: pointer;

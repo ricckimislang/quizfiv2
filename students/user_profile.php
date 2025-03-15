@@ -32,6 +32,8 @@ $totalDuration = $time_duration;
                                 <ul>
                                     <li id="change-profile" onclick="showChangeProfileModal()">Change Profile Picture
                                     </li>
+                                    <li id="change-password" onclick="changePassword()">Change Password
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -131,6 +133,8 @@ $totalDuration = $time_duration;
             </section>
         </main>
         <?php include_once('modal/change-profile.php'); ?>
+        <?php include_once('modal/change-password.php'); ?>
+        <?php include_once('modal/change_password_message.php'); ?>
 
         <!-- Voucher Modal -->
         <div class="modal fade" id="codeModal" tabindex="-1">
@@ -154,9 +158,47 @@ $totalDuration = $time_duration;
         </div>
 
         <?php include("js/scripts.php"); ?>
-        <script>
-            
 
+        <script>
+            //change password message
+            async function showChangePasswordMessage() {
+                try {
+                    const userId = document.getElementById('user-id').value;
+
+                    if (!userId) {
+                        console.error('User ID not found');
+                        return;
+                    }
+
+                    const checkPassword = await fetch('process/check_password.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `user_id=${userId}`
+                    });
+
+                    if (!checkPassword.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await checkPassword.json();
+
+                    if (data.success) {
+                        const modalElement = document.getElementById('change-password-warning-modal');
+                        if (modalElement) {
+                            const modal = new bootstrap.Modal(modalElement);
+                            modal.show();
+                        } else {
+                            console.error('Modal element not found');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error checking password:', error);
+                }
+            }
+        </script>
+        <script>
             // Timer and UI Controller
             class TimerController {
                 constructor() {
@@ -242,20 +284,19 @@ $totalDuration = $time_duration;
                             const data = await response.json();
                             if (status === 'active') {
                                 toastr["success"](data.message);
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     location.reload();
                                 }, 1000);
-                            }
-                            else {
+                            } else {
                                 toastr["warning"]("You have Disconnected!");
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     location.reload();
                                 }, 1000);
                             }
                         }
                     } catch (error) {
                         console.error('Error updating timer status:', error);
-                        toastr["error"]("Error updating timer status".error);
+                        toastr["error"]("Error updating timer status");
                     }
                 }
 
@@ -334,12 +375,10 @@ $totalDuration = $time_duration;
 
             // Initialize Timer Controller when DOM is loaded
             document.addEventListener("DOMContentLoaded", () => {
+                showChangePasswordMessage();
                 const timerController = new TimerController();
                 timerController.startTimer();
             });
-
-
-
         </script>
         <script>
             // Function to show the avatar selection modal
@@ -349,11 +388,11 @@ $totalDuration = $time_duration;
             }
 
             // Avatar Selection
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const saveProfileBtn = document.getElementById('save-profile-picture');
 
                 // Handle avatar selection
-                saveProfileBtn.addEventListener('click', async function () {
+                saveProfileBtn.addEventListener('click', async function() {
                     const selectedAvatar = document.querySelector('input[name="selected_avatar"]:checked');
 
                     if (!selectedAvatar) {
@@ -390,6 +429,47 @@ $totalDuration = $time_duration;
                         saveProfileBtn.disabled = false;
                         saveProfileBtn.innerHTML = 'Save Selection';
                     }
+                });
+            });
+
+            //change password
+            function changePassword() {
+                const modal = new bootstrap.Modal(document.getElementById('change-password-modal'));
+                modal.show();
+            }
+            $(document).ready(function() {
+                $('#changePasswordForm').submit(function(e) {
+                    e.preventDefault();
+
+                    let submitBtn = $('#changePasswordBtn');
+                    submitBtn.prop('disabled', true).text('Changing...');
+
+                    fetch('process/change-user-password.php', {
+                            method: 'POST',
+                            body: new FormData(this)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                toastr["success"](data.message);
+                                $('#changePasswordForm')[0].reset();
+                                modal.hide();
+                            } else {
+                                toastr["error"](data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error changing password:', error);
+                            toastr["error"]("An error occurred while changing password");
+                        })
+                        .finally(() => {
+                            submitBtn.prop('disabled', false).text('Save Changes');
+                        });
                 });
             });
         </script>
