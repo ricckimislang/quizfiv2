@@ -7,8 +7,8 @@ include_once 'db/gameDb.php';
 ?>
 <link rel="stylesheet" href="css/play_game.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nunito:wght@400;700;800&display=swap">
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <?php include 'includes/nav-top.php'; ?>

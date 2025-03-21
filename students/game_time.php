@@ -12,7 +12,9 @@ include_once 'db/gameDb.php';
     <title>Who Wants to Be a Billionaire</title>
     <link rel="stylesheet" href="css/game_time.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    
     <?php
     // Get quiz title for display
     $quiz_title = '';
