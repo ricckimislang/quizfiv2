@@ -60,6 +60,13 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
     ];
 }
 
+// After fetching the counts for used and unused vouchers
+$totalVouchers = isset($used) ? $used : 0 + (isset($unused) ? $unused : 0);
+
+// Calculate percentages
+$usedPercentage = $totalVouchers > 0 ? ($used / $totalVouchers) * 100 : 0;
+$activePercentage = $totalVouchers > 0 ? ($unused / $totalVouchers) * 100 : 0;
+
 ?>
 <script>
     var unusedVouchers = <?php echo isset($unused) ? $unused : 0; ?>;
@@ -83,7 +90,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
 
     <main id="main" class="main">
         <?php include_once 'includes/mobile-nav.php'; ?>
-
+        <input type="hidden" id="user-id" value="<?php echo $user_id; ?>">
         <div class="container mt-4">
             <!-- Dashboard Header -->
             <div class="row mb-4">
@@ -248,7 +255,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 </div>
                                 <div class="progress mb-3" style="height: 8px;">
                                     <div id="usedPercentage" class="progress-bar bg-danger" role="progressbar"
-                                        style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        style="width: <?= $usedPercentage; ?>%" aria-valuenow="<?= $usedPercentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span>Unused Vouchers</span>
@@ -256,7 +263,7 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                                 </div>
                                 <div class="progress mb-3" style="height: 8px;">
                                     <div id="activePercentage" class="progress-bar bg-success" role="progressbar"
-                                        style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        style="width: <?= $activePercentage; ?>%" aria-valuenow="<?= $activePercentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                 </div>
@@ -266,9 +273,18 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                 </div>
             </div>
     </main><!-- End #main -->
+    <!-- Include Change Password Modal -->
+    <?php include_once 'modal/change-password.php'; ?>
+    <?php include_once 'modal/change_password_message.php'; ?>
+
 
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showChangePasswordMessage();
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const voucherStatusChart = document.getElementById('voucherStatusChart');
@@ -310,6 +326,93 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
                 console.log("Data available, hiding message.");
                 document.getElementById('noDataMessage').style.display = 'none';
             }
+        });
+    </script>
+
+
+    <!-- Change Password JavaScript -->
+    <script>
+        async function showChangePasswordMessage() {
+            try {
+                const userId = document.getElementById('user-id').value;
+
+                if (!userId) {
+                    console.error('User ID not found');
+                    return;
+                }
+
+                const checkPassword = await fetch('process/check_password.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `user_id=${userId}`
+                });
+
+                if (!checkPassword.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await checkPassword.json();
+
+                if (data.success) {
+                    const modalElement = document.getElementById('change-password-warning-modal');
+                    if (modalElement) {
+                        const modal = new bootstrap.Modal(modalElement);
+                        modal.show();
+                    } else {
+                        console.error('Modal element not found');
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking password:', error);
+            }
+        }
+
+        function changePassword() {
+            const modal = new bootstrap.Modal(document.getElementById('change-password-modal'));
+            modal.show();
+            const modal1 = bootstrap.Modal.getInstance(document.getElementById('change-password-warning-modal'));
+            if (modal1) {
+                modal1.hide();
+            }
+        }
+
+        $(document).ready(function() {
+            $('#changePasswordForm').submit(function(e) {
+                e.preventDefault();
+
+                let submitBtn = $('#changePasswordBtn');
+                submitBtn.prop('disabled', true).text('Changing...');
+
+                fetch('process/change-user-password.php', {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            toastr["success"](data.message);
+                            $('#changePasswordForm')[0].reset();
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('change-password-modal'));
+                            modal.hide();
+                        } else {
+                            toastr["error"](data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error changing password:', error);
+                        toastr["error"]("An error occurred while changing password");
+                    })
+                    .finally(() => {
+                        submitBtn.prop('disabled', false).text('Save Changes');
+                    });
+            });
         });
     </script>
 

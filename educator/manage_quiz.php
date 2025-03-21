@@ -19,6 +19,7 @@ include_once 'includes/session.php';
     <main id="main" class="main">
         <?php include_once 'includes/mobile-nav.php'; ?>
         <div class="container">
+            <input type="hidden" id="user-id" value="<?php echo $user_id; ?>">
             <!-- Create Quiz Section -->
             <div class="alert alert-primary alert-dismissible fade show" role="alert">
                 Please Complete All The Forms To Avoid Errors!😊
@@ -379,6 +380,103 @@ include_once 'includes/session.php';
 
             });
         </script>
+
+        <!-- Include Change Password Modal -->
+        <?php include_once 'modal/change-password.php'; ?>
+        <?php include_once 'modal/change_password_message.php'; ?>
+
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showChangePasswordMessage();
+        });
+    </script>
+    <!-- Change Password JavaScript -->
+    <script>
+        async function showChangePasswordMessage() {
+            try {
+                const userId = document.getElementById('user-id').value;
+
+                if (!userId) {
+                    console.error('User ID not found');
+                    return;
+                }
+
+                const checkPassword = await fetch('process/check_password.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `user_id=${userId}`
+                });
+
+                if (!checkPassword.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await checkPassword.json();
+
+                if (data.success) {
+                    const modalElement = document.getElementById('change-password-warning-modal');
+                    if (modalElement) {
+                        const modal = new bootstrap.Modal(modalElement);
+                        modal.show();
+                    } else {
+                        console.error('Modal element not found');
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking password:', error);
+            }
+        }
+
+        function changePassword() {
+            const modal = new bootstrap.Modal(document.getElementById('change-password-modal'));
+            modal.show();
+            const modal1 = bootstrap.Modal.getInstance(document.getElementById('change-password-warning-modal'));
+            if (modal1) {
+                modal1.hide();
+            }
+        }
+
+        $(document).ready(function() {
+            $('#changePasswordForm').submit(function(e) {
+                e.preventDefault();
+
+                let submitBtn = $('#changePasswordBtn');
+                submitBtn.prop('disabled', true).text('Changing...');
+
+                fetch('process/change-user-password.php', {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            toastr["success"](data.message);
+                            $('#changePasswordForm')[0].reset();
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('change-password-modal'));
+                            modal.hide();
+                        } else {
+                            toastr["error"](data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error changing password:', error);
+                        toastr["error"]("An error occurred while changing password");
+                    })
+                    .finally(() => {
+                        submitBtn.prop('disabled', false).text('Save Changes');
+                    });
+            });
+        });
+    </script>
+
     <script src="js/main.js"></script>
 </body>
