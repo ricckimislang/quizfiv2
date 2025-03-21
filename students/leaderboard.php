@@ -3,7 +3,6 @@ session_start();
 include('includes/header.php');
 include('includes/session.php');
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="css/leaderboard.css">
 
@@ -57,7 +56,7 @@ include('includes/session.php');
                             ?>
                             <div class="podium-item position-<?php echo $position; ?>">
                                 <?php if ($position == 1) { ?>
-                                    <i class="fas fa-crown crown"></i>
+                                    <i class='bx bxs-crown crown'></i>
                                 <?php } ?>
 
                                 <div class="avatar-container">
@@ -78,13 +77,13 @@ include('includes/session.php');
                                     $icon = '';
                                     switch ($position) {
                                         case 1:
-                                            $icon = '<i class="fas fa-trophy"></i>';
+                                            $icon = '<i class="bx bxs-trophy"></i>';
                                             break;
                                         case 2:
-                                            $icon = '<i class="fas fa-medal"></i>';
+                                            $icon = '<i class="bx bxs-medal"></i>';
                                             break;
                                         case 3:
-                                            $icon = '<i class="fas fa-award"></i>';
+                                            $icon = '<i class="bx bxs-award"></i>';
                                             break;
                                     }
                                     echo $icon;

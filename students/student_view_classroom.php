@@ -120,14 +120,14 @@ $classroom_id = $_GET['roomId'];
 
                             <div class="quiz-item">
                                 <div class="quiz-info">
-                                    <i class="fa-solid fa-clipboard-list quiz-icon"></i>
+                                    <i class="bx bx-clipboard quiz-icon"></i>
                                     <span class="quiz-name"><?php echo htmlspecialchars($quizRow['quiz_title']); ?></span>
                                 </div>
 
                                 <!-- play link -->
                                 <a href="javascript: void(0);"
                                     onclick="confirmQuiz('<?php echo htmlspecialchars($quizRow['quiz_title']) ?>', '<?php echo htmlspecialchars($quizRow['quiz_id']); ?>', '<?php echo $classroom_id; ?>')"
-                                    class="btn play-button"><i class="fa fa-play"></i>
+                                    class="btn play-button"><i class="bx bx-play"></i>
                                 </a>
                             </div>
                         <?php endwhile; ?>

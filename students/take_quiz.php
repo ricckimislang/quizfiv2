@@ -3,7 +3,6 @@ session_start();
 include('includes/header.php');
 include('includes/session.php');
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="css/take_quiz.css">
 
@@ -20,23 +19,23 @@ include('includes/session.php');
     <main id="main" class="main">
         <div class="quiz-selection">
             <div class="section-header">
-                <h2><i class="fas fa-brain me-3"></i>Challenge Your Mind</h2>
+                <h2><i class='bx bx-brain me-3'></i>Challenge Your Mind</h2>
                 <p>Choose your difficulty level and embark on an exciting learning journey</p>
             </div>
 
             <div class="difficulty-filters">
                 <button class="difficulty-btn easy active" data-difficulty="Easy">
-                    <i class="fas fa-star-half-alt"></i>
+                    <i class='bx bx-star'></i>
                     <span>Easy</span>
                     <small>(Beginner)</small>
                 </button>
                 <button class="difficulty-btn moderate" data-difficulty="Moderate">
-                    <i class="fas fa-star"></i>
+                    <i class='bx bxs-star'></i>
                     <span>Moderate</span>
                     <small>(Intermediate)</small>
                 </button>
                 <button class="difficulty-btn hard" data-difficulty="Hard">
-                    <i class="fas fa-crown"></i>
+                    <i class='bx bxs-crown'></i>
                     <span>Hard</span>
                     <small>(Advanced)</small>
                 </button>
@@ -99,7 +98,7 @@ include('includes/session.php');
                                 </h3>
                                 <p class="quiz-description"><?php echo htmlspecialchars($quiz['quiz_description']); ?></p>
                                 <div class="quiz-meta">
-                                    <span><i class="fas fa-clock"></i>
+                                    <span><i class='bx bx-time'></i>
                                         <?php
                                         // Dynamic time based on difficulty
                                         switch ($quiz['difficulty']) {
@@ -117,7 +116,7 @@ include('includes/session.php');
                                         }
                                         ?>
                                     </span>
-                                    <span><i class="fas fa-question-circle"></i>
+                                    <span><i class='bx bx-help-circle'></i>
                                         <?php
                                         // Dynamic time based on difficulty
                                         switch ($quiz['difficulty']) {
@@ -138,7 +137,7 @@ include('includes/session.php');
                                 </div>
                                 <button class="start-quiz-btn"
                                     onclick="startQuiz('<?php echo htmlspecialchars($quiz['quiz_title']); ?>',<?php echo $quiz['quiz_id']; ?>)">
-                                    <i class="fas fa-play"></i>Start Quiz
+                                    <i class='bx bx-play'></i>Start Quiz
                                 </button>
                             </div>
                         </div>

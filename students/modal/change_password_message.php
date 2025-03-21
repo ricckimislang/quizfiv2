@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body" style="padding: 20px; text-align: center;">
                 <div style="margin-bottom: 15px;">
-                    <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: #ffc107; margin-bottom: 15px;"></i>
+                    <i class="bx bx-error-circle" style="font-size: 3rem; color: #ffc107; margin-bottom: 15px;"></i>
                 </div>
                 <p style="color: #555; font-size: 0.95rem; margin-bottom: 10px;">
                     For security purposes, please change your password from the default one provided.

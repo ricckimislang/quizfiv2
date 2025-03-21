@@ -4,17 +4,16 @@ include('includes/header.php');
 include('includes/session.php');
 ?>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/loading-screen.css">
 <link rel="stylesheet" href="css/convert_voucher.css">
 <link rel="stylesheet" href="css/style.css">
 <!-- Add these lines after your existing CSS links -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="css/responsive.dataTables.min.css">
 
 <!-- Add these lines before your closing </body> tag -->
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.responsive.min.js"></script>
 
 <body>
     <!-- Loading Screen -->
@@ -83,7 +82,7 @@ include('includes/session.php');
                                     <div class="voucher-title">
                                         <h5><?php echo htmlspecialchars($vouch['points']); ?> points</h5>
                                         <span class="voucher-hour">
-                                            <i class="fa fa-clock"></i>
+                                            <i class='bx bxs-time'></i>
                                             <?php echo htmlspecialchars($vouch['voucher_name']); ?>
                                             <p>Qty: <?php echo htmlspecialchars($vouch['quantity']); ?></p>
                                         </span>
@@ -166,7 +165,7 @@ include('includes/session.php');
                                             <input type="hidden" id="wifi-code-copy"
                                                 value="<?= htmlspecialchars($historyRow['wifi_code']); ?>">
                                             <button class="copy-button">
-                                                <i class="bx bxs-copy-alt"></i>
+                                                <i class="bx bx-copy"></i>
                                                 <span>Copy</span>
                                             </button>
                                         </td>
@@ -246,7 +245,7 @@ include('includes/session.php');
                     font-weight: bold; border-radius: 5px; color: #28a745;">
             <span id="voucherCode">${response.voucher_code}</span>
             <button id="copyButton" style="background: none; border: none; cursor: pointer; padding: 5px;">
-                <i class="fas fa-copy" style="color: #28a745; font-size: 18px;"></i>
+                <i class='bx bx-copy' style="color: #28a745; font-size: 18px;"></i>
             </button>
         </div>
         <p style="margin-top: 10px; font-size: 14px; color: #666;">(Click the copy icon to copy)</p>`,
@@ -262,7 +261,7 @@ include('includes/session.php');
                                                     navigator.clipboard.writeText(codeText);
 
                                                     // Change icon to checkmark after copying
-                                                    document.getElementById('copyButton').innerHTML = '<i class="fas fa-check" style="color: #28a745; font-size: 18px;"></i>';
+                                                    document.getElementById('copyButton').innerHTML = '<i class="bx bx-check" style="color: #28a745; font-size: 18px;"></i>';
 
                                                     Swal.fire({
                                                         title: 'Copied!',
@@ -312,13 +311,13 @@ include('includes/session.php');
 
                         navigator.clipboard.writeText(codeText).then(() => {
                             const icon = this.querySelector('i');
-                            icon.classList.remove('fa-copy');
-                            icon.classList.add('fa-check');
+                            icon.classList.remove('bx-copy');
+                            icon.classList.add('bx-check');
                             toastr.success('Voucher code copied to clipboard.');
 
                             setTimeout(() => {
-                                icon.classList.remove('fa-check');
-                                icon.classList.add('fa-copy');
+                                icon.classList.remove('bx-check');
+                                icon.classList.add('bx-copy');
                             }, 1500);
                         }).catch(err => {
                             toastr.error('Voucher code failed to copied to clipboard.');
