@@ -60,12 +60,18 @@ while ($usersActiveRow = $usersActiveResult->fetch_assoc()) {
     ];
 }
 
-// After fetching the counts for used and unused vouchers
-$totalVouchers = isset($used) ? $used : 0 + (isset($unused) ? $unused : 0);
+
+// Ensure $used and $unused are defined
+$used = isset($used) ? $used : 0;
+$unused = isset($unused) ? $unused : 0;
+
+// Calculate total vouchers correctly
+$totalVouchers = $used + $unused;
 
 // Calculate percentages
 $usedPercentage = $totalVouchers > 0 ? ($used / $totalVouchers) * 100 : 0;
 $activePercentage = $totalVouchers > 0 ? ($unused / $totalVouchers) * 100 : 0;
+
 
 ?>
 <script>
