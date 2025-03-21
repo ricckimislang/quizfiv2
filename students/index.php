@@ -21,7 +21,7 @@
     </div>
 
     <audio id="background-audio" loop>
-        <source src="assets/img/login-mario.mp3" type="audio/mpeg">
+        <source src="assets/img/login-bg-music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
