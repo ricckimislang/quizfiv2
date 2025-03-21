@@ -30,6 +30,8 @@ include_once 'includes/session.php';
                     <table id="studentTable" class="studentTable stripe">
                         <thead>
                             <tr>
+                                <th>ID</th>
+                                </th>
                                 <th>Name</th>
                                 <th>Year Level</th>
                                 <th>Department</th>
@@ -44,6 +46,13 @@ include_once 'includes/session.php';
                             while ($row = $students->fetch_assoc()):
                             ?>
                                 <tr>
+                                    <td data-label="ID">
+                                        <img src="../students/<?php echo $row['id_photo']; ?>"
+                                            alt="Photo ID"
+                                            class="img-fluid img-thumbnail"
+                                            style="width: 50px; height: 50px; cursor: pointer;"
+                                            onclick="viewFullScreen(this);">
+                                    </td>
                                     <td data-label="Name"><?php echo $row['firstname'] . ' ' . $row['lastname']; ?></td>
                                     <td data-label="Year Level"><?php echo $row['year']; ?></td>
                                     <td data-label="Department"><?php echo $row['department']; ?></td>
@@ -119,6 +128,9 @@ include_once 'includes/session.php';
             <button data-bs-tooltip="tooltip" data-bs-placement="left" title="Add User" type="button"
                 id="register-modal-btn" class="btn-add"><i class="bx bx-plus"></i></button>
         </div>
+        <div id="fullscreenOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 1000;">
+            <img id="fullscreenImage" src="" style="max-width: 90%; max-height: 90%; border: 5px solid white; border-radius: 10px; cursor: pointer;" onclick="closeFullscreen();">
+        </div>
     </main>
     <!-- Modals -->
     <?php include_once 'modal/student-form.php'; ?>
@@ -157,6 +169,25 @@ include_once 'includes/session.php';
                 });
             });
         });
+
+
+        function viewFullScreen(imgElement) {
+            const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+            const fullscreenImage = document.getElementById('fullscreenImage');
+
+            fullscreenImage.src = imgElement.src; // Assign the clicked image source
+            fullscreenOverlay.style.display = 'flex'; // Show overlay
+        }
+        // Close fullscreen when clicking outside the image
+        document.getElementById('fullscreenOverlay').addEventListener('click', function(event) {
+            if (event.target === this) { // Ensure only background clicks close it
+                closeFullscreen();
+            }
+        });
+
+        function closeFullscreen() {
+            document.getElementById('fullscreenOverlay').style.display = 'none';
+        }
     </script>
 
     <script>
