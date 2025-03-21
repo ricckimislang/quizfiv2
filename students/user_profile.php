@@ -436,6 +436,8 @@ $totalDuration = $time_duration;
             function changePassword() {
                 const modal = new bootstrap.Modal(document.getElementById('change-password-modal'));
                 modal.show();
+                const modal1 = bootstrap.Modal.getInstance(document.getElementById('change-password-warning-modal'));
+                modal1.hide();
             }
             $(document).ready(function() {
                 $('#changePasswordForm').submit(function(e) {
