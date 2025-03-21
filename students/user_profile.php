@@ -8,7 +8,6 @@ $totalDuration = $time_duration;
 
 <link rel="stylesheet" href="css/user_profile.css">
 <link rel="stylesheet" href="css/loading-screen.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <body>
     <!-- Loading Screen -->
@@ -83,11 +82,11 @@ $totalDuration = $time_duration;
                         <!-- Action Buttons -->
                         <div class="profile-actions">
                             <button type="button" class="action-btn primary-btn" id="pause-btn" style="display: none;">
-                                <i class="fas fa-pause"></i> Pause
+                                <i class='bx bx-pause'></i> Pause
                             </button>
                             <button type="button" class="action-btn primary-btn" id="continue-btn"
                                 style="display: none;">
-                                <i class="fas fa-play"></i> Continue
+                                <i class='bx bx-play'></i> Continue
                             </button>
                             <button id="voucher-button" type="button" class="action-btn primary-btn">
                                 <i class="bx bxs-coupon"></i> Redeem
@@ -106,26 +105,26 @@ $totalDuration = $time_duration;
                         <!-- Social Links -->
                         <div class="social-links">
                             <a href="javascript:void(0);" class="social-icon badge" data-tooltip="Coming Soon!..">
-                                <i class="fab fa-facebook-f"></i>
+                                <i class='bx bxl-facebook'></i>
                             </a>
                             <a href="javascript:void(0);" class="social-icon badge" data-tooltip="Coming Soon!..">
-                                <i class="fab fa-twitter"></i>
+                                <i class='bx bxl-twitter'></i>
                             </a>
                             <a href="javascript:void(0);" class="social-icon badge" data-tooltip="Coming Soon!..">
-                                <i class="fab fa-instagram"></i>
+                                <i class='bx bxl-instagram'></i>
                             </a>
                         </div>
 
                         <!-- Achievements -->
                         <div class="achievements">
                             <div class="badge" data-tooltip="Quiz Master">
-                                <i class="fas fa-trophy" style="color: #FFD700;"></i>
+                                <i class='bx bxs-trophy' style="color: #FFD700;"></i>
                             </div>
                             <div class="badge" data-tooltip="Fast Learner">
-                                <i class="fas fa-bolt" style="color: #00BFFF;"></i>
+                                <i class='bx bxs-bolt' style="color: #00BFFF;"></i>
                             </div>
                             <div class="badge" data-tooltip="Top Performer">
-                                <i class="fas fa-star" style="color: #FF6B6B;"></i>
+                                <i class='bx bxs-star' style="color: #FF6B6B;"></i>
                             </div>
                         </div>
                     </div>

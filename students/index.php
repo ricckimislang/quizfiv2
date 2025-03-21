@@ -5,7 +5,7 @@
 <title>Quiz Login</title>
 <link rel="stylesheet" href="css/login-style.css">
 <link rel="stylesheet" href="css/loading-screen.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href='assets/vendor/boxicons/css/boxicons.min.css' rel='stylesheet'>
 <link rel="stylesheet" href="css/toastr.css">
 </head>
 
@@ -16,7 +16,7 @@
     <!-- Audio Control -->
     <div class="audio-control-container" style="position: fixed; top: 20px; right: 20px; z-index: 100;">
         <button id="audio-control" class="btn btn-link" aria-label="Toggle background music">
-            <i class="fas fa-volume-mute" style="font-size: 24px; color: #007bff;"></i>
+            <i class='bx bx-volume-mute' style="font-size: 24px; color: #007bff;"></i>
         </button>
     </div>
 
@@ -36,15 +36,15 @@
         <!-- Login Form -->
         <form id="loginForm">
             <div class="input-group">
-                <i class="fas fa-user input-icon"></i>
+                <i class='bx bx-user input-icon'></i>
                 <input type="text" class="login-input" id="username" name="username" placeholder="Username" required>
             </div>
             <div class="input-group">
-                <i class="fas fa-lock input-icon"></i>
+                <i class='bx bx-lock-alt input-icon'></i>
                 <input type="password" class="login-input" id="password" name="password" placeholder="Password"
                     required>
                 <span class="password-toggle">
-                    <i class="fas fa-eye-slash" id="togglePassword"></i>
+                    <i class='bx bx-hide' id="togglePassword"></i>
                 </span>
             </div>
             <button type="submit" class="login-button">Login</button>
@@ -73,7 +73,7 @@
 
         function updateAudioIcon(playing) {
             const icon = elements.audioControl.querySelector('i');
-            icon.className = playing ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+            icon.className = playing ? 'bx bx-volume-full' : 'bx bx-volume-mute';
         }
 
         function toggleAudio() {
@@ -101,8 +101,8 @@
         elements.togglePassword.addEventListener('click', function () {
             const type = elements.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             elements.passwordInput.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('bx-show');
+            this.classList.toggle('bx-hide');
         });
 
         // Loading Screen Animation
