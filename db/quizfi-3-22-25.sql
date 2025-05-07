@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 04, 2025 at 05:20 AM
+-- Generation Time: Mar 22, 2025 at 08:53 AM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `difficulty`, `perfect`, `consolation`) VALUES
-(1, 'Easy', 100, 250),
-(2, 'Moderate', 1500, 500),
-(3, 'Hard', 5000, 1000);
+(1, 'Easy', 300, 50),
+(2, 'Moderate', 1500, 100),
+(3, 'Hard', 5000, 200);
 
 -- --------------------------------------------------------
 
@@ -61,19 +61,14 @@ CREATE TABLE IF NOT EXISTS `classroom` (
   `profile_path` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`classroom_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `classroom`
 --
 
 INSERT INTO `classroom` (`classroom_id`, `user_id`, `classroom_code`, `classroom_name`, `classroom_desc`, `profile_path`) VALUES
-(5, 4, 'jHLMKwioHn', 'ASSURANCE 1', 'assurance and security 1', 'assets/classroom-bg/code-sub-bg.png'),
-(3, 4, '63YetmPAl9', 'Capstone', 'capstoneuy', 'assets/classroom-bg/general-bg.png'),
-(6, 4, 'wrry1vIclO', 'ICT12', '', NULL),
-(7, 4, 'HT4sq2WNkv', 'IT ELEC3', '', NULL),
-(8, 8, 'Vc6HSLJd1W', 'PHP3', '', NULL),
-(9, 8, 'ovoEQJcCN4', 'IT ELEC11', '', NULL);
+(1, 7, '1LsDgLXzKb', 'Captsone II', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,15 +86,14 @@ CREATE TABLE IF NOT EXISTS `educators` (
   `profile_path` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`educator_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `educators`
 --
 
 INSERT INTO `educators` (`educator_id`, `user_id`, `lastname`, `firstname`, `department`, `profile_path`) VALUES
-(1, 4, 'Buante', 'Jelly', 'BSAIS', NULL),
-(2, 6, 'Marie', 'Rose', 'CICT', NULL);
+(1, 7, 'buante', 'jelly', 'cict', NULL);
 
 -- --------------------------------------------------------
 
@@ -119,26 +113,15 @@ CREATE TABLE IF NOT EXISTS `purchased_vouchers` (
   PRIMARY KEY (`purchase_id`),
   KEY `user_id` (`user_id`),
   KEY `voucher_id` (`voucher_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `purchased_vouchers`
 --
 
 INSERT INTO `purchased_vouchers` (`purchase_id`, `user_id`, `voucher_id`, `wifi_code`, `duration`, `start_time`, `status`) VALUES
-(1, 3, 1, 'FB9A756E264AE4006510', '01:00:00', '2025-02-09 14:31:16', 'used'),
-(2, 3, 1, 'E392A220FC7B84BDC83C', '01:00:00', '2024-11-06 17:50:27', 'unused'),
-(3, 3, 1, '961727C27F5C606C9254', '01:00:00', '2024-11-08 16:09:24', 'unused'),
-(4, 3, 1, '7354E6766AA6922368F1', '01:00:00', NULL, 'unused'),
-(5, 3, 1, '9508676A8812E4871927', '01:00:00', NULL, 'unused'),
-(6, 3, 1, '68295452FEA7C96D1839', '01:00:00', NULL, 'unused'),
-(7, 3, 1, '79241FF578592CF237AF', '01:00:00', NULL, 'unused'),
-(8, 3, 1, 'D7DF43CC4DC1C43AA391', '01:00:00', NULL, 'unused'),
-(9, 3, 1, '5D4E64A4261E8166A5B3', '01:00:00', NULL, 'unused'),
-(10, 3, 1, '2CF4A6399DA4066AA5C2', '01:00:00', NULL, 'unused'),
-(11, 3, 1, '14833014E0BE63B0E087', '01:00:00', NULL, 'unused'),
-(12, 3, 3, '44B826B95CB43815D285', '03:00:00', '2025-02-16 21:38:47', 'used'),
-(13, 3, 1, '148AD61347E879F288DC', '01:00:00', NULL, 'unused');
+(1, 5, 1, '212604927A4E3042DB9F', '01:00:00', '2025-03-20 10:37:41', 'used'),
+(2, 3, 1, '081EBDBF0DA021B35BFE', '01:00:00', '2025-03-21 14:52:57', 'used');
 
 -- --------------------------------------------------------
 
@@ -160,23 +143,43 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `short_answer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`question_id`),
   KEY `quiz_id` (`quiz_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`question_id`, `quiz_id`, `quiz_question`, `quiz_type`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_answer`, `short_answer`) VALUES
-(1, 1, '1+1', 'Multiple Choice', '1', '2', '3', '4', 'C', NULL),
-(2, 1, '1+2', 'Multiple Choice', '1', '2', '3', '4', 'A', NULL),
-(3, 1, '1+3', 'Multiple Choice', '1', '2', '3', '3', 'A', NULL),
-(4, 1, '1=4', 'Multiple Choice', '1', '2', '3', '4', 'D', NULL),
-(5, 1, '5+5=5?', 'True/False', NULL, NULL, NULL, NULL, 'True', NULL),
-(6, 1, '5+5=7?', 'True/False', NULL, NULL, NULL, NULL, 'False', NULL),
-(7, 1, '9+9=?', 'True/False', NULL, NULL, NULL, NULL, 'True', NULL),
-(8, 1, '9+9-12?', 'Short Answer', NULL, NULL, NULL, NULL, NULL, '25'),
-(9, 1, '1+25=?', 'Short Answer', NULL, NULL, NULL, NULL, NULL, '25'),
-(10, 1, '20-10=?', 'Short Answer', NULL, NULL, NULL, NULL, NULL, '25');
+(1, 1, 'What is the value of x in 2x + 5 = 15?', 'Multiple Choice', '3', '5', '7', '10', 'B', NULL),
+(2, 1, 'Solve for x: 3x - 4 = 2x + 6.', 'Multiple Choice', '8', '10', '12', '14', 'A', NULL),
+(3, 1, 'What is (x + 2)(x - 2) equal to?', 'Multiple Choice', 'x² - 4', 'x² + 4', 'x² - 2', 'x² + 2', 'A', NULL),
+(4, 1, 'What is the square root of 49?', 'Multiple Choice', '5', '6', '7', '8', 'C', NULL),
+(5, 1, 'Factorize x² - 5x + 6.', 'Multiple Choice', '(x - 2)(x - 3)', '(x + 2)(x - 3)', '(x - 1)(x - 6)', '(x + 1)(x - 6)', 'A', NULL),
+(6, 1, 'If f(x) = 3x + 2, what is f(4)?', 'Multiple Choice', '11', '14', '12', '15', 'B', NULL),
+(7, 1, 'Solve for x: 2x² - 8 = 0.', 'Multiple Choice', '2', '4', '-2', 'Both A and C', 'D', NULL),
+(8, 1, 'What is the sum of the roots of x² - 7x + 12 = 0?', 'Multiple Choice', '7', '12', '19', '5', 'A', NULL),
+(9, 1, 'Solve for x: 5x - 3 = 2x + 9.', 'Short Answer', NULL, NULL, NULL, NULL, NULL, '4'),
+(10, 1, 'What is the square root of 144?', 'Short Answer', NULL, NULL, NULL, NULL, NULL, '12'),
+(11, 2, 'What is sin(30°)?', 'Multiple Choice', '1/2', '√3/2', '1', '0', 'A', NULL),
+(12, 2, 'What is cos(60°)?', 'Multiple Choice', '1', '0', '√3/2', '1/2', 'D', NULL),
+(13, 2, 'What is tan(45°)?', 'Multiple Choice', '0', '1', '√2', 'Undefined', 'B', NULL),
+(14, 2, 'Which identity is correct?', 'Multiple Choice', 'sin²θ + cos²θ = 1', 'tan²θ + 1 = sec²θ', 'Both A and B', 'None of these', 'C', NULL),
+(15, 2, 'Convert 180° to radians.', 'Multiple Choice', 'π/2', 'π', '2π', '3π/2', 'B', NULL),
+(16, 2, 'The hypotenuse in a right triangle with sides 3 and 4 is 5.', 'True/False', 'True', 'False', NULL, NULL, 'A', NULL),
+(17, 2, 'If sinθ = 3/5, what is cosθ?', 'Multiple Choice', '4/5', '3/5', '1/2', '5/3', 'A', NULL),
+(18, 2, 'What is secθ in terms of cosine?', 'Multiple Choice', '1/sinθ', '1/cosθ', '1/tanθ', 'cosθ/sinθ', 'B', NULL),
+(19, 2, 'What is cotangent equal to?', 'Multiple Choice', 'sin/cos', '1/tan', 'tan²', 'cos/sin', 'B', NULL),
+(20, 2, 'If tanθ = 1, what is θ?', 'Multiple Choice', '30°', '45°', '60°', '90°', 'B', NULL),
+(21, 3, 'What is the derivative of x²?', 'Multiple Choice', '2x', 'x', 'x²', '1', 'A', NULL),
+(22, 3, 'Find the integral of 3x².', 'Multiple Choice', 'x³', 'x³ + C', '3x³', 'x²', 'B', NULL),
+(23, 3, 'The limit of (sin x)/x as x approaches 0 is 1.', 'True/False', 'True', 'False', NULL, NULL, 'A', NULL),
+(24, 3, 'Find d/dx of e^x.', 'Multiple Choice', 'e^x', 'x^e', 'xe^(x-1)', 'ln(e^x)', 'A', NULL),
+(25, 3, 'Evaluate the integral of 1/x dx.', 'Multiple Choice', 'x', 'ln|x|', '1/x', 'None', 'B', NULL),
+(26, 3, 'What is the derivative of cos x?', 'Multiple Choice', '-sin x', 'cos x', 'tan x', 'sec² x', 'A', NULL),
+(27, 3, 'Find d/dx of ln(x).', 'Multiple Choice', '1/x', 'ln(x)', 'x', 'e^x', 'A', NULL),
+(28, 3, 'What is the second derivative of x³?', 'Multiple Choice', '3x', '6x', 'x²', '9x', 'B', NULL),
+(29, 3, 'Solve: lim x→∞ (1 + 1/x)^x.', 'Multiple Choice', '1', '∞', 'e', '0', 'C', NULL),
+(30, 3, 'What is the derivative of tan(x)?', 'Multiple Choice', 'sec²(x)', 'cot(x)', 'cos²(x)', 'sin²(x)', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -196,14 +199,18 @@ CREATE TABLE IF NOT EXISTS `quiz` (
   PRIMARY KEY (`quiz_id`),
   KEY `user_id` (`user_id`),
   KEY `classroom_id` (`classroom_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `quiz`
 --
 
 INSERT INTO `quiz` (`quiz_id`, `user_id`, `classroom_id`, `quiz_title`, `quiz_description`, `difficulty`, `created_at`) VALUES
-(1, 0, 0, 'Math', 'General Math 111', 'Easy', '2025-02-19 09:34:39');
+(1, 1, 0, 'Basic Algebra', 'A quiz covering basic algebra concepts.', 'Easy', '2025-03-17 05:17:26'),
+(2, 1, 0, 'Trigonometry Fundamentals', 'A quiz on sine, cosine, and tangent functions.', 'Easy', '2025-03-17 05:17:26'),
+(3, 1, 1, 'Advanced Calculus', 'Questions covering differentiation and integration.', 'Easy', '2025-03-17 05:17:26'),
+(4, 1, 0, 'Probability and Statistics', 'Basic concepts of probability and statistical analysis.', 'Easy', '2025-03-17 05:17:26'),
+(5, 1, 0, 'Geometry Essentials', 'Covers basic and advanced geometry principles.', 'Easy', '2025-03-17 05:17:26');
 
 -- --------------------------------------------------------
 
@@ -225,14 +232,7 @@ CREATE TABLE IF NOT EXISTS `quiz_attempt` (
   KEY `student_id` (`user_id`),
   KEY `quiz_id` (`quiz_id`),
   KEY `classroom_id` (`classroom_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `quiz_attempt`
---
-
-INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `quiz_id`, `classroom_id`, `attempt_time`, `next_attempt_time`, `score_status`, `awarded_points`) VALUES
-(4, 5, 2, 0, '2025-02-19 01:37:32', '2025-02-26 01:37:32', '10', 800);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -300,25 +300,23 @@ CREATE TABLE IF NOT EXISTS `students` (
   `ranking_id` int DEFAULT NULL,
   `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `profile_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id_photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`student_id`),
   UNIQUE KEY `ranking_id` (`ranking_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `user_id`, `lastname`, `firstname`, `year`, `department`, `score`, `duration`, `status`, `start_time`, `ranking_id`, `ip_address`, `profile_path`) VALUES
-(2, 3, 'Mislang', 'Riccki Rek', '4th', 'BSIT', 7200, 31822, 'active', '0000-00-00 00:00:00', NULL, '::1', 'assets/avatars/male-2.jpg'),
-(3, 5, 'Calay', 'Jember', '4th', 'BSIT/CICT', 0, 3600, 'inactive', '0000-00-00 00:00:00', NULL, '::1', NULL),
-(4, 7, 'Jordan', 'Jay', '4th', 'BSITBA', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, NULL),
-(5, 9, 'Kiro', 'John', '4th', 'CRIMINALOGY', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, NULL),
-(6, 10, 'Kane', 'Urbayo', '4th', 'CICT', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, NULL),
-(7, 11, 'Monsion', 'Javidec', '1st', 'BSITBA', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, NULL),
-(8, 12, 'Guevarra', 'Vincent', '1st', 'CICT', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, NULL),
-(9, 13, 'Abanil', 'Arc', '4th', 'BSIT', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, '::1', 'assets/avatars/male-1.jpg'),
-(17, 23, 'testing', 'test', '1st', 'testjg', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, 'assets/avatars/no-profile.jpg');
+INSERT INTO `students` (`student_id`, `user_id`, `lastname`, `firstname`, `year`, `department`, `score`, `duration`, `status`, `start_time`, `ranking_id`, `ip_address`, `profile_path`, `id_photo`) VALUES
+(1, 2, 'Ledon', 'Jordan', '4th year', 'cict', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, 'assets/avatars/male-2.jpg', ''),
+(2, 3, 'Mislang', 'Riccki', '4th year', 'cict', 500, 3600, 'inactive', '0000-00-00 00:00:00', NULL, '127.0.0.1', 'assets/avatars/male-2.jpg', ''),
+(3, 4, 'Gepolani', 'Rose', '4th year', 'cict', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, 'assets/avatars/male-2.jpg', ''),
+(4, 5, 'Urbayo', 'Kane', '4th year', 'cict', 50, 3600, 'inactive', '0000-00-00 00:00:00', NULL, '::1', 'assets/avatars/female-2.jpg', ''),
+(5, 6, 'Calay', 'Jember', '4th year', 'cict', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, NULL, 'assets/avatars/male-2.jpg', ''),
+(7, 9, 'student', 'user', '1', 'cict', 0, 0, 'inactive', '0000-00-00 00:00:00', NULL, '127.0.0.1', 'assets/avatars/no-profile.jpg', 'assets/students/school_id/student_1742550713.jpg');
 
 -- --------------------------------------------------------
 
@@ -334,17 +332,14 @@ CREATE TABLE IF NOT EXISTS `student_classroom` (
   PRIMARY KEY (`student_classroom_id`),
   KEY `student_id` (`student_id`),
   KEY `classroom_id` (`classroom_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `student_classroom`
 --
 
 INSERT INTO `student_classroom` (`student_classroom_id`, `classroom_id`, `student_id`) VALUES
-(7, 5, 2),
-(6, 5, 1),
-(8, 3, 2),
-(9, 4, 2);
+(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -360,26 +355,21 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `usertype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_email`, `username`, `password`, `usertype`) VALUES
-(1, 'admin@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
-(2, 'jordan@gmail.com', 'Jordan_Led', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(3, 'rik@gmail.com', 'Mislang_Rek', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(4, 'buanteJel@gmail.com', 'jb', 'f8894d2c589ac837633c4ade8665980a', 'educator'),
-(5, 'jember@gmail.com', 'Calay_Jem', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(6, 'rose@gmail.com', 'Gepolani_Ros', 'f8894d2c589ac837633c4ade8665980a', 'educator'),
-(7, 'Jav@gmail.com', 'Monsion_Jav', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(9, 'kiro@gmail.com', 'John_kir', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(10, 'kane@gmail.com', 'Kane_Urb', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(11, 'jav@gmail.com', 'Monsion_Ang', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(12, 'vincent@gmail.com', 'Guevarra_Vin', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(13, 'arcaba@gmail.com', 'abanil_arc', 'f8894d2c589ac837633c4ade8665980a', 'student'),
-(23, 'test@gmail.com', 'testing_tes', 'f8894d2c589ac837633c4ade8665980a', 'student');
+(1, 'seait@gmail.com', 'admin', 'f8894d2c589ac837633c4ade8665980a', 'admin'),
+(2, 'jordan.ledon@example.com', 'jordan_ledon', 'f8894d2c589ac837633c4ade8665980a', 'student'),
+(3, 'riccki.mislang@example.com', 'riccki_mislang', '202cb962ac59075b964b07152d234b70', 'student'),
+(4, 'rose.gepolani@example.com', 'rose_gepolani', 'f8894d2c589ac837633c4ade8665980a', 'student'),
+(5, 'kane.urbayo@example.com', 'kane_urbayo', 'f8894d2c589ac837633c4ade8665980a', 'student'),
+(6, 'jember.calay@example.com', 'jember_calay', 'f8894d2c589ac837633c4ade8665980a', 'student'),
+(7, 'buante@gmail.com', 'jelly_bua', 'f8894d2c589ac837633c4ade8665980a', 'educator'),
+(9, 'user@gmail.com', 'student_use', 'f8894d2c589ac837633c4ade8665980a', 'student');
 
 -- --------------------------------------------------------
 
@@ -396,22 +386,15 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
   `quantity` int DEFAULT NULL,
   `duration` time DEFAULT NULL,
   PRIMARY KEY (`voucher_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vouchers`
 --
 
 INSERT INTO `vouchers` (`voucher_id`, `voucher_name`, `voucher_description`, `points`, `quantity`, `duration`) VALUES
-(2, '2HR', 'Promo!', 2000, 10, '02:00:00'),
-(3, '3HR', 'Promo!', 3000, 9, '03:00:00'),
-(4, '4HR', 'sulit promo', 4000, 2, '04:00:00'),
-(5, '5hr', 'sample', 5000, 5, '05:00:00'),
-(6, '10hr', 'sample', 10000, 15, '10:00:00'),
-(8, '2days', 'sample', 40000, 15, '23:00:00'),
-(9, '3hr', 'sample', 3000, 8, '03:00:00'),
-(10, '12hr', 'sample', 12000, 12, '12:00:00'),
-(11, '51hr', 'sample', 3000, 8, '01:00:00');
+(1, '1hr', '1hr wifi voucher duration', 500, 18, '01:00:00'),
+(2, '2hr', '2hrs wifi voucher', 1000, 20, '02:00:00');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

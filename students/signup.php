@@ -67,7 +67,7 @@
             <div class="input-group">
                 <p style="font-size: 12px; color: #6c757d;">Please use your school ID for validation.</p>
                 <i class='bx bx-id-card input-icon'></i>
-                <input type="file" class="login-input" id="idPhoto" name="idPhoto" accept="image/*" required>
+                <input type="file" class="login-input" id="idPhoto" name="idPhoto" accept="image/*">
             </div>
 
             <button type="submit" class="login-button">Register</button>

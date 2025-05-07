@@ -62,8 +62,8 @@ try {
         }
 
         // Insert student details
-        $studentInsert = $conn->prepare('INSERT INTO students (user_id, firstname, lastname, year, department, id_photo,  $profile_path) VALUES (?,?,?,?,?,?, "assets/avatars/no-profile.jpg")');
-        $studentInsert->bind_param('isssss', $user_id, $firstName, $lastName, $year, $department, $id_photo_path);
+        $studentInsert = $conn->prepare('INSERT INTO students (user_id, firstname, lastname, year, department, id_photo,  profile_path) VALUES (?,?,?,?,?,?, "assets/avatars/no-profile.jpg")');
+        $studentInsert->bind_param('isssss', $user_id, $firstName, $lastName, $year, $department, $profilePath);
         $studentInsert->execute();
 
         if (!$studentInsert) {

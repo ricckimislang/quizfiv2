@@ -304,31 +304,5 @@ window.onload = function () {
   }
 };
 
-document.addEventListener("contextmenu", function (event) {
-  event.preventDefault();
-  alert("Right-click is disabled on this website.");
-});
 
-// block right click and dev tools
-document.addEventListener("keydown", function (event) {
-  if (event.ctrlKey && event.shiftKey && event.key === "I") {
-    // Ctrl + Shift + I
-    event.preventDefault();
-  }
-  if (event.ctrlKey && event.shiftKey && event.key === "J") {
-    // Ctrl + Shift + J
-    event.preventDefault();
-  }
-  if (event.ctrlKey && event.key === "U") {
-    // Ctrl + U (View Source)
-    event.preventDefault();
-  }
-  // if (event.key === "F12") {
-  //   // F12 (DevTools)
-  //   event.preventDefault();
-  // }
-  if (event.ctrlKey && event.shiftKey && event.key === "C") {
-    // Ctrl + shift + C (Copy)
-    event.preventDefault();
-  }
-});
+
