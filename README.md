@@ -25,6 +25,3 @@ QuizFi is an innovative Wi-Fi hotspot system that rewards students with internet
 3. Configure `systemd-networkd` for LAN/WAN bridging.
 4. Launch the PHP server (`php -S 192.168.0.1:80 -t public` or use Nginx).
 5. Connect a device to the QuizFi hotspot and take a quiz to unlock Wi-Fi!
-
-## Folder Structure 📁
-
